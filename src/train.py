@@ -7,6 +7,7 @@ import torch
 import torch.nn.functional as F
 from data import load_dataset, preprocess_data, train_test_split_per_user
 from graph import build_normalized_adj
+import numpy as np
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(f"Using Device : {device}")
@@ -20,6 +21,12 @@ lambda_reg = 1e-6
 ratings_df = load_dataset("../dataset/ratings.dat")
 ratings_df, user2idx, idx2user, movie2idx, idx2movie = preprocess_data(ratings_df)
 train_interactions, test_interactions = train_test_split_per_user(ratings_df)
+
+user_pos_items = {}
+for u, i in train_interactions.tolist():
+    if u not in user_pos_items:
+        user_pos_items[u] = set()
+    user_pos_items[u].add(i)
 
 num_users = len(user2idx)
 num_items = len(movie2idx)
@@ -36,15 +43,29 @@ optimizer = optim.Adam(model.parameters(), lr=learning_rate)
 print("Training...")
 best_loss = float('inf')
 for epoch in range(num_epochs):
+    model.eval()
+    with torch.no_grad():
+        user_emb_all, item_emb_all = model.get_embeddings()
     model.train()
     total_loss = 0
 
     users = train_interactions[:, 0].to(device)
     pos_items = train_interactions[:, 1].to(device)
-    neg_items = torch.randint(0, num_items, (len(train_interactions),), device=device)
+    neg_items = []
+
+    for u in users.tolist():
+        while True:
+            neg_i = np.random.randint(0, num_items)
+            if neg_i not in user_pos_items[u]:
+                neg_items.append(neg_i)
+                break
+
+    neg_items = torch.tensor(neg_items, dtype=torch.long, device=device)
+
 
     # Forward pass
-    pos_scores, neg_scores = model(users, pos_items, neg_items)
+    pos_scores, neg_scores = model(users, pos_items, neg_items, user_emb_all, item_emb_all)
+
     logits = pos_scores - neg_scores  # [batch, batch]
     bpr_loss = -torch.log(torch.sigmoid(logits)).mean()
 
@@ -68,5 +89,5 @@ for epoch in range(num_epochs):
     print(f'Epoch {epoch + 1}/{num_epochs}, Loss: {total_loss:.4f}')
 
 
-torch.save(model.state_dict(), "lightgcn_model_one.pth")
+torch.save(model.state_dict(), "lightgcn_model_two.pth")
 print("✅ Model saved: lightgcn_model.pth")

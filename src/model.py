@@ -16,20 +16,16 @@ class LightGCN(nn.Module):
         nn.init.normal_(self.user_embeddings.weight, std=0.01)                      # Initialize user embeddings with a normal distribution (mean=0, std=0.01) for small random values
         nn.init.normal_(self.item_embeddings.weight, std=0.01)                      # Initialize item embeddings with a normal distribution (mean=0, std=0.01) for small random values
 
-    def forward(self, users, pos_items, neg_items):
-        all_embeddings = torch.cat([self.user_embeddings.weight, self.item_embeddings.weight], dim=0)
-        ego_embeddings = all_embeddings
-        for _ in range(self.num_layers):                                            # Loop over the specified number of graph convolution layers
-            all_embeddings = torch.spmm(self.norm_adj, all_embeddings)              # Perform sparse matrix multiplication with normalized adjacency matrix to propagate embeddings
-            ego_embeddings += all_embeddings                                        # Add the propagated embeddings to the running sum (LightGCN aggregates all layers)
-        final_embeddings = ego_embeddings / (self.num_layers + 1)                   # Average the embeddings across all layers (including ego layer) for smoothness
-        user_emb = final_embeddings[users]
-        pos_item_emb = final_embeddings[self.num_users + pos_items]                 # because we sampled pos_items from items (0 to 1681) we have to offset by the number of users
-        neg_item_emb = final_embeddings[self.num_users + neg_items]                 # because we sampled neg_items from items (0 to 1681) we have to offset by the number of users
-        pos_scores = (user_emb * pos_item_emb).sum(dim=-1)                          # predicted scores of positive samples
-        neg_scores = (user_emb * neg_item_emb).sum(dim=-1)                          # predicted scores of negative samples
+    def forward(self, users, pos_items, neg_items, user_emb_all, item_emb_all):
+        user_emb = user_emb_all[users]
+        pos_item_emb = item_emb_all[pos_items]
+        neg_item_emb = item_emb_all[neg_items]
+
+        pos_scores = (user_emb * pos_item_emb).sum(dim=-1)
+        neg_scores = (user_emb * neg_item_emb).sum(dim=-1)
 
         return pos_scores, neg_scores
+
 
     def get_embeddings(self):
         all_embeddings = torch.cat([self.user_embeddings.weight, self.item_embeddings.weight], dim=0)

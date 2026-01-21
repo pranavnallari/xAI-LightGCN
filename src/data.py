@@ -17,6 +17,7 @@ def load_dataset(path: str) -> pd.DataFrame:
         engine="python",
         encoding="latin-1",
     )
+    ratings_df = ratings_df[ratings_df["rating"] >= 4]
     # drop unused columns
     ratings_df = ratings_df.drop(columns=["rating", "timestamp"])
     return ratings_df
