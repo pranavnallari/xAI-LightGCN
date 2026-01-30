@@ -1,83 +1,76 @@
 # eval.py
-# metrics
-# eval.py - PHASE 1 ONLY: NDCG@10, Recall@10, Precision@10
+# Correct evaluation for LightGCN (Temporal / Leave-One-Out compatible)
+
 import torch
 import numpy as np
 from collections import defaultdict
 
-def hit_rate(pred_items, true_items, k=10):
-    """Hit Rate@K"""
-    return int(true_items[0] in pred_items[:k])
 
-def precision_at_k(pred_items, true_items, k=10):
-    """Precision@K"""
-    hits = hit_rate(pred_items, true_items, k)
-    return hits / k
-
-def recall_at_k(pred_items, true_items, k=10):
-    """Recall@K (leave-one-out: true_items has 1 item)"""
-    hits = hit_rate(pred_items, true_items, k)
-    return hits / len(true_items)
-
-def ndcg_at_k(scores, true_item, k=10):
-    """NDCG@K (simplified for single true item)"""
-    pred_scores = scores[:k]
-    true_scores = torch.zeros(k)
-    true_pos = torch.argmin(torch.abs(pred_scores - scores[true_item]))
-    true_scores[true_pos] = 1.0
-
-    dcg = (true_scores / np.log2(np.arange(2, k+2))).sum()
-    idcg = (torch.ones(k) / np.log2(np.arange(2, k+2))).sum()
-    return dcg / idcg if idcg > 0 else 0
-
-def evaluate_baseline(model, test_interactions, num_items, num_users, k=10):
-    """Evaluate LightGCN baseline on test set"""
+def evaluate_lightgcn(model, train_interactions, test_interactions, num_items, k=10):
     model.eval()
-    metrics = {"Precision@10": [], "Recall@10": [], "NDCG@10": [], "Hit@10": []}
+    device = next(model.parameters()).device
+
+    if test_interactions.numel() == 0:
+        print("⚠️ Empty test set!")
+        return {f'{m}@10': 0.0 for m in ['Hit', 'Recall', 'NDCG', 'Precision']}
+
+    print(f"🔍 Eval: {test_interactions.size(0)} test edges")
+
+    # ---- user → train items
+    user_train_items = defaultdict(set)
+    for u, i in train_interactions.cpu().tolist():
+        user_train_items[int(u)].add(int(i))
+
+    # ---- user → test items
+    user_test_items = defaultdict(list)
+    for u, i in test_interactions.cpu().tolist():
+        user_test_items[int(u)].append(int(i))
+
+    metrics = {
+        'Hit@10': [],
+        'Recall@10': [],
+        'NDCG@10': [],
+        'Precision@10': []
+    }
 
     with torch.no_grad():
         user_emb, item_emb = model.get_embeddings()
+        scores = torch.matmul(user_emb, item_emb.T)  # [num_users, num_items]
 
-        for user_id, true_item in test_interactions:
-            # Score all items
-            scores = torch.mv(item_emb, user_emb[user_id])
+        for u, test_items in user_test_items.items():
+            test_set = set(test_items)
+            if not test_set:
+                continue
 
-            # Top-K
-            topk_scores, topk_items = torch.topk(scores, k)
+            # 🔑 CLONE before masking
+            scores_u = scores[u].clone()
 
-            # Metrics
-            metrics["Hit@10"].append(hit_rate(topk_items, [true_item]))
-            metrics["Precision@10"].append(precision_at_k(topk_items, [true_item]))
-            metrics["Recall@10"].append(recall_at_k(topk_items, [true_item]))
-            metrics["NDCG@10"].append(ndcg_at_k(scores, true_item))
+            train_items = torch.tensor(
+                list(user_train_items[u]),
+                device=device,
+                dtype=torch.long
+            )
+            scores_u[train_items] = -1e9
 
-    # Averages
-    results = {k: np.mean(v) for k, v in metrics.items()}
-    return results
+            topk_items = torch.topk(scores_u, k).indices.tolist()
 
-# USAGE
-if __name__ == "__main__":
-    from data import load_dataset, preprocess_data, train_test_split_per_user
-    from graph import build_normalized_adj
-    from model import LightGCN
+            # ---- Hit / Recall / Precision
+            hits = sum(1 for item in topk_items if item in test_set)
+            metrics['Hit@10'].append(1.0 if hits > 0 else 0.0)
+            metrics['Recall@10'].append(hits / len(test_set))
+            metrics['Precision@10'].append(hits / k)
 
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+            # ---- NDCG@K (correct)
+            dcg = 0.0
+            for rank, item in enumerate(topk_items):
+                if item in test_set:
+                    dcg += 1.0 / np.log2(rank + 2)
 
-    # Load data
-    ratings_df = load_dataset("../dataset/ratings.dat")
-    ratings_df, user2idx, _, movie2idx, _ = preprocess_data(ratings_df)
-    _, test_int = train_test_split_per_user(ratings_df)
-    num_users, num_items = len(user2idx), len(movie2idx)
+            idcg = sum(
+                1.0 / np.log2(r + 2)
+                for r in range(min(len(test_set), k))
+            )
+            ndcg = dcg / idcg if idcg > 0 else 0.0
+            metrics['NDCG@10'].append(ndcg)
 
-    # Load model
-    train_int, _ = train_test_split_per_user(ratings_df)
-    norm_adj = build_normalized_adj(num_users, num_items, train_int.to(device), device)
-    model = LightGCN(num_users, num_items, 64, 3, norm_adj, device)
-    model.load_state_dict(torch.load("lightgcn_model_two.pth"))
-    model.to(device)
-
-    # Evaluate
-    results = evaluate_baseline(model, test_int, num_items, num_users)
-    print("LightGCN Baseline Results:")
-    for metric, value in results.items():
-        print(f"  {metric}: {value:.4f}")
+    return {m: float(np.mean(v)) for m, v in metrics.items()}
