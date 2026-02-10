@@ -1,3 +1,5 @@
+
+# train.py
 from model import LightGCN
 import torch
 import torch.optim as optim
@@ -6,7 +8,8 @@ from tqdm import tqdm  # ✅ Progress bars
 import os
 from data import load_dataset, preprocess_data, temporal_split
 from graph import build_normalized_adj
-from eval import evaluate_lightgcn
+from metrics import evaluate_lightgcn
+from explainer import LightGCNExplainer
 
 # -----------------------------
 # Setup
@@ -146,3 +149,57 @@ torch.save({
     'metrics': test_res
 }, "lightgcn_final.pth")
 print("✅ Complete run saved!")
+
+print("\n🧠 Running explainability on a sample test case...")
+
+model.eval()
+
+# -----------------------------
+# Explainability (Post-hoc)
+# -----------------------------
+from explainer import LightGCNExplainer
+
+print("\n🧠 Running explainability on a collaborative test case...")
+
+model.eval()
+
+# Create explainer
+explainer = LightGCNExplainer(
+    model=model,
+    user_pos_items=user_pos_items
+)
+
+# 1️⃣ Pick a high-activity user (most interactions)
+u = max(user_pos_items.items(), key=lambda x: len(x[1]))[0]
+
+# 2️⃣ Pick a top-ranked recommended item (not interacted)
+with torch.no_grad():
+    user_emb, item_emb = model.get_embeddings()
+    scores = user_emb[u] @ item_emb.T
+    scores[list(user_pos_items[u])] = -1e9  # mask seen items
+    i = torch.topk(scores, 1).indices.item()
+
+# 3️⃣ Run explainer
+explanation = explainer.explain(
+    user_id=u,
+    item_id=i,
+    max_hops=3
+)
+
+# 4️⃣ Print results (FIXED variables)
+print(f"\n🔍 Explanation for User {u} → Item {i}")
+print(f"  Dominant layer (k*): {explanation['k_star']}")
+
+print("  Layer contributions:")
+if explanation["contributions"] is not None:
+    for k, c in enumerate(explanation["contributions"]):
+        print(f"    Layer {k}: {c:.3f}")
+else:
+    print("    (No meaningful contribution)")
+
+print("  Propagation paths:")
+if explanation["paths"]:
+    for path in explanation["paths"]:
+        print("   ", path)
+else:
+    print("    (No graph-based paths — identity-driven recommendation)")

@@ -19,24 +19,37 @@ class LightGCN(nn.Module):
         nn.init.normal_(self.user_embeddings.weight, std=0.01)
         nn.init.normal_(self.item_embeddings.weight, std=0.01)
 
+
     # ---------- THIS IS REQUIRED ----------
-    def get_embeddings(self):
+    def get_embeddings(self, return_layers=False):
         all_embeddings = torch.cat(
             [self.user_embeddings.weight, self.item_embeddings.weight], dim=0
         )
+
+        if return_layers:
+            layer_embeddings = [all_embeddings]
 
         ego_embeddings = all_embeddings.clone()
 
         for _ in range(self.num_layers):
             all_embeddings = torch.spmm(self.norm_adj, all_embeddings)
+
+            if return_layers:
+                layer_embeddings.append(all_embeddings)
+
             ego_embeddings += all_embeddings
 
         final_embeddings = ego_embeddings / (self.num_layers + 1)
 
-        return (
-            final_embeddings[: self.num_users],
-            final_embeddings[self.num_users :],
-        )
+        user_final = final_embeddings[: self.num_users]
+        item_final = final_embeddings[self.num_users :]
+
+        if return_layers:
+            return user_final, item_final, layer_embeddings
+
+        return user_final, item_final
+
+
 
 
     # ---------- LIGHTWEIGHT FORWARD ----------
