@@ -9,11 +9,10 @@ def load_dataset(path: str) -> pd.DataFrame:
     """Load full MovieLens ratings (keep timestamp for temporal split)."""
     ratings_df = pd.read_csv(path, sep='::', names=['user_id', 'movie_id', 'rating', 'timestamp'],
                              engine='python', encoding='latin-1')
-    return ratings_df  # No filter—implicit feedback
+    return ratings_df
 
 def preprocess_data(ratings_df: pd.DataFrame) -> Tuple[pd.DataFrame, Dict[int, int], Dict[int, int], ...]:
     """Map IDs to contiguous indices."""
-    # Your existing code unchanged
     user_ids = sorted(ratings_df['user_id'].unique())
     movie_ids = sorted(ratings_df['movie_id'].unique())
     user2idx = {u: i for i, u in enumerate(user_ids)}
