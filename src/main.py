@@ -8,6 +8,8 @@ import random
 import logging
 from tqdm import tqdm
 
+
+from explainer import LightGCNExplainer
 from data import load_movielens_1m
 from graph import build_adj
 from model import LightGCN
@@ -23,7 +25,7 @@ RATINGS_FILE = "../dataset/ratings.dat"
 EMBEDDING_DIM = 64
 N_LAYERS = 3
 LR = 0.001
-EPOCHS = 20
+EPOCHS = 100
 BATCH_SIZE = 2048
 TOP_K = 10
 
@@ -132,3 +134,41 @@ print(f"Hit@{TOP_K}: {np.mean(hits):.4f}")
 print(f"Precision@{TOP_K}: {np.mean(precisions):.4f}")
 print(f"NDCG@{TOP_K}: {np.mean(ndcgs):.4f}")
 print(f"MRR@{TOP_K}: {np.mean(mrrs):.4f}")
+
+
+# ------------------------------------------------
+# Explainability Test Case
+# ------------------------------------------------
+
+print("\n--- Explainability Test Case ---")
+
+explainer = LightGCNExplainer(model, train_dict)
+
+# Pick a user with test interactions
+test_user = list(train_dict.keys())[0]
+
+with torch.no_grad():
+    user_emb, item_emb = model()
+
+    scores = torch.matmul(item_emb, user_emb[test_user])
+
+    # Mask training items
+    scores[list(train_dict[test_user])] = -1e9
+
+    top_item = torch.topk(scores, k=1).indices.item()
+
+print(f"User: {test_user}")
+print(f"Top recommended item: {top_item}")
+
+explanation = explainer.explain(test_user, top_item, top_k=5)
+
+print("\nLayer-wise contributions:")
+for k, val in enumerate(explanation["layer_scores"]):
+    print(f"Layer {k}: {val:.6f}")
+
+print(f"\nDominant depth (k*): {explanation['dominant_depth']}")
+
+if explanation["top_training_contributors"] is not None:
+    print("\nTop contributing training items (k=1 case):")
+    for item_id, score in explanation["top_training_contributors"]:
+        print(f"Item {item_id} | Contribution: {score:.6f}")
