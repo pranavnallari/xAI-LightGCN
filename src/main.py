@@ -9,7 +9,6 @@ from model import LightGCN
 from data import load_dataset, preprocess_data, temporal_split
 from graph import build_normalized_adj
 from metrics import evaluate_lightgcn
-from explainer import LightGCNExplainer
 
 # -----------------------------
 # Config
@@ -80,29 +79,35 @@ def train_model(model, train_int, val_int, num_items, user_pos_items):
         perm = torch.randperm(num_edges, device=device)
 
         epoch_loss = 0.0
+
         pbar = tqdm(range(0, num_edges, BATCH_SIZE), leave=False)
 
         for i in pbar:
-            user_emb, item_emb = model.get_embeddings()
+            # ✅ Propagation per batch (autograd safe)
+            user_emb_all, item_emb_all = model.get_embeddings()
 
-            idx = perm[i : i + BATCH_SIZE]
+            idx = perm[i:i + BATCH_SIZE]
             users = train_int[idx, 0]
             pos_items = train_int[idx, 1]
 
+            # Negative sampling
             neg_items = torch.randint(0, num_items, (users.size(0),), device=device)
             for j, u in enumerate(users.tolist()):
                 while neg_items[j].item() in user_pos_items[u]:
                     neg_items[j] = torch.randint(0, num_items, (1,), device=device)
 
             pos_scores, neg_scores = model(
-                users, pos_items, neg_items, user_emb, item_emb
+                users, pos_items, neg_items,
+                user_emb_all, item_emb_all
             )
 
             bpr = -torch.log(torch.sigmoid(pos_scores - neg_scores)).mean()
+
             reg = (
-                model.user_embeddings.weight.pow(2).sum()
-                + model.item_embeddings.weight.pow(2).sum()
+                model.user_embeddings.weight.pow(2).sum() +
+                model.item_embeddings.weight.pow(2).sum()
             )
+
             loss = bpr + LAMBDA_REG * reg
 
             optimizer.zero_grad()
@@ -110,18 +115,29 @@ def train_model(model, train_int, val_int, num_items, user_pos_items):
             torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
             optimizer.step()
 
-            epoch_loss += loss.item()
+            # ✅ Correct loss accumulation
+            epoch_loss += loss.item() * users.size(0)
+
             pbar.set_postfix({"loss": f"{loss.item():.3f}"})
 
         scheduler.step()
-        print(f"📈 Epoch {epoch+1:03d} | Loss {epoch_loss/num_edges:.4f}")
 
+        avg_loss = epoch_loss / num_edges
+        print(f"📈 Epoch {epoch+1:03d} | Loss {avg_loss:.4f}")
+
+        # Validation
         if (epoch + 1) % 100 == 0:
             model.eval()
-            res = evaluate_lightgcn(model, train_int, val_int, num_items)
+            res = evaluate_lightgcn(
+                model,
+                train_int,
+                val_int.to(device),
+                num_items
+            )
             ndcg = res["NDCG@10"]
 
             print(f"  Val NDCG@10: {ndcg:.4f}")
+
             if ndcg > best_ndcg:
                 best_ndcg = ndcg
                 torch.save(model.state_dict(), MODEL_PATH)
@@ -138,31 +154,6 @@ def evaluate(model, train_int, test_int, num_items):
     for k, v in res.items():
         print(f"  {k}: {v:.4f}")
     return res
-
-# -----------------------------
-# Explainability
-# -----------------------------
-def run_explainability(model, user_pos_items):
-    print("\n🧠 Running explainability")
-
-    explainer = LightGCNExplainer(model, user_pos_items)
-
-    u = max(user_pos_items.items(), key=lambda x: len(x[1]))[0]
-
-    with torch.no_grad():
-        user_emb, item_emb = model.get_embeddings()
-        scores = user_emb[u] @ item_emb.T
-        scores[list(user_pos_items[u])] = -1e9
-        i = torch.topk(scores, 1).indices.item()
-
-    exp = explainer.explain(u, i, max_hops=3)
-
-    print(f"\n🔍 User {u} → Item {i}")
-    print(f"  Dominant layer: {exp['k_star']}")
-    print("  Contributions:", exp["contributions"])
-    print("  Paths:")
-    for p in exp["paths"]:
-        print("   ", p)
 
 # -----------------------------
 # MAIN
@@ -191,6 +182,4 @@ if __name__ == "__main__":
         },
         FINAL_CKPT,
     )
-
-    run_explainability(model, user_pos_items)
     print("\n🎉 Done!")

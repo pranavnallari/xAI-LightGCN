@@ -19,40 +19,34 @@ class LightGCN(nn.Module):
         nn.init.normal_(self.user_embeddings.weight, std=0.01)
         nn.init.normal_(self.item_embeddings.weight, std=0.01)
 
-
-    # ---------- THIS IS REQUIRED ----------
+    # ---------- PURE BASELINE PROPAGATION ----------
     def get_embeddings(self, return_layers=False):
         all_embeddings = torch.cat(
             [self.user_embeddings.weight, self.item_embeddings.weight], dim=0
         )
 
-        if return_layers:
-            layer_embeddings = [all_embeddings]
+        embeddings_per_layer = [all_embeddings] if return_layers else None
 
-        ego_embeddings = all_embeddings.clone()
+        final_embeddings = all_embeddings
 
         for _ in range(self.num_layers):
-            all_embeddings = torch.spmm(self.norm_adj, all_embeddings)
+            all_embeddings = torch.sparse.mm(self.norm_adj, all_embeddings)
+            final_embeddings += all_embeddings
 
             if return_layers:
-                layer_embeddings.append(all_embeddings)
+                embeddings_per_layer.append(all_embeddings)
 
-            ego_embeddings += all_embeddings
+        final_embeddings = final_embeddings / (self.num_layers + 1)
 
-        final_embeddings = ego_embeddings / (self.num_layers + 1)
-
-        user_final = final_embeddings[: self.num_users]
-        item_final = final_embeddings[self.num_users :]
+        user_final = final_embeddings[:self.num_users]
+        item_final = final_embeddings[self.num_users:]
 
         if return_layers:
-            return user_final, item_final, layer_embeddings
+            return user_final, item_final, embeddings_per_layer
 
         return user_final, item_final
 
-
-
-
-    # ---------- LIGHTWEIGHT FORWARD ----------
+    # ---------- STANDARD BPR FORWARD ----------
     def forward(self, users, pos_items, neg_items, user_emb_all, item_emb_all):
         user_emb = user_emb_all[users]
         pos_item_emb = item_emb_all[pos_items]

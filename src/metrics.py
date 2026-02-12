@@ -1,5 +1,4 @@
-# eval.py
-# Correct evaluation for LightGCN (Temporal / Leave-One-Out compatible)
+# metrics.py
 
 import torch
 import numpy as np
