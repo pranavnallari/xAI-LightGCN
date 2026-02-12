@@ -1,42 +1,47 @@
-# graph.py 
+# graph.py
 
+import numpy as np
 import torch
+import scipy.sparse as sp
 
 
-def build_normalized_adj(
-    num_users: int,
-    num_items: int,
-    train_interactions: torch.Tensor,
-    device: torch.device,
-) -> torch.Tensor:
-    train_interactions = torch.unique(train_interactions, dim=0)
-    num_nodes = num_users + num_items
+def build_adj(num_users, num_items, train_data, device):
 
-    users = train_interactions[:, 0].long()
-    items = (train_interactions[:, 1].long() + num_users)
+    N = num_users + num_items
 
-    # put index tensors on the target device
-    users = users.to(device)
-    items = items.to(device)
+    rows = []
+    cols = []
 
-    rows = torch.cat([users, items], dim=0)
-    cols = torch.cat([items, users], dim=0)
+    for u, i in train_data:
+        rows.append(u)
+        cols.append(num_users + i)
 
-    indices = torch.stack([rows, cols], dim=0)  # shape (2, E)
-    values = torch.ones(indices.shape[1], dtype=torch.float32, device=device)
+        rows.append(num_users + i)
+        cols.append(u)
 
-    adj = torch.sparse_coo_tensor(indices, values, (num_nodes, num_nodes), device=device)
-    adj = adj.coalesce()
+    data = np.ones(len(rows), dtype=np.float32)
 
-    # degree: sum over columns (or rows) — gives shape (num_nodes,)
-    degrees = torch.sparse.sum(adj, dim=1).to_dense()  # float tensor on device
-    # replace zeros to avoid division by zero (isolated nodes)
-    degrees = torch.where(degrees == 0.0, torch.ones_like(degrees), degrees)
+    adj = sp.coo_matrix((data, (rows, cols)), shape=(N, N))
 
-    inv_sqrt_deg = 1.0 / torch.sqrt(degrees)  # shape (num_nodes,)
+    degree = np.array(adj.sum(axis=1)).flatten()
+    d_inv_sqrt = np.zeros_like(degree)
+    nonzero = degree > 0
+    d_inv_sqrt[nonzero] = np.power(degree[nonzero], -0.5)
 
-    # compute normalized values for each edge = inv_sqrt_deg[row] * inv_sqrt_deg[col]
-    norm_values = inv_sqrt_deg[rows] * inv_sqrt_deg[cols]
-    norm_adj = torch.sparse_coo_tensor(indices, norm_values, (num_nodes, num_nodes), device=device)
-    norm_adj = norm_adj.coalesce()
-    return norm_adj
+    d_inv_sqrt[np.isinf(d_inv_sqrt)] = 0.0
+    D_inv_sqrt = sp.diags(d_inv_sqrt)
+
+    norm_adj = D_inv_sqrt @ adj @ D_inv_sqrt
+    norm_adj = norm_adj.tocoo()
+
+    indices = torch.LongTensor(
+        np.vstack((norm_adj.row, norm_adj.col))
+    ).to(device)
+
+    values = torch.FloatTensor(norm_adj.data).to(device)
+
+    return torch.sparse_coo_tensor(
+        indices,
+        values,
+        torch.Size([N, N])
+    ).coalesce()

@@ -2,53 +2,38 @@
 
 import pandas as pd
 import numpy as np
-import torch
-from typing import Tuple, Dict, List
+import random
 
-def load_dataset(path: str) -> pd.DataFrame:
-    """Load full MovieLens ratings (keep timestamp for temporal split)."""
-    ratings_df = pd.read_csv(path, sep='::', names=['user_id', 'movie_id', 'rating', 'timestamp'],
-                             engine='python', encoding='latin-1')
-    return ratings_df
 
-def preprocess_data(ratings_df: pd.DataFrame) -> Tuple[pd.DataFrame, Dict[int, int], Dict[int, int], ...]:
-    """Map IDs to contiguous indices."""
-    user_ids = sorted(ratings_df['user_id'].unique())
-    movie_ids = sorted(ratings_df['movie_id'].unique())
-    user2idx = {u: i for i, u in enumerate(user_ids)}
-    movie2idx = {m: i for i, m in enumerate(movie_ids)}
-    idx2user = {i: u for u, i in user2idx.items()}
-    idx2movie = {i: m for m, i in movie2idx.items()}
-    ratings_df['user_id'] = ratings_df['user_id'].map(user2idx)
-    ratings_df['movie_id'] = ratings_df['movie_id'].map(movie2idx)
-    ratings_df = ratings_df.drop(columns=['rating'])  # Implicit
-    return ratings_df, user2idx, idx2user, movie2idx, idx2movie
+def load_movielens_1m(path, seed=42):
 
-def temporal_split(ratings_df, val_ratio=0.1, test_ratio=0.1):
-    ratings_df = ratings_df.sort_values('timestamp')
+    names = ['user_id', 'item_id', 'rating', 'timestamp']
+    df = pd.read_csv(path, sep="::", names=names, engine="python")
 
-    train_edges, val_edges, test_edges = [], [], []
+    df = df[['user_id', 'item_id']]
 
-    for user_id, user_df in ratings_df.groupby('user_id'):
-        items = user_df['movie_id'].tolist()
+    # Remap IDs
+    user_map = {u: i for i, u in enumerate(df['user_id'].unique())}
+    item_map = {i: j for j, i in enumerate(df['item_id'].unique())}
 
-        if len(items) < 3:
-            train_edges.extend([(user_id, i) for i in items])
-            continue
+    df['user_id'] = df['user_id'].map(user_map)
+    df['item_id'] = df['item_id'].map(item_map)
 
-        n_test = max(1, int(len(items) * test_ratio))
-        n_val = max(1, int(len(items) * val_ratio))
+    num_users = len(user_map)
+    num_items = len(item_map)
 
-        test_items = items[-n_test:]
-        val_items = items[-(n_test + n_val):-n_test]
-        train_items = items[:-(n_test + n_val)]
+    df = df.sample(frac=1, random_state=seed)
 
-        train_edges.extend([(user_id, i) for i in train_items])
-        val_edges.extend([(user_id, i) for i in val_items])
-        test_edges.extend([(user_id, i) for i in test_items])
+    n_total = len(df)
+    n_train = int(0.8 * n_total)
+    n_val = int(0.1 * n_total)
 
-    return (
-        torch.tensor(train_edges, dtype=torch.long),
-        torch.tensor(val_edges, dtype=torch.long),
-        torch.tensor(test_edges, dtype=torch.long),
-    )
+    train_df = df.iloc[:n_train]
+    val_df = df.iloc[n_train:n_train + n_val]
+    test_df = df.iloc[n_train + n_val:]
+
+    train_data = list(zip(train_df['user_id'], train_df['item_id']))
+    val_data = list(zip(val_df['user_id'], val_df['item_id']))
+    test_data = list(zip(test_df['user_id'], test_df['item_id']))
+
+    return train_data, val_data, test_data, num_users, num_items

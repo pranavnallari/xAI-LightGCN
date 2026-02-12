@@ -1,292 +1,134 @@
 # main.py
 
-import os
-import random
-import argparse
 import torch
 import torch.optim as optim
+import torch.nn.functional as F
 import numpy as np
+import random
+import logging
 from tqdm import tqdm
 
+from data import load_movielens_1m
+from graph import build_adj
 from model import LightGCN
-from data import load_dataset, preprocess_data, temporal_split
-from graph import build_normalized_adj
-from metrics import evaluate_lightgcn
+from metrics import compute_metrics
+
 
 # -----------------------------
-# Config – **FINAL TUNED SETTINGS**
+# Setup
 # -----------------------------
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+RATINGS_FILE = "../dataset/ratings.dat"
 EMBEDDING_DIM = 64
-NUM_LAYERS = 3
-LR = 1e-3
-EPOCHS = 300
-BATCH_SIZE = 4096
-LAMBDA_REG = 5e-4
-VALIDATION_FREQ = 5
-MAX_NEG_ATTEMPTS = 100
-GRADIENT_CLIP = 1.0
-BPR_TEMPERATURE = 0.2
+N_LAYERS = 3
+LR = 0.001
+EPOCHS = 20
+BATCH_SIZE = 2048
+TOP_K = 10
 
-MODEL_PATH = "best_model.pth"
-FINAL_CKPT = "lightgcn_final.pth"
 
 # -----------------------------
-# Argument parsing
+# Load Data
 # -----------------------------
-def parse_args():
-    parser = argparse.ArgumentParser(description="LightGCN Training")
-    parser.add_argument("--data_path", type=str, default="../dataset/ratings.dat",
-                        help="Path to ratings.dat file")
-    parser.add_argument("--seed", type=int, default=42,
-                        help="Random seed for reproducibility")
-    return parser.parse_args()
+train_data, val_data, test_data, num_users, num_items = \
+    load_movielens_1m(RATINGS_FILE)
 
-# -----------------------------
-# Reproducibility
-# -----------------------------
-def set_seed(seed):
-    random.seed(seed)
-    np.random.seed(seed)
-    torch.manual_seed(seed)
-    torch.cuda.manual_seed_all(seed)
-    torch.backends.cudnn.deterministic = True
-    torch.backends.cudnn.benchmark = False
+train_dict = {}
+for u, i in train_data:
+    train_dict.setdefault(u, set()).add(i)
 
-# -----------------------------
-# Data loading (with mappings)
-# -----------------------------
-def load_data(data_path):
-    ratings_df = load_dataset(data_path)
-    ratings_df, user2idx, idx2user, movie2idx, idx2movie = preprocess_data(ratings_df)
-    train_int, val_int, test_int = temporal_split(ratings_df)
+adj = build_adj(num_users, num_items, train_data, device)
 
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    return (
-        train_int.to(device),
-        val_int.to(device),
-        test_int.to(device),
-        len(user2idx),
-        len(movie2idx),
-        user2idx,
-        movie2idx,
-        idx2user,
-        idx2movie,
-    )
+model = LightGCN(num_users, num_items, EMBEDDING_DIM, N_LAYERS, adj).to(device)
+optimizer = optim.Adam(model.parameters(), lr=LR)
 
-# -----------------------------
-# Positive items map (CPU set)
-# -----------------------------
-def build_user_pos_items(train_int):
-    user_pos = {}
-    for u, i in train_int.cpu().tolist():
-        user_pos.setdefault(u, set()).add(i)
-    return user_pos
-
-# -----------------------------
-# Model builder
-# -----------------------------
-def build_model(num_users, num_items, train_int):
-    norm_adj = build_normalized_adj(num_users, num_items, train_int, device=device)
-    return LightGCN(
-        num_users, num_items, EMBEDDING_DIM, NUM_LAYERS, norm_adj
-    ).to(device)
-
-# -----------------------------
-# BPR loss with temperature scaling – 🆕 FIXES SATURATION
-# -----------------------------
-def bpr_loss(pos_scores, neg_scores, tau=BPR_TEMPERATURE):
-    return -torch.nn.functional.logsigmoid((pos_scores - neg_scores) / tau).mean()
 
 # -----------------------------
 # Training
 # -----------------------------
-def train_model(model, train_int, val_int, num_items, user_pos_items):
-    optimizer = optim.Adam(model.parameters(), lr=LR)
+def generate_batches(data, batch_size):
+    random.shuffle(data)
+    for i in range(0, len(data), batch_size):
+        yield data[i:i + batch_size]
 
-    scheduler = optim.lr_scheduler.ReduceLROnPlateau(
-        optimizer,
-        mode='max',
-        factor=0.5,
-        patience=10,          # Allow more epochs before reducing LR
-        threshold=1e-4,
-        cooldown=2
-    )
 
-    num_edges = train_int.size(0)
-    best_ndcg = 0.0
-    epochs_no_improve = 0
-    early_stop_patience = 20
+for epoch in tqdm(range(1, EPOCHS + 1), desc="Epochs"):
 
-    print("\n🔥 Training started")
+    model.train()
+    epoch_loss = 0
 
-    for epoch in range(EPOCHS):
-        model.train()
-        perm = torch.randperm(num_edges, device=device)
-        epoch_loss = 0.0
+    for batch in generate_batches(train_data, BATCH_SIZE):
 
-        pbar = tqdm(range(0, num_edges, BATCH_SIZE), desc=f"Epoch {epoch+1}", leave=False)
+        optimizer.zero_grad()
 
-        for i in pbar:
-            user_emb_all, item_emb_all = model.get_embeddings(verbose=False)
+        users, pos_items = zip(*batch)
+        users = torch.LongTensor(users).to(device)
+        pos_items = torch.LongTensor(pos_items).to(device)
 
-            idx = perm[i:i + BATCH_SIZE]
-            users = train_int[idx, 0]
-            pos_items = train_int[idx, 1]
+        user_emb, item_emb = model()
 
-            # Negative sampling
-            neg_items = torch.randint(0, num_items, (users.size(0),), device=device)
-            for j, u in enumerate(users.tolist()):
-                attempts = 0
-                while neg_items[j].item() in user_pos_items[u] and attempts < MAX_NEG_ATTEMPTS:
-                    neg_items[j] = torch.randint(0, num_items, (1,), device=device)
-                    attempts += 1
-
-            # Forward pass
-            pos_scores, neg_scores = model.forward_score(
-                users, pos_items, neg_items, user_emb_all, item_emb_all
-            )
-
-            loss_bpr = bpr_loss(pos_scores, neg_scores, tau=BPR_TEMPERATURE)
-
-            # L2 regularization on FINAL embeddings
-            reg_loss = (
-                user_emb_all[:model.num_users].pow(2).sum() +
-                item_emb_all[model.num_users:].pow(2).sum()
-            ) * LAMBDA_REG
-
-            loss = loss_bpr + reg_loss
-
-            optimizer.zero_grad()
-            loss.backward()
-            torch.nn.utils.clip_grad_norm_(model.parameters(), GRADIENT_CLIP)
-            optimizer.step()
-
-            epoch_loss += loss_bpr.item() * users.size(0)
-            pbar.set_postfix({
-                "bpr": f"{loss_bpr.item():.3f}",
-                "reg": f"{reg_loss.item():.3f}"
-            })
-
-        avg_loss = epoch_loss / num_edges
-        current_lr = optimizer.param_groups[0]['lr']
-        print(f"📈 Epoch {epoch+1:03d} | BPR Loss {avg_loss:.4f} | LR {current_lr:.2e}")
-
-        # -----------------------------
-        # Validation
-        # -----------------------------
-        if (epoch + 1) % VALIDATION_FREQ == 0 or epoch + 1 == EPOCHS:
-            model.eval()
-
-            val_res = evaluate_lightgcn(
-                model,
-                train_int,
-                val_int.to(device),
-                num_items,
-                k=10,
-                use_full_matrix=False,   # Memory efficient
-                verbose=False
-            )
-            ndcg = val_res["NDCG@10"]
-            recall = val_res["Recall@10"]
-            hit = val_res["Hit@10"]
-            print(f"  Val NDCG@10: {ndcg:.4f} | Recall@10: {recall:.4f} | Hit@10: {hit:.4f}")
-
-            # Training NDCG (subset) – detect overfitting
-            train_res = evaluate_lightgcn(
-                model,
-                train_int,
-                train_int[:10000],      # Quick check
-                num_items,
-                k=10,
-                use_full_matrix=False,
-                verbose=False
-            )
-            train_ndcg = train_res["NDCG@10"]
-            print(f"  Train NDCG@10 (subset): {train_ndcg:.4f}")
-
-            scheduler.step(ndcg)
-
-            if ndcg > best_ndcg:
-                best_ndcg = ndcg
-                epochs_no_improve = 0
-                torch.save(model.state_dict(), MODEL_PATH)
-                print("  ⭐ Saved best model")
-            else:
-                epochs_no_improve += 1
-                if epochs_no_improve >= early_stop_patience:
-                    print(f"⏹️ Early stopping after {epoch+1} epochs")
+        neg_items = []
+        for u in users:
+            uid = u.item()
+            while True:
+                neg = random.randrange(num_items)
+                if neg not in train_dict[uid]:
+                    neg_items.append(neg)
                     break
 
-    print("✅ Training complete")
+        neg_items = torch.LongTensor(neg_items).to(device)
+
+        u_emb = user_emb[users]
+        pos_emb = item_emb[pos_items]
+        neg_emb = item_emb[neg_items]
+
+        pos_scores = torch.sum(u_emb * pos_emb, dim=1)
+        neg_scores = torch.sum(u_emb * neg_emb, dim=1)
+
+        loss = -torch.mean(F.logsigmoid(pos_scores - neg_scores))
+
+        loss.backward()
+        optimizer.step()
+
+        epoch_loss += loss.item() * len(batch)
+
+    epoch_loss /= len(train_data)
+    print(f"Epoch {epoch} | Avg Loss: {epoch_loss:.4f}")
+
 
 # -----------------------------
 # Evaluation
 # -----------------------------
-def evaluate(model, train_int, test_int, num_items, split_name="Test"):
-    print(f"\n🏁 Running {split_name} evaluation")
-    res = evaluate_lightgcn(
-        model,
-        train_int,
-        test_int,
-        num_items,
-        k=10,
-        use_full_matrix=False,
-        verbose=True
-    )
-    for k, v in res.items():
-        print(f"  {k}: {v:.4f}")
-    return res
+model.eval()
 
-# -----------------------------
-# MAIN
-# -----------------------------
-if __name__ == "__main__":
-    args = parse_args()
-    set_seed(args.seed)
+hits, precisions, ndcgs, mrrs = [], [], [], []
 
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    print(f"🚀 Using Device: {device}")
-    print(f"🎲 Random Seed: {args.seed}")
+with torch.no_grad():
 
-    train_int, val_int, test_int, num_users, num_items, user2idx, movie2idx, idx2user, idx2movie = load_data(args.data_path)
+    user_emb, item_emb = model()
 
-    user_pos_items = build_user_pos_items(train_int)
+    ground_truth = {}
+    for u, i in test_data:
+        ground_truth.setdefault(u, []).append(i)
 
-    model = build_model(num_users, num_items, train_int)
+    for user, true_items in ground_truth.items():
 
-    if os.path.exists(MODEL_PATH):
-        print(f"✅ Found pretrained model: {MODEL_PATH}")
-        model.load_state_dict(torch.load(MODEL_PATH, map_location=device))
-        model.eval()
-    else:
-        train_model(model, train_int, val_int, num_items, user_pos_items)
-        if os.path.exists(MODEL_PATH):
-            model.load_state_dict(torch.load(MODEL_PATH, map_location=device))
+        scores = torch.matmul(item_emb, user_emb[user])
 
-    test_res = evaluate(model, train_int, test_int, num_items, "Test")
+        if user in train_dict:
+            scores[list(train_dict[user])] = -1e9
 
-    torch.save(
-        {
-            "model_state_dict": model.state_dict(),
-            "metrics": test_res,
-            "train_int": train_int.cpu(),
-            "val_int": val_int.cpu(),
-            "test_int": test_int.cpu(),
-            "user2idx": user2idx,
-            "movie2idx": movie2idx,
-            "idx2user": idx2user,
-            "idx2movie": idx2movie,
-            "config": {
-                "embedding_dim": EMBEDDING_DIM,
-                "num_layers": NUM_LAYERS,
-                "lr": LR,
-                "epochs": EPOCHS,
-                "batch_size": BATCH_SIZE,
-                "lambda_reg": LAMBDA_REG,
-                "bpr_temperature": BPR_TEMPERATURE,
-                "seed": args.seed,
-            },
-        },
-        FINAL_CKPT,
-    )
-    print(f"\n🎉 Done! Final checkpoint saved to {FINAL_CKPT}")
+        top_items = torch.topk(scores, k=TOP_K).indices.cpu().tolist()
+
+        hit, prec, ndcg, rr = compute_metrics(top_items, true_items, TOP_K)
+
+        hits.append(hit)
+        precisions.append(prec)
+        ndcgs.append(ndcg)
+        mrrs.append(rr)
+
+print(f"Hit@{TOP_K}: {np.mean(hits):.4f}")
+print(f"Precision@{TOP_K}: {np.mean(precisions):.4f}")
+print(f"NDCG@{TOP_K}: {np.mean(ndcgs):.4f}")
+print(f"MRR@{TOP_K}: {np.mean(mrrs):.4f}")
