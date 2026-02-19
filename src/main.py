@@ -14,6 +14,7 @@ from model import LightGCN
 from evaluation import run_explainability_tests
 from counterfactual import run_counterfactual_tests
 from explainer import LightGCNExplainer
+from faithfulness import run_faithfulness_evaluation
 
 # -----------------------------
 # Reproducibility
@@ -42,13 +43,19 @@ MODEL_PATH = "lightgcn_100epoch.pth"
 # -----------------------------
 # Feature flags
 # -----------------------------
-RUN_EXPLAINABILITY = True
-RUN_COUNTERFACTUAL = True
+RUN_EXPLAINABILITY = False   # toggle here instead of commenting/uncommenting
+RUN_COUNTERFACTUAL = False
+RUN_FAITHFULNESS   = True
 
 
 # -----------------------------
 # Load Data
 # -----------------------------
+# BUG FIX: load_movie_metadata returns raw MovieLens IDs, but the model uses
+# contiguous remapped IDs produced by load_movielens_1m(). We now retrieve
+# item_map from load_movielens_1m() and use it to remap the metadata dicts
+# so that explainer.fmt(item_id) resolves names correctly instead of always
+# returning "Unknown".
 raw_movie_names, raw_movie_genres = load_movie_metadata(MOVIES_FILE)
 
 train_data, val_data, test_data, num_users, num_items, item_map = \
@@ -146,10 +153,25 @@ if RUN_EXPLAINABILITY:
     )
 
 if RUN_COUNTERFACTUAL:
-    run_counterfactual_tests(
+    attributed_results, random_results = run_counterfactual_tests(
         model,
         train_dict,
         explainer,
         num_users=10,
         top_k=5,
+        test_ranks=(1, 5, 10, 20),
+        random_seed=42,
+    )
+
+if RUN_FAITHFULNESS:
+    faithfulness_results, pearson_r, spearman_r = run_faithfulness_evaluation(
+        model,
+        train_dict,
+        train_data,
+        explainer,
+        num_users=30,
+        top_k=3,
+        finetune_epochs=5,
+        finetune_lr=0.001,
+        random_seed=42,
     )
