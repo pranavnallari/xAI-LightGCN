@@ -14,6 +14,7 @@ from model import LightGCN
 from evaluation import run_explainability_tests
 from counterfactual import run_counterfactual_tests
 from explainer import LightGCNExplainer
+
 # -----------------------------
 # Reproducibility
 # -----------------------------
@@ -38,14 +39,24 @@ BATCH_SIZE = 2048
 TOP_K = 10
 MODEL_PATH = "lightgcn_100epoch.pth"
 
+# -----------------------------
+# Feature flags
+# -----------------------------
+RUN_EXPLAINABILITY = True
+RUN_COUNTERFACTUAL = True
+
 
 # -----------------------------
 # Load Data
 # -----------------------------
-movie_names, movie_genres = load_movie_metadata(MOVIES_FILE)
+raw_movie_names, raw_movie_genres = load_movie_metadata(MOVIES_FILE)
 
-train_data, val_data, test_data, num_users, num_items = \
+train_data, val_data, test_data, num_users, num_items, item_map = \
     load_movielens_1m(RATINGS_FILE)
+
+# Remap metadata from raw MovieLens IDs -> contiguous model IDs
+movie_names  = {item_map[k]: v for k, v in raw_movie_names.items()  if k in item_map}
+movie_genres = {item_map[k]: v for k, v in raw_movie_genres.items() if k in item_map}
 
 train_dict = {}
 for u, i in train_data:
@@ -121,22 +132,24 @@ else:
 # ------------------------------------------------
 # Explainability Tests
 # ------------------------------------------------
-# run_explainability_tests(
-#     model,
-#     train_dict,
-#     movie_names,
-#     movie_genres,
-#     test_data,
-#     num_cases=5,
-#     top_k=5
-# )
-
 explainer = LightGCNExplainer(model, train_dict, movie_names, movie_genres)
 
-run_counterfactual_tests(
-    model,
-    train_dict,
-    explainer,
-    num_users=10,
-    top_k=5
-)
+if RUN_EXPLAINABILITY:
+    run_explainability_tests(
+        model,
+        train_dict,
+        movie_names,
+        movie_genres,
+        test_data,
+        num_cases=5,
+        top_k=5,
+    )
+
+if RUN_COUNTERFACTUAL:
+    run_counterfactual_tests(
+        model,
+        train_dict,
+        explainer,
+        num_users=10,
+        top_k=5,
+    )

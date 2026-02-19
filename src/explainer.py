@@ -3,14 +3,13 @@
 import torch
 import numpy as np
 
-
 class LightGCNExplainer:
     def __init__(self, model, train_dict, movie_names=None, movie_genres=None):
         """
         model: trained LightGCN model
         train_dict: {user_id: set(item_ids)}
-        movie_names: {item_id: title}
-        movie_genres: {item_id: genres}
+        movie_names: {remapped_item_id: title}   <-- must use model's contiguous IDs
+        movie_genres: {remapped_item_id: genres}
         """
 
         self.model = model
@@ -43,22 +42,41 @@ class LightGCNExplainer:
     # Exact Layer Contribution
     # ------------------------------------------------
     def exact_layer_contributions(self, user_id, item_id):
+        """
+        Decomposes the LightGCN score into per-layer contributions.
+
+        LightGCN score = dot(mean_k(u_k), mean_l(v_l))
+                       = (1/K^2) * sum_k sum_l dot(u_k, v_l)
+
+        We define the contribution of layer k as its marginal share of the
+        total score, symmetrically combining its role as both the user-side
+        propagation depth and the item-side propagation depth:
+
+            contrib[k] = (1/K^2) * (sum_l dot(u_k, v_l) + sum_l dot(u_l, v_k))
+        Returns:
+            layer_scores: list of length K (one value per propagation depth)
+            contrib_matrix: (K x K) array where [k, l] = dot(u_k, v_l)
+        """
 
         K = len(self.embs)
+        item_node = self.num_users + item_id
+
         contrib_matrix = np.zeros((K, K))
+        with torch.no_grad():
+            for k in range(K):
+                user_k = self.embs[k][user_id]
+                for l in range(K):
+                    item_l = self.embs[l][item_node]
+                    contrib_matrix[k, l] = torch.dot(user_k, item_l).item()
 
-        for k in range(K):
-            user_k = self.embs[k][user_id]
-
-            for l in range(K):
-                item_l = self.embs[l][self.num_users + item_id]
-                contrib_matrix[k, l] = torch.dot(user_k, item_l).item()
-
+        scale = 1.0 / (K * K)
         layer_scores = []
         for k in range(K):
-            row_sum = np.sum(contrib_matrix[k])
-            col_sum = np.sum(contrib_matrix[:, k])
-            layer_scores.append(row_sum + col_sum - contrib_matrix[k, k])
+            # User side: row k summed over all item depths l
+            user_side = np.sum(contrib_matrix[k, :])
+            # Item side: col k summed over all user depths l (excluding k,k to avoid double-count)
+            item_side = np.sum(contrib_matrix[:, k]) - contrib_matrix[k, k]
+            layer_scores.append(scale * (user_side + item_side))
 
         return layer_scores, contrib_matrix
 
@@ -70,6 +88,10 @@ class LightGCNExplainer:
     # One-hop Attribution
     # ------------------------------------------------
     def one_hop_contributions(self, user_id, item_id, top_k=5):
+        """
+        Attributes the recommendation score to specific training items in the
+        user's history via 1-hop message passing.
+        """
 
         if self.n_layers < 1:
             return []
@@ -77,20 +99,27 @@ class LightGCNExplainer:
         if user_id not in self.train_dict:
             return []
 
+        # Use the dominant layer's item embedding for attribution
+        k_star, _ = self.dominant_depth(user_id, item_id)
+        k_attr = max(1, k_star)  # layer 0 has no propagation; fall back to layer 1
+
+        item_node = self.num_users + item_id
+        item_k = self.embs[k_attr][item_node]
+
+        # Compute degree-normalised weight for the user->item_j edge directly
+        # from the adjacency, without densifying the entire row.
+        user_degree = len(self.train_dict[user_id])
         contributions = []
 
-        item_k = self.embs[1][self.num_users + item_id]
-
-        # NOTE: Dense conversion OK for MovieLens-1M.
-        user_row = self.adj[user_id].to_dense()
-
-        for item_j in self.train_dict[user_id]:
-            node_j = self.num_users + item_j
-            weight = user_row[node_j].item()
-            base_emb = self.embs[0][node_j]
-
-            score = torch.dot(weight * base_emb, item_k).item()
-            contributions.append((item_j, score))
+        with torch.no_grad():
+            for item_j in self.train_dict[user_id]:
+                node_j = self.num_users + item_j
+                item_j_degree = self.adj[node_j].to_dense().count_nonzero().item()
+                # Symmetric normalisation weight: 1 / sqrt(deg_u * deg_v)
+                weight = 1.0 / np.sqrt(user_degree * max(item_j_degree, 1))
+                base_emb = self.embs[0][node_j]
+                score = torch.dot(weight * base_emb, item_k).item()
+                contributions.append((item_j, score))
 
         contributions.sort(key=lambda x: abs(x[1]), reverse=True)
         return contributions[:top_k]
@@ -99,8 +128,12 @@ class LightGCNExplainer:
     # Structured Explanation
     # ------------------------------------------------
     def explain(self, user_id, item_id, top_k=5):
+        """
+        Returns a structured explanation dict.
+        """
 
-        k_star, layer_scores = self.dominant_depth(user_id, item_id)
+        layer_scores, contrib_matrix = self.exact_layer_contributions(user_id, item_id)
+        k_star = int(np.argmax(np.abs(layer_scores)))
 
         explanation = {
             "user_id": user_id,
@@ -110,7 +143,7 @@ class LightGCNExplainer:
             "dominant_depth": k_star,
         }
 
-        if k_star == 1:
+        if k_star >= 1:
             explanation["top_training_contributors"] = [
                 (self.fmt(i), s)
                 for i, s in self.one_hop_contributions(user_id, item_id, top_k)
@@ -123,9 +156,16 @@ class LightGCNExplainer:
     # ------------------------------------------------
     # Human Explanation
     # ------------------------------------------------
-    def generate_explanation(self, user_id, item_id, top_k=3):
+    def generate_explanation(self, user_id, item_id, top_k=3, _layer_scores=None):
+        """
+        Generates a human-readable explanation string.
+        """
 
-        layer_scores, _ = self.exact_layer_contributions(user_id, item_id)
+        if _layer_scores is None:
+            layer_scores, _ = self.exact_layer_contributions(user_id, item_id)
+        else:
+            layer_scores = _layer_scores
+
         abs_scores = [abs(s) for s in layer_scores]
 
         k_star = int(np.argmax(abs_scores))

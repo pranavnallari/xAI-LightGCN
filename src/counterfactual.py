@@ -28,16 +28,33 @@ def run_counterfactual_tests(
     num_users=100,
     top_k=5,
 ):
+    """
+    Performs counterfactual edge-removal sensitivity analysis.
+
+    For each user, removes one training item at a time from the graph,
+    rebuilds the adjacency matrix, and measures the change in the top
+    recommended item's score and rank.
+
+    NOTE ON APPROXIMATION: This is a structural sensitivity test — the model
+    weights (embeddings) are NOT retrained after each edge removal. Only the
+    propagation graph is changed. This approximates the effect of the edge on
+    the final embeddings via message passing, but does not reflect how the
+    model would learn differently had the edge never existed. For a true
+    counterfactual, the model would need to be retrained from scratch for each
+    removal — which is computationally prohibitive. This approximation is
+    standard in GNN explainability literature (cf. GNNExplainer).
+    """
     print("\n--- Counterfactual Tests ---")
 
     users = list(train_dict.keys())[:num_users]
     results = []
 
+    # Extract the device once from the existing adjacency tensor
+    device = model.adj.device
+
     for u in users:
 
-        rec_item, base_score, base_rank = get_top_item(
-            model, u, train_dict
-        )
+        rec_item, base_score, base_rank = get_top_item(model, u, train_dict)
 
         contributors = explainer.one_hop_contributions(u, rec_item, top_k)
         if not contributors:
@@ -61,21 +78,21 @@ def run_counterfactual_tests(
                 for ii in items
             ]
 
-            # ---- Copy model ----
-            model_cf = copy.deepcopy(model)
-
-            # ---- Rebuild adjacency ----
-            model_cf.adj = build_adj(
+            new_adj = build_adj(
                 model.num_users,
                 model.num_items,
                 new_train_data,
-                device=model.adj.device
+                device=device,
             )
 
+            original_adj = model.adj
+            model.adj = new_adj
+
             # ---- Recompute recommendation ----
-            rec2, score2, rank2 = get_top_item(
-                model_cf, u, new_train
-            )
+            rec2, score2, rank2 = get_top_item(model, u, new_train)
+
+            # ---- Restore original adj ----
+            model.adj = original_adj
 
             drop = base_score - score2
 

@@ -72,13 +72,15 @@ def run_explainability_tests(
             rec = top_item(u)
             if rec is None:
                 continue
-
             layer_scores, _ = explainer.exact_layer_contributions(u, rec)
             k_star = int(np.argmax(np.abs(layer_scores)))
 
             contribs = explainer.one_hop_contributions(u, rec, top_k)
 
-            explanation_text = explainer.generate_explanation(u, rec, top_k)
+            # Pass pre-computed layer_scores to avoid recomputing
+            explanation_text = explainer.generate_explanation(
+                u, rec, top_k, _layer_scores=layer_scores
+            )
 
             results.append({
                 "user": u,

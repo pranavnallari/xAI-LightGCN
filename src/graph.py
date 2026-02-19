@@ -34,9 +34,14 @@ def build_adj(num_users, num_items, train_data, device):
         torch.Size([N, N])
     ).coalesce()
 
-def build_adj_from_dict(self, train_dict):
-    interactions = []
-    for u, items in train_dict.items():
-        for i in items:
-            interactions.append((u, i))
-    return build_adj(self.num_users, self.num_items, interactions, self.device)
+
+def build_adj_from_dict(num_users, num_items, train_dict, device):
+    """
+    Convenience wrapper: builds adjacency from a {user_id: set(item_ids)} dict.
+    """
+    interactions = [
+        (u, i)
+        for u, items in train_dict.items()
+        for i in items
+    ]
+    return build_adj(num_users, num_items, interactions, device)
