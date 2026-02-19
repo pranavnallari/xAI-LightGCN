@@ -37,3 +37,32 @@ def load_movielens_1m(path, seed=42):
     test_data = list(zip(test_df['user_id'], test_df['item_id']))
 
     return train_data, val_data, test_data, num_users, num_items
+
+
+
+def load_movie_names(path="../dataset/movies.dat"):
+    movie_map = {}
+    with open(path, encoding="latin-1") as f:
+        for line in f:
+            movie_id, title, genres = line.strip().split("::")
+            movie_map[int(movie_id)] = title
+    return movie_map
+
+def load_movie_metadata(movies_file):
+    """
+    Returns:
+        movie_names: {item_id: "Title"}
+        movie_genres: {item_id: "Genre1|Genre2"}
+    """
+    movie_names = {}
+    movie_genres = {}
+
+    with open(movies_file, encoding="latin-1") as f:
+        for line in f:
+            movie_id, title, genres = line.strip().split("::")
+            movie_id = int(movie_id)
+
+            movie_names[movie_id] = title
+            movie_genres[movie_id] = genres
+
+    return movie_names, movie_genres
