@@ -15,6 +15,8 @@ from evaluation import run_explainability_tests
 from counterfactual import run_counterfactual_tests
 from explainer import LightGCNExplainer
 from faithfulness import run_faithfulness_evaluation
+from degree_baseline import run_degree_baseline
+from lime_baseline import run_lime_baseline, print_three_way_comparison
 
 # -----------------------------
 # Reproducibility
@@ -43,19 +45,16 @@ MODEL_PATH = "lightgcn_100epoch.pth"
 # -----------------------------
 # Feature flags
 # -----------------------------
-RUN_EXPLAINABILITY = False   # toggle here instead of commenting/uncommenting
-RUN_COUNTERFACTUAL = False
+RUN_EXPLAINABILITY = True
+RUN_COUNTERFACTUAL = True
 RUN_FAITHFULNESS   = True
-
+RUN_DEGREE_BASELINE = True
+RUN_LIME_BASELINE   = True
+RUN_THREE_WAY       = True  # set True after all methods run
 
 # -----------------------------
 # Load Data
 # -----------------------------
-# BUG FIX: load_movie_metadata returns raw MovieLens IDs, but the model uses
-# contiguous remapped IDs produced by load_movielens_1m(). We now retrieve
-# item_map from load_movielens_1m() and use it to remap the metadata dicts
-# so that explainer.fmt(item_id) resolves names correctly instead of always
-# returning "Unknown".
 raw_movie_names, raw_movie_genres = load_movie_metadata(MOVIES_FILE)
 
 train_data, val_data, test_data, num_users, num_items, item_map = \
@@ -169,9 +168,43 @@ if RUN_FAITHFULNESS:
         train_dict,
         train_data,
         explainer,
-        num_users=30,
+        num_users=50,
         top_k=3,
         finetune_epochs=5,
         finetune_lr=0.001,
         random_seed=42,
+    )
+
+if RUN_DEGREE_BASELINE:
+    degree_results = run_degree_baseline(
+        model,
+        train_dict,
+        explainer,
+        num_users=10,
+        top_k=5,
+        test_ranks=(1, 5, 10, 20),
+    )
+
+if RUN_LIME_BASELINE:
+    lime_results = run_lime_baseline(
+        model,
+        train_dict,
+        explainer,
+        num_users=10,
+        top_k=5,
+        test_ranks=(1, 5, 10, 20),
+        n_perturbations=100,
+        mask_prob=0.5,
+        random_seed=42,
+    )
+
+if RUN_THREE_WAY:
+    # Run all four methods first, then set this flag to True
+    # to print the consolidated comparison table
+    print_three_way_comparison(
+        attributed_results,
+        lime_results,
+        degree_results,
+        random_results,
+        test_ranks=(1, 5, 10, 20),
     )

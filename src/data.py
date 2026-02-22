@@ -1,8 +1,6 @@
 # data.py
 
 import pandas as pd
-import numpy as np
-import random
 
 
 def load_movielens_1m(path, seed=42):

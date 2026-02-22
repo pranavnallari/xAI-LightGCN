@@ -1,0 +1,2685 @@
+
+Loading saved model...
+
+--- Explainability Tests ---
+
+==============================
+Case 1
+User: 5309
+Recommended: Strangers on a Train (1951) (ID 1450) | Film-Noir|Thriller
+
+Layer contributions:
+  Layer 0: 7.8350
+  Layer 1: 5.2755
+  Layer 2: 2.5356
+  Layer 3: 1.5787
+
+Dominant depth: 0
+
+Top Contributing Items
+Movie Name                               | ID     | Categories
+------------------------------------------------------------------------------------------
+Force of Evil (1948)                     |   3112 | Film-Noir
+Beat the Devil (1954)                    |   2710 | Comedy|Drama
+Niagara (1953)                           |   2119 | Drama|Thriller
+Trouble in Paradise (1932)               |   3125 | Comedy|Romance
+Out of the Past (1947)                   |   1446 | Film-Noir
+
+Explanation:
+  Strangers on a Train (1951) (ID 1450) | Film-Noir|Thriller was recommended largely based on your overall preference profile learned from past interactions.
+
+==============================
+Case 2
+User: 923
+Recommended: American Beauty (1999) (ID 104) | Comedy|Drama
+
+Layer contributions:
+  Layer 0: 2.3785
+  Layer 1: 8.2405
+  Layer 2: 3.6656
+  Layer 3: 4.6013
+
+Dominant depth: 1
+
+Top Contributing Items
+Movie Name                               | ID     | Categories
+------------------------------------------------------------------------------------------
+Mumford (1999)                           |    819 | Comedy
+Lord of the Flies (1963)                 |    884 | Adventure|Drama|Thriller
+Ghosts of Mississippi (1996)             |   2067 | Drama
+Some Folks Call It a Sling Blade (1993)  |   1182 | Drama|Thriller
+Lolita (1962)                            |   2102 | Drama
+
+Explanation:
+  American Beauty (1999) (ID 104) | Comedy|Drama was recommended largely because you interacted with Mumford (1999) (ID 819) | Comedy, Lord of the Flies (1963) (ID 884) | Adventure|Drama|Thriller, Ghosts of Mississippi (1996) (ID 2067) | Drama, Some Folks Call It a Sling Blade (1993) (ID 1182) | Drama|Thriller, Lolita (1962) (ID 2102) | Drama, which strongly align with it.
+
+==============================
+Case 3
+User: 205
+Recommended: Fly, The (1986) (ID 1005) | Horror|Sci-Fi
+
+Layer contributions:
+  Layer 0: 4.4904
+  Layer 1: 2.8986
+  Layer 2: 1.4072
+  Layer 3: 1.4875
+
+Dominant depth: 0
+
+Top Contributing Items
+Movie Name                               | ID     | Categories
+------------------------------------------------------------------------------------------
+Barbarella (1968)                        |   1248 | Adventure|Sci-Fi
+Hellraiser: Bloodline (1996)             |   1989 | Action|Horror|Sci-Fi
+Bram Stoker's Dracula (1992)             |    584 | Horror|Romance
+Flesh and Bone (1993)                    |   2120 | Drama|Mystery|Romance
+Night Flier (1997)                       |   2647 | Horror
+
+Explanation:
+  Fly, The (1986) (ID 1005) | Horror|Sci-Fi was recommended largely based on your overall preference profile learned from past interactions.
+
+==============================
+Case 4
+User: 2280
+Recommended: Being John Malkovich (1999) (ID 184) | Comedy
+
+Layer contributions:
+  Layer 0: 6.9581
+  Layer 1: 7.3374
+  Layer 2: 2.6587
+  Layer 3: 3.7894
+
+Dominant depth: 1
+
+Top Contributing Items
+Movie Name                               | ID     | Categories
+------------------------------------------------------------------------------------------
+Ideal Husband, An (1999)                 |   2153 | Comedy
+East is East (1999)                      |   2400 | Comedy
+American Beauty (1999)                   |    104 | Comedy|Drama
+Star Wars: Episode VI - Return of the Je |     64 | Action|Adventure|Romance|Sci-Fi|War
+Modern Times (1936)                      |   1497 | Comedy
+
+Explanation:
+  Being John Malkovich (1999) (ID 184) | Comedy was recommended largely because you interacted with Ideal Husband, An (1999) (ID 2153) | Comedy, East is East (1999) (ID 2400) | Comedy, Modern Times (1936) (ID 1497) | Comedy, Sweet Hereafter, The (1997) (ID 306) | Drama, Thirteenth Floor, The (1999) (ID 2139) | Drama|Sci-Fi|Thriller, which strongly align with it. Some past interactions (e.g., American Beauty (1999) (ID 104) | Comedy|Drama) slightly opposed this recommendation.
+
+==============================
+Case 5
+User: 2028
+Recommended: Nightmare Before Christmas, The (1993) (ID 331) | Children's|Comedy|Musical
+
+Layer contributions:
+  Layer 0: 6.3223
+  Layer 1: 5.0610
+  Layer 2: 2.9205
+  Layer 3: 2.2617
+
+Dominant depth: 0
+
+Top Contributing Items
+Movie Name                               | ID     | Categories
+------------------------------------------------------------------------------------------
+Bamboozled (2000)                        |   1484 | Comedy
+Jeffrey (1995)                           |   2440 | Comedy
+I'm the One That I Want (2000)           |   2918 | Comedy
+Black Cauldron, The (1985)               |    768 | Animation|Children's
+Pokémon the Movie 2000 (2000)            |    241 | Animation|Children's
+
+Explanation:
+  Nightmare Before Christmas, The (1993) (ID 331) | Children's|Comedy|Musical was recommended largely based on your overall preference profile learned from past interactions.
+
+--- Multi-Rank Counterfactual Tests (with Random Baseline) ---
+Testing rank positions: [1, 5, 10, 20]
+Users: 10 | k per strategy: 5
+
+============================================================
+User 5411
+  Rank  1: Star Wars: Episode IV - A New Hope (1977) (ID 44) | Action|Adventure|Fantasy|Sci-Fi  [score=7.7218]
+  Rank  5: Toy Story 2 (1999) (ID 50) | Animation|Children's|Comedy  [score=6.6409]
+  Rank 10: Batman (1989) (ID 587) | Action|Adventure|Crime|Drama  [score=6.4306]
+  Rank 20: Hunt for Red October, The (1990) (ID 78) | Action|Thriller  [score=6.0513]
+
+  -- Rank 1 | Attributed removals --
+    Remove Swan Princess, The (1994) (ID 1043) | Animation|Children's
+      Score drop: -0.0241 | Rank: 1->1 (= 0) | Attr: -0.3284
+    Remove Gods Must Be Crazy II, The (1989) (ID 2870) | Comedy
+      Score drop: +0.0249 | Rank: 1->1 (= 0) | Attr: 0.3081
+    Remove Cook the Thief His Wife & Her Lover, The (1989) (ID 2000) | Drama
+      Score drop: +0.0177 | Rank: 1->1 (= 0) | Attr: 0.2649
+    Remove Road to El Dorado, The (2000) (ID 1854) | Animation|Children's
+      Score drop: +0.0240 | Rank: 1->1 (= 0) | Attr: 0.2634
+    Remove Watership Down (1978) (ID 582) | Animation|Children's|Drama|Fantasy
+      Score drop: +0.0250 | Rank: 1->1 (= 0) | Attr: 0.2589
+
+  -- Rank 1 | Random removals --
+    Remove Risky Business (1983) (ID 1308) | Comedy
+      Score drop: +0.0103 | Rank: 1->1 (= 0)
+    Remove Rain Man (1988) (ID 41) | Drama
+      Score drop: +0.0107 | Rank: 1->1 (= 0)
+    Remove Sound of Music, The (1965) (ID 14) | Musical
+      Score drop: +0.0127 | Rank: 1->1 (= 0)
+    Remove Basic Instinct (1992) (ID 925) | Mystery|Thriller
+      Score drop: +0.0114 | Rank: 1->1 (= 0)
+    Remove World Is Not Enough, The (1999) (ID 1145) | Action|Thriller
+      Score drop: +0.0114 | Rank: 1->1 (= 0)
+
+  -- Rank 5 | Attributed removals --
+    Remove Road to El Dorado, The (2000) (ID 1854) | Animation|Children's
+      Score drop: +0.0418 | Rank: 5->5 (= 0) | Attr: 0.2978
+    Remove Pokémon: The First Movie (1998) (ID 2184) | Animation|Children's
+      Score drop: +0.0399 | Rank: 5->5 (= 0) | Attr: 0.2551
+    Remove Gods Must Be Crazy II, The (1989) (ID 2870) | Comedy
+      Score drop: +0.0215 | Rank: 5->5 (= 0) | Attr: 0.2539
+    Remove Pokémon the Movie 2000 (2000) (ID 241) | Animation|Children's
+      Score drop: +0.0383 | Rank: 5->5 (= 0) | Attr: 0.2467
+    Remove Operation Condor (Feiying gaiwak) (1990) (ID 2174) | Action|Adventure|Comedy
+      Score drop: +0.0232 | Rank: 5->5 (= 0) | Attr: 0.1816
+
+  -- Rank 5 | Random removals --
+    Remove American Beauty (1999) (ID 104) | Comedy|Drama
+      Score drop: +0.0055 | Rank: 5->6 (down 1)
+    Remove Terminator 2: Judgment Day (1991) (ID 97) | Action|Sci-Fi|Thriller
+      Score drop: +0.0037 | Rank: 5->6 (down 1)
+    Remove Star Wars: Episode I - The Phantom Menace (1999) (ID 60) | Action|Adventure|Fantasy|Sci-Fi
+      Score drop: +0.0074 | Rank: 5->6 (down 1)
+    Remove Basic Instinct (1992) (ID 925) | Mystery|Thriller
+      Score drop: +0.0048 | Rank: 5->5 (= 0)
+    Remove French Twist (Gazon maudit) (1995) (ID 2600) | Comedy|Romance
+      Score drop: +0.0071 | Rank: 5->4 (up 1)
+
+  -- Rank 10 | Attributed removals --
+    Remove Gods Must Be Crazy II, The (1989) (ID 2870) | Comedy
+      Score drop: +0.0214 | Rank: 10->10 (= 0) | Attr: 0.1456
+    Remove View to a Kill, A (1985) (ID 1156) | Action
+      Score drop: +0.0215 | Rank: 10->10 (= 0) | Attr: 0.1346
+    Remove Operation Condor (Feiying gaiwak) (1990) (ID 2174) | Action|Adventure|Comedy
+      Score drop: +0.0184 | Rank: 10->10 (= 0) | Attr: 0.1322
+    Remove Cook the Thief His Wife & Her Lover, The (1989) (ID 2000) | Drama
+      Score drop: +0.0215 | Rank: 10->10 (= 0) | Attr: 0.1284
+    Remove Black Mask (Hak hap) (1996) (ID 2169) | Action
+      Score drop: +0.0146 | Rank: 10->10 (= 0) | Attr: 0.1283
+
+  -- Rank 10 | Random removals --
+    Remove Maltese Falcon, The (1941) (ID 338) | Film-Noir|Mystery
+      Score drop: +0.0043 | Rank: 10->10 (= 0)
+    Remove Basic Instinct (1992) (ID 925) | Mystery|Thriller
+      Score drop: +0.0123 | Rank: 10->10 (= 0)
+    Remove Time Bandits (1981) (ID 758) | Adventure|Fantasy|Sci-Fi
+      Score drop: +0.0108 | Rank: 10->10 (= 0)
+    Remove Sixth Sense, The (1999) (ID 38) | Thriller
+      Score drop: +0.0019 | Rank: 10->10 (= 0)
+    Remove Man with Two Brains, The (1983) (ID 777) | Comedy
+      Score drop: +0.0126 | Rank: 10->10 (= 0)
+
+  -- Rank 20 | Attributed removals --
+    Remove Swan Princess, The (1994) (ID 1043) | Animation|Children's
+      Score drop: -0.0221 | Rank: 20->20 (= 0) | Attr: -0.1945
+    Remove Supercop (1992) (ID 430) | Action|Thriller
+      Score drop: +0.0263 | Rank: 20->21 (down 1) | Attr: 0.1944
+    Remove Operation Condor (Feiying gaiwak) (1990) (ID 2174) | Action|Adventure|Comedy
+      Score drop: +0.0250 | Rank: 20->21 (down 1) | Attr: 0.1893
+    Remove Operation Condor 2 (Longxiong hudi) (1990) (ID 2266) | Action|Adventure|Comedy
+      Score drop: +0.0240 | Rank: 20->21 (down 1) | Attr: 0.1779
+    Remove Black Mask (Hak hap) (1996) (ID 2169) | Action
+      Score drop: +0.0167 | Rank: 20->21 (down 1) | Attr: 0.1735
+
+  -- Rank 20 | Random removals --
+    Remove Rock, The (1996) (ID 195) | Action|Adventure|Thriller
+      Score drop: +0.0168 | Rank: 20->21 (down 1)
+    Remove Highlander (1986) (ID 1041) | Action|Adventure
+      Score drop: +0.0175 | Rank: 20->22 (down 2)
+    Remove Star Trek: First Contact (1996) (ID 528) | Action|Adventure|Sci-Fi
+      Score drop: +0.0107 | Rank: 20->21 (down 1)
+    Remove Godzilla (1998) (ID 1063) | Action|Sci-Fi
+      Score drop: +0.0100 | Rank: 20->20 (= 0)
+    Remove Braveheart (1995) (ID 92) | Action|Drama|War
+      Score drop: +0.0075 | Rank: 20->22 (down 2)
+
+============================================================
+User 5439
+  Rank  1: Babe (1995) (ID 381) | Children's|Comedy|Drama  [score=6.8239]
+  Rank  5: American Beauty (1999) (ID 104) | Comedy|Drama  [score=6.4263]
+  Rank 10: Opposite of Sex, The (1998) (ID 357) | Comedy|Drama  [score=6.0027]
+  Rank 20: Grand Day Out, A (1992) (ID 539) | Animation|Comedy  [score=5.6459]
+
+  -- Rank 1 | Attributed removals --
+    Remove Family Thing, A (1996) (ID 2825) | Comedy|Drama
+      Score drop: +0.0943 | Rank: 1->1 (= 0) | Attr: 0.9091
+    Remove Dancer, Texas Pop. 81 (1998) (ID 2954) | Comedy|Drama
+      Score drop: +0.0614 | Rank: 1->1 (= 0) | Attr: 0.6297
+    Remove Heart and Souls (1993) (ID 616) | Comedy|Fantasy
+      Score drop: +0.0661 | Rank: 1->1 (= 0) | Attr: 0.5828
+    Remove FairyTale: A True Story (1997) (ID 749) | Children's|Drama|Fantasy
+      Score drop: +0.0836 | Rank: 1->1 (= 0) | Attr: 0.5810
+    Remove Cold Comfort Farm (1995) (ID 247) | Comedy
+      Score drop: +0.0549 | Rank: 1->1 (= 0) | Attr: 0.5009
+
+  -- Rank 1 | Random removals --
+    Remove Delicatessen (1991) (ID 220) | Comedy|Sci-Fi
+      Score drop: +0.0238 | Rank: 1->1 (= 0)
+    Remove Groundhog Day (1993) (ID 116) | Comedy|Romance
+      Score drop: +0.0176 | Rank: 1->1 (= 0)
+    Remove Being John Malkovich (1999) (ID 184) | Comedy
+      Score drop: +0.0124 | Rank: 1->1 (= 0)
+    Remove Waking Ned Devine (1998) (ID 129) | Comedy
+      Score drop: +0.0486 | Rank: 1->1 (= 0)
+    Remove Rear Window (1954) (ID 629) | Mystery|Thriller
+      Score drop: +0.0140 | Rank: 1->1 (= 0)
+
+  -- Rank 5 | Attributed removals --
+    Remove Dancer, Texas Pop. 81 (1998) (ID 2954) | Comedy|Drama
+      Score drop: +0.0775 | Rank: 5->5 (= 0) | Attr: 1.1246
+    Remove Family Thing, A (1996) (ID 2825) | Comedy|Drama
+      Score drop: +0.0650 | Rank: 5->5 (= 0) | Attr: 1.0599
+    Remove Heart and Souls (1993) (ID 616) | Comedy|Fantasy
+      Score drop: +0.0478 | Rank: 5->5 (= 0) | Attr: 0.7273
+    Remove Citizen Ruth (1996) (ID 225) | Comedy|Drama
+      Score drop: +0.0628 | Rank: 5->5 (= 0) | Attr: 0.7118
+    Remove Blast from the Past (1999) (ID 571) | Comedy|Romance
+      Score drop: +0.0405 | Rank: 5->5 (= 0) | Attr: 0.5709
+
+  -- Rank 5 | Random removals --
+    Remove Bulworth (1998) (ID 890) | Comedy
+      Score drop: +0.0439 | Rank: 5->5 (= 0)
+    Remove Devil in a Blue Dress (1995) (ID 955) | Crime|Film-Noir|Mystery|Thriller
+      Score drop: +0.0359 | Rank: 5->5 (= 0)
+    Remove Being John Malkovich (1999) (ID 184) | Comedy
+      Score drop: +0.0304 | Rank: 5->6 (down 1)
+    Remove Rear Window (1954) (ID 629) | Mystery|Thriller
+      Score drop: +0.0233 | Rank: 5->5 (= 0)
+    Remove Little Big Man (1970) (ID 623) | Comedy|Drama|Western
+      Score drop: +0.0281 | Rank: 5->5 (= 0)
+
+  -- Rank 10 | Attributed removals --
+    Remove Dancer, Texas Pop. 81 (1998) (ID 2954) | Comedy|Drama
+      Score drop: +0.0721 | Rank: 10->10 (= 0) | Attr: 0.4002
+    Remove Family Thing, A (1996) (ID 2825) | Comedy|Drama
+      Score drop: +0.0524 | Rank: 10->10 (= 0) | Attr: 0.3426
+    Remove Citizen Ruth (1996) (ID 225) | Comedy|Drama
+      Score drop: +0.0681 | Rank: 10->10 (= 0) | Attr: 0.3166
+    Remove Cold Comfort Farm (1995) (ID 247) | Comedy
+      Score drop: +0.0599 | Rank: 10->10 (= 0) | Attr: 0.3010
+    Remove Living in Oblivion (1995) (ID 298) | Comedy
+      Score drop: +0.0575 | Rank: 10->10 (= 0) | Attr: 0.2576
+
+  -- Rank 10 | Random removals --
+    Remove Delicatessen (1991) (ID 220) | Comedy|Sci-Fi
+      Score drop: +0.0410 | Rank: 10->10 (= 0)
+    Remove Grifters, The (1990) (ID 945) | Crime|Drama|Film-Noir
+      Score drop: +0.0187 | Rank: 10->10 (= 0)
+    Remove L.A. Confidential (1997) (ID 246) | Crime|Film-Noir|Mystery|Thriller
+      Score drop: +0.0045 | Rank: 10->10 (= 0)
+    Remove Taxi Driver (1976) (ID 486) | Drama|Thriller
+      Score drop: +0.0043 | Rank: 10->10 (= 0)
+    Remove Waking Ned Devine (1998) (ID 129) | Comedy
+      Score drop: +0.0280 | Rank: 10->10 (= 0)
+
+  -- Rank 20 | Attributed removals --
+    Remove FairyTale: A True Story (1997) (ID 749) | Children's|Drama|Fantasy
+      Score drop: +0.0811 | Rank: 20->23 (down 3) | Attr: 0.3857
+    Remove Cold Comfort Farm (1995) (ID 247) | Comedy
+      Score drop: +0.0689 | Rank: 20->21 (down 1) | Attr: 0.3550
+    Remove Heart and Souls (1993) (ID 616) | Comedy|Fantasy
+      Score drop: +0.0445 | Rank: 20->20 (= 0) | Attr: 0.2703
+    Remove Family Thing, A (1996) (ID 2825) | Comedy|Drama
+      Score drop: +0.0338 | Rank: 20->19 (up 1) | Attr: 0.2599
+    Remove Citizen Ruth (1996) (ID 225) | Comedy|Drama
+      Score drop: +0.0452 | Rank: 20->21 (down 1) | Attr: 0.2574
+
+  -- Rank 20 | Random removals --
+    Remove Heavenly Creatures (1994) (ID 958) | Drama|Fantasy|Romance|Thriller
+      Score drop: +0.0306 | Rank: 20->20 (= 0)
+    Remove Get Shorty (1995) (ID 145) | Action|Comedy|Drama
+      Score drop: +0.0130 | Rank: 20->19 (up 1)
+    Remove Devil in a Blue Dress (1995) (ID 955) | Crime|Film-Noir|Mystery|Thriller
+      Score drop: +0.0021 | Rank: 20->19 (up 1)
+    Remove Little Big Man (1970) (ID 623) | Comedy|Drama|Western
+      Score drop: +0.0046 | Rank: 20->20 (= 0)
+    Remove Living in Oblivion (1995) (ID 298) | Comedy
+      Score drop: +0.0394 | Rank: 20->20 (= 0)
+
+============================================================
+User 367
+  Rank  1: Braveheart (1995) (ID 92) | Action|Drama|War  [score=8.4108]
+  Rank  5: Men in Black (1997) (ID 189) | Action|Adventure|Comedy|Sci-Fi  [score=7.9117]
+  Rank 10: Conspiracy Theory (1997) (ID 137) | Action|Mystery|Romance|Thriller  [score=7.3779]
+  Rank 20: Thelma & Louise (1991) (ID 156) | Action|Drama  [score=6.8730]
+
+  -- Rank 1 | Attributed removals --
+    Remove Heaven & Earth (1993) (ID 473) | Action|Drama|War
+      Score drop: +0.0242 | Rank: 1->1 (= 0) | Attr: 0.3046
+    Remove Swing Kids (1993) (ID 827) | Drama|War
+      Score drop: +0.0234 | Rank: 1->1 (= 0) | Attr: 0.2856
+    Remove Misérables, Les (1998) (ID 103) | Drama
+      Score drop: +0.0280 | Rank: 1->1 (= 0) | Attr: 0.2480
+    Remove Snow Day (2000) (ID 1521) | Comedy
+      Score drop: +0.0375 | Rank: 1->1 (= 0) | Attr: 0.2474
+    Remove City Hall (1996) (ID 1926) | Drama|Thriller
+      Score drop: +0.0134 | Rank: 1->1 (= 0) | Attr: 0.2212
+
+  -- Rank 1 | Random removals --
+    Remove Dragonheart (1996) (ID 187) | Action|Adventure|Fantasy
+      Score drop: +0.0110 | Rank: 1->1 (= 0)
+    Remove Groundhog Day (1993) (ID 116) | Comedy|Romance
+      Score drop: +0.0059 | Rank: 1->1 (= 0)
+    Remove Clear and Present Danger (1994) (ID 150) | Action|Adventure|Thriller
+      Score drop: +0.0109 | Rank: 1->1 (= 0)
+    Remove Little Buddha (1993) (ID 1974) | Drama
+      Score drop: +0.0102 | Rank: 1->1 (= 0)
+    Remove Sleepless in Seattle (1993) (ID 729) | Comedy|Romance
+      Score drop: +0.0064 | Rank: 1->1 (= 0)
+
+  -- Rank 5 | Attributed removals --
+    Remove My Favorite Martian (1999) (ID 574) | Comedy|Sci-Fi
+      Score drop: +0.0269 | Rank: 5->5 (= 0) | Attr: 0.2231
+    Remove Highlander III: The Sorcerer (1994) (ID 1057) | Action|Sci-Fi
+      Score drop: +0.0242 | Rank: 5->5 (= 0) | Attr: 0.2229
+    Remove Swing Kids (1993) (ID 827) | Drama|War
+      Score drop: +0.0160 | Rank: 5->5 (= 0) | Attr: 0.2149
+    Remove What Planet Are You From? (2000) (ID 1929) | Comedy|Sci-Fi
+      Score drop: +0.0284 | Rank: 5->5 (= 0) | Attr: 0.2068
+    Remove Heaven & Earth (1993) (ID 473) | Action|Drama|War
+      Score drop: +0.0128 | Rank: 5->5 (= 0) | Attr: 0.2031
+
+  -- Rank 5 | Random removals --
+    Remove Virgin Suicides, The (1999) (ID 1263) | Comedy|Drama
+      Score drop: +0.0084 | Rank: 5->5 (= 0)
+    Remove Hunt for Red October, The (1990) (ID 78) | Action|Thriller
+      Score drop: +0.0087 | Rank: 5->5 (= 0)
+    Remove In the Name of the Father (1993) (ID 1096) | Drama
+      Score drop: +0.0083 | Rank: 5->5 (= 0)
+    Remove Player, The (1992) (ID 275) | Comedy|Drama
+      Score drop: +0.0095 | Rank: 5->5 (= 0)
+    Remove Fisher King, The (1991) (ID 75) | Comedy|Drama|Romance
+      Score drop: +0.0130 | Rank: 5->5 (= 0)
+
+  -- Rank 10 | Attributed removals --
+    Remove Heaven & Earth (1993) (ID 473) | Action|Drama|War
+      Score drop: +0.0210 | Rank: 10->11 (down 1) | Attr: 0.1510
+    Remove Getaway, The (1994) (ID 154) | Action
+      Score drop: +0.0231 | Rank: 10->12 (down 2) | Attr: 0.1486
+    Remove Specialist, The (1994) (ID 1342) | Action
+      Score drop: +0.0218 | Rank: 10->12 (down 2) | Attr: 0.1464
+    Remove Switchback (1997) (ID 2335) | Thriller
+      Score drop: +0.0235 | Rank: 10->11 (down 1) | Attr: 0.1436
+    Remove True Crime (1999) (ID 2448) | Crime|Thriller
+      Score drop: +0.0243 | Rank: 10->12 (down 2) | Attr: 0.1348
+
+  -- Rank 10 | Random removals --
+    Remove Carlito's Way (1993) (ID 1273) | Crime|Drama
+      Score drop: +0.0099 | Rank: 10->11 (down 1)
+    Remove Bulletproof (1996) (ID 1889) | Action
+      Score drop: +0.0103 | Rank: 10->12 (down 2)
+    Remove Soldier (1998) (ID 1265) | Action|Adventure|Sci-Fi|Thriller|War
+      Score drop: +0.0144 | Rank: 10->11 (down 1)
+    Remove Boogie Nights (1997) (ID 509) | Drama
+      Score drop: +0.0012 | Rank: 10->10 (= 0)
+    Remove Full Monty, The (1997) (ID 176) | Comedy
+      Score drop: +0.0028 | Rank: 10->10 (= 0)
+
+  -- Rank 20 | Attributed removals --
+    Remove Three Wishes (1995) (ID 2677) | Drama
+      Score drop: -0.0421 | Rank: 20->20 (= 0) | Attr: -0.2457
+    Remove Heaven & Earth (1993) (ID 473) | Action|Drama|War
+      Score drop: +0.0252 | Rank: 20->20 (= 0) | Attr: 0.2185
+    Remove Little Buddha (1993) (ID 1974) | Drama
+      Score drop: +0.0183 | Rank: 20->20 (= 0) | Attr: 0.1959
+    Remove City Hall (1996) (ID 1926) | Drama|Thriller
+      Score drop: +0.0195 | Rank: 20->20 (= 0) | Attr: 0.1836
+    Remove Swing Kids (1993) (ID 827) | Drama|War
+      Score drop: +0.0189 | Rank: 20->20 (= 0) | Attr: 0.1554
+
+  -- Rank 20 | Random removals --
+    Remove Last Man Standing (1996) (ID 1839) | Action|Drama|Western
+      Score drop: +0.0104 | Rank: 20->20 (= 0)
+    Remove Deep Impact (1998) (ID 1058) | Action|Drama|Sci-Fi|Thriller
+      Score drop: +0.0092 | Rank: 20->21 (down 1)
+    Remove Peacemaker, The (1997) (ID 1670) | Action|Thriller|War
+      Score drop: +0.0132 | Rank: 20->20 (= 0)
+    Remove Nightmare Before Christmas, The (1993) (ID 331) | Children's|Comedy|Musical
+      Score drop: +0.0058 | Rank: 20->20 (= 0)
+    Remove Cider House Rules, The (1999) (ID 444) | Drama
+      Score drop: +0.0110 | Rank: 20->20 (= 0)
+
+============================================================
+User 424
+  Rank  1: Ferris Bueller's Day Off (1986) (ID 13) | Comedy  [score=9.1081]
+  Rank  5: Princess Bride, The (1987) (ID 5) | Action|Adventure|Comedy|Romance  [score=8.3895]
+  Rank 10: Airplane! (1980) (ID 15) | Comedy  [score=7.9621]
+  Rank 20: Good Will Hunting (1997) (ID 280) | Drama  [score=7.5819]
+
+  -- Rank 1 | Attributed removals --
+    Remove Pink Flamingos (1972) (ID 2494) | Comedy
+      Score drop: +0.0269 | Rank: 1->1 (= 0) | Attr: 0.2246
+    Remove Fierce Creatures (1997) (ID 1186) | Comedy
+      Score drop: +0.0239 | Rank: 1->1 (= 0) | Attr: 0.2079
+    Remove Tin Men (1987) (ID 1666) | Comedy|Drama
+      Score drop: +0.0248 | Rank: 1->1 (= 0) | Attr: 0.1831
+    Remove Mission, The (1986) (ID 2425) | Drama
+      Score drop: +0.0243 | Rank: 1->1 (= 0) | Attr: 0.1760
+    Remove Real Genius (1985) (ID 1499) | Comedy
+      Score drop: +0.0291 | Rank: 1->1 (= 0) | Attr: 0.1696
+
+  -- Rank 1 | Random removals --
+    Remove Young Frankenstein (1974) (ID 600) | Comedy|Horror
+      Score drop: +0.0141 | Rank: 1->1 (= 0)
+    Remove Heat (1995) (ID 255) | Action|Crime|Thriller
+      Score drop: +0.0045 | Rank: 1->1 (= 0)
+    Remove Star Wars: Episode IV - A New Hope (1977) (ID 44) | Action|Adventure|Fantasy|Sci-Fi
+      Score drop: +0.0031 | Rank: 1->1 (= 0)
+    Remove Godfather: Part II, The (1974) (ID 434) | Action|Crime|Drama
+      Score drop: +0.0058 | Rank: 1->1 (= 0)
+    Remove Butch Cassidy and the Sundance Kid (1969) (ID 199) | Action|Comedy|Western
+      Score drop: +0.0076 | Rank: 1->1 (= 0)
+
+  -- Rank 5 | Attributed removals --
+    Remove Fierce Creatures (1997) (ID 1186) | Comedy
+      Score drop: +0.0224 | Rank: 5->5 (= 0) | Attr: 0.2512
+    Remove Pink Flamingos (1972) (ID 2494) | Comedy
+      Score drop: +0.0210 | Rank: 5->5 (= 0) | Attr: 0.2431
+    Remove Mission, The (1986) (ID 2425) | Drama
+      Score drop: +0.0181 | Rank: 5->5 (= 0) | Attr: 0.2227
+    Remove Father of the Bride (1950) (ID 832) | Comedy
+      Score drop: +0.0256 | Rank: 5->5 (= 0) | Attr: 0.2150
+    Remove Pink Floyd - The Wall (1982) (ID 1347) | Drama|Musical|War
+      Score drop: +0.0200 | Rank: 5->5 (= 0) | Attr: 0.2096
+
+  -- Rank 5 | Random removals --
+    Remove Sliding Doors (1998) (ID 1526) | Drama|Romance
+      Score drop: +0.0158 | Rank: 5->5 (= 0)
+    Remove American President, The (1995) (ID 1256) | Comedy|Drama|Romance
+      Score drop: +0.0110 | Rank: 5->5 (= 0)
+    Remove Firm, The (1993) (ID 465) | Drama|Thriller
+      Score drop: +0.0085 | Rank: 5->5 (= 0)
+    Remove Raiders of the Lost Ark (1981) (ID 127) | Action|Adventure
+      Score drop: +0.0100 | Rank: 5->6 (down 1)
+    Remove Apollo 13 (1995) (ID 39) | Drama
+      Score drop: +0.0081 | Rank: 5->5 (= 0)
+
+  -- Rank 10 | Attributed removals --
+    Remove Pink Flamingos (1972) (ID 2494) | Comedy
+      Score drop: +0.0319 | Rank: 10->10 (= 0) | Attr: 0.2853
+    Remove Fierce Creatures (1997) (ID 1186) | Comedy
+      Score drop: +0.0194 | Rank: 10->10 (= 0) | Attr: 0.1893
+    Remove Mission, The (1986) (ID 2425) | Drama
+      Score drop: +0.0203 | Rank: 10->10 (= 0) | Attr: 0.1880
+    Remove Dead Men Don't Wear Plaid (1982) (ID 1744) | Comedy|Crime|Thriller
+      Score drop: +0.0206 | Rank: 10->10 (= 0) | Attr: 0.1858
+    Remove Pink Floyd - The Wall (1982) (ID 1347) | Drama|Musical|War
+      Score drop: +0.0201 | Rank: 10->10 (= 0) | Attr: 0.1794
+
+  -- Rank 10 | Random removals --
+    Remove Schindler's List (1993) (ID 23) | Drama|War
+      Score drop: +0.0048 | Rank: 10->10 (= 0)
+    Remove Mad Max 2 (a.k.a. The Road Warrior) (1981) (ID 664) | Action|Sci-Fi
+      Score drop: +0.0115 | Rank: 10->10 (= 0)
+    Remove Lethal Weapon (1987) (ID 711) | Action|Comedy|Crime|Drama
+      Score drop: +0.0092 | Rank: 10->11 (down 1)
+    Remove Star Wars: Episode IV - A New Hope (1977) (ID 44) | Action|Adventure|Fantasy|Sci-Fi
+      Score drop: +0.0048 | Rank: 10->11 (down 1)
+    Remove Nightmare on Elm Street, A (1984) (ID 1179) | Horror
+      Score drop: +0.0116 | Rank: 10->10 (= 0)
+
+  -- Rank 20 | Attributed removals --
+    Remove Nobody's Fool (1994) (ID 1969) | Drama
+      Score drop: +0.0342 | Rank: 20->22 (down 2) | Attr: 0.2665
+    Remove Cutting Edge, The (1992) (ID 548) | Drama
+      Score drop: +0.0361 | Rank: 20->22 (down 2) | Attr: 0.2554
+    Remove Mission, The (1986) (ID 2425) | Drama
+      Score drop: +0.0252 | Rank: 20->22 (down 2) | Attr: 0.2001
+    Remove In the Name of the Father (1993) (ID 1096) | Drama
+      Score drop: +0.0309 | Rank: 20->22 (down 2) | Attr: 0.1955
+    Remove Grand Canyon (1991) (ID 1998) | Crime|Drama
+      Score drop: +0.0245 | Rank: 20->21 (down 1) | Attr: 0.1908
+
+  -- Rank 20 | Random removals --
+    Remove Batman (1989) (ID 587) | Action|Adventure|Crime|Drama
+      Score drop: +0.0073 | Rank: 20->21 (down 1)
+    Remove Usual Suspects, The (1995) (ID 259) | Crime|Thriller
+      Score drop: +0.0103 | Rank: 20->22 (down 2)
+    Remove Unforgiven (1992) (ID 194) | Western
+      Score drop: +0.0177 | Rank: 20->21 (down 1)
+    Remove Jackie Brown (1997) (ID 324) | Crime|Drama
+      Score drop: +0.0174 | Rank: 20->21 (down 1)
+    Remove Blues Brothers, The (1980) (ID 755) | Action|Comedy|Musical
+      Score drop: +0.0039 | Rank: 20->21 (down 1)
+
+============================================================
+User 4941
+  Rank  1: Close Encounters of the Third Kind (1977) (ID 96) | Drama|Sci-Fi  [score=11.0552]
+  Rank  5: Star Trek: First Contact (1996) (ID 528) | Action|Adventure|Sci-Fi  [score=9.4179]
+  Rank 10: Godfather, The (1972) (ID 669) | Action|Crime|Drama  [score=8.8076]
+  Rank 20: Boat, The (Das Boot) (1981) (ID 546) | Action|Drama|War  [score=8.1903]
+
+  -- Rank 1 | Attributed removals --
+    Remove Christmas Carol, A (1938) (ID 2130) | Drama
+      Score drop: +0.0252 | Rank: 1->1 (= 0) | Attr: 0.1802
+    Remove Mighty Joe Young (1949) (ID 1700) | Adventure|Children's|Drama
+      Score drop: +0.0183 | Rank: 1->1 (= 0) | Attr: 0.1777
+    Remove Rapture, The (1991) (ID 2230) | Drama|Mystery
+      Score drop: +0.0202 | Rank: 1->1 (= 0) | Attr: 0.1728
+    Remove Old Man and the Sea, The (1958) (ID 1478) | Adventure|Drama
+      Score drop: +0.0192 | Rank: 1->1 (= 0) | Attr: 0.1662
+    Remove Brother from Another Planet, The (1984) (ID 973) | Drama|Sci-Fi
+      Score drop: +0.0227 | Rank: 1->1 (= 0) | Attr: 0.1514
+
+  -- Rank 1 | Random removals --
+    Remove Day the Earth Stood Still, The (1951) (ID 77) | Drama|Sci-Fi
+      Score drop: +0.0219 | Rank: 1->1 (= 0)
+    Remove Net, The (1995) (ID 1190) | Sci-Fi|Thriller
+      Score drop: +0.0137 | Rank: 1->1 (= 0)
+    Remove Independence Day (ID4) (1996) (ID 160) | Action|Sci-Fi|War
+      Score drop: +0.0064 | Rank: 1->1 (= 0)
+    Remove Spanish Prisoner, The (1997) (ID 95) | Drama|Thriller
+      Score drop: +0.0083 | Rank: 1->1 (= 0)
+    Remove Mission to Mars (2000) (ID 860) | Sci-Fi
+      Score drop: +0.0105 | Rank: 1->1 (= 0)
+
+  -- Rank 5 | Attributed removals --
+    Remove Robocop 3 (1993) (ID 1978) | Sci-Fi|Thriller
+      Score drop: +0.0291 | Rank: 5->5 (= 0) | Attr: 0.2069
+    Remove FairyTale: A True Story (1997) (ID 749) | Children's|Drama|Fantasy
+      Score drop: +0.0289 | Rank: 5->5 (= 0) | Attr: 0.1812
+    Remove Saturn 3 (1979) (ID 1975) | Adventure|Sci-Fi|Thriller
+      Score drop: +0.0229 | Rank: 5->5 (= 0) | Attr: 0.1735
+    Remove Rocketship X-M (1950) (ID 1725) | Sci-Fi
+      Score drop: +0.0168 | Rank: 5->5 (= 0) | Attr: 0.1649
+    Remove Superman IV: The Quest for Peace (1987) (ID 934) | Action|Adventure|Sci-Fi
+      Score drop: +0.0231 | Rank: 5->5 (= 0) | Attr: 0.1620
+
+  -- Rank 5 | Random removals --
+    Remove Star Wars: Episode V - The Empire Strikes Back (1980) (ID 124) | Action|Adventure|Drama|Sci-Fi|War
+      Score drop: +0.0054 | Rank: 5->6 (down 1)
+    Remove Sneakers (1992) (ID 896) | Crime|Drama|Sci-Fi
+      Score drop: +0.0159 | Rank: 5->5 (= 0)
+    Remove Halloween (1978) (ID 868) | Horror
+      Score drop: +0.0023 | Rank: 5->5 (= 0)
+    Remove Conquest of the Planet of the Apes (1972) (ID 1837) | Action|Sci-Fi
+      Score drop: +0.0205 | Rank: 5->5 (= 0)
+    Remove Aladdin (1992) (ID 33) | Animation|Children's|Comedy|Musical
+      Score drop: +0.0066 | Rank: 5->5 (= 0)
+
+  -- Rank 10 | Attributed removals --
+    Remove Christmas Carol, A (1938) (ID 2130) | Drama
+      Score drop: +0.0244 | Rank: 10->10 (= 0) | Attr: 0.2669
+    Remove Rapture, The (1991) (ID 2230) | Drama|Mystery
+      Score drop: +0.0150 | Rank: 10->10 (= 0) | Attr: 0.2307
+    Remove Old Man and the Sea, The (1958) (ID 1478) | Adventure|Drama
+      Score drop: +0.0197 | Rank: 10->10 (= 0) | Attr: 0.2283
+    Remove Mighty Joe Young (1949) (ID 1700) | Adventure|Children's|Drama
+      Score drop: +0.0157 | Rank: 10->10 (= 0) | Attr: 0.2206
+    Remove Magnum Force (1973) (ID 407) | Western
+      Score drop: +0.0192 | Rank: 10->10 (= 0) | Attr: 0.2136
+
+  -- Rank 10 | Random removals --
+    Remove Bull Durham (1988) (ID 1298) | Comedy
+      Score drop: +0.0106 | Rank: 10->10 (= 0)
+    Remove Pale Rider (1985) (ID 1832) | Western
+      Score drop: +0.0126 | Rank: 10->10 (= 0)
+    Remove Spawn (1997) (ID 1103) | Action|Adventure|Sci-Fi|Thriller
+      Score drop: +0.0018 | Rank: 10->10 (= 0)
+    Remove Planet of the Apes (1968) (ID 748) | Action|Sci-Fi
+      Score drop: +0.0100 | Rank: 10->11 (down 1)
+    Remove Grifters, The (1990) (ID 945) | Crime|Drama|Film-Noir
+      Score drop: +0.0109 | Rank: 10->10 (= 0)
+
+  -- Rank 20 | Attributed removals --
+    Remove Rapture, The (1991) (ID 2230) | Drama|Mystery
+      Score drop: +0.0224 | Rank: 20->20 (= 0) | Attr: 0.1781
+    Remove Old Man and the Sea, The (1958) (ID 1478) | Adventure|Drama
+      Score drop: +0.0200 | Rank: 20->20 (= 0) | Attr: 0.1700
+    Remove Magnum Force (1973) (ID 407) | Western
+      Score drop: +0.0195 | Rank: 20->20 (= 0) | Attr: 0.1440
+    Remove Christmas Carol, A (1938) (ID 2130) | Drama
+      Score drop: +0.0123 | Rank: 20->20 (= 0) | Attr: 0.1337
+    Remove Candidate, The (1972) (ID 2126) | Drama
+      Score drop: +0.0142 | Rank: 20->20 (= 0) | Attr: 0.1300
+
+  -- Rank 20 | Random removals --
+    Remove Groundhog Day (1993) (ID 116) | Comedy|Romance
+      Score drop: +0.0044 | Rank: 20->20 (= 0)
+    Remove Day the Earth Stood Still, The (1951) (ID 77) | Drama|Sci-Fi
+      Score drop: +0.0102 | Rank: 20->21 (down 1)
+    Remove African Queen, The (1951) (ID 719) | Action|Adventure|Romance|War
+      Score drop: +0.0116 | Rank: 20->20 (= 0)
+    Remove Alice in Wonderland (1951) (ID 682) | Animation|Children's|Musical
+      Score drop: -0.0017 | Rank: 20->20 (= 0)
+    Remove Star Trek: The Motion Picture (1979) (ID 641) | Action|Adventure|Sci-Fi
+      Score drop: +0.0071 | Rank: 20->21 (down 1)
+
+============================================================
+User 4667
+  Rank  1: Star Trek: The Wrath of Khan (1982) (ID 643) | Action|Adventure|Sci-Fi  [score=9.1803]
+  Rank  5: Jurassic Park (1993) (ID 113) | Action|Adventure|Sci-Fi  [score=8.7682]
+  Rank 10: Raiders of the Lost Ark (1981) (ID 127) | Action|Adventure  [score=8.3648]
+  Rank 20: Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb (1963) (ID 611) | Sci-Fi|War  [score=7.9099]
+
+  -- Rank 1 | Attributed removals --
+    Remove Rambo III (1988) (ID 1073) | Action|War
+      Score drop: +0.0445 | Rank: 1->1 (= 0) | Attr: 0.3537
+    Remove Star Wars: Episode IV - A New Hope (1977) (ID 44) | Action|Adventure|Fantasy|Sci-Fi
+      Score drop: +0.0126 | Rank: 1->2 (down 1) | Attr: -0.2698
+    Remove Star Wars: Episode VI - Return of the Jedi (1983) (ID 64) | Action|Adventure|Romance|Sci-Fi|War
+      Score drop: +0.0162 | Rank: 1->2 (down 1) | Attr: -0.2322
+    Remove Star Wars: Episode V - The Empire Strikes Back (1980) (ID 124) | Action|Adventure|Drama|Sci-Fi|War
+      Score drop: +0.0132 | Rank: 1->2 (down 1) | Attr: -0.2307
+    Remove War of the Worlds, The (1953) (ID 615) | Action|Sci-Fi|War
+      Score drop: +0.0533 | Rank: 1->1 (= 0) | Attr: 0.2199
+
+  -- Rank 1 | Random removals --
+    Remove Planet of the Apes (1968) (ID 748) | Action|Sci-Fi
+      Score drop: +0.0352 | Rank: 1->1 (= 0)
+    Remove Men in Black (1997) (ID 189) | Action|Adventure|Comedy|Sci-Fi
+      Score drop: +0.0136 | Rank: 1->1 (= 0)
+    Remove Terminator 2: Judgment Day (1991) (ID 97) | Action|Sci-Fi|Thriller
+      Score drop: +0.0135 | Rank: 1->1 (= 0)
+    Remove Alien (1979) (ID 209) | Action|Horror|Sci-Fi|Thriller
+      Score drop: +0.0189 | Rank: 1->1 (= 0)
+    Remove Star Wars: Episode I - The Phantom Menace (1999) (ID 60) | Action|Adventure|Fantasy|Sci-Fi
+      Score drop: +0.0211 | Rank: 1->1 (= 0)
+
+  -- Rank 5 | Attributed removals --
+    Remove Star Wars: Episode IV - A New Hope (1977) (ID 44) | Action|Adventure|Fantasy|Sci-Fi
+      Score drop: +0.0196 | Rank: 5->6 (down 1) | Attr: -0.4377
+    Remove Star Wars: Episode VI - Return of the Jedi (1983) (ID 64) | Action|Adventure|Romance|Sci-Fi|War
+      Score drop: +0.0218 | Rank: 5->6 (down 1) | Attr: -0.4153
+    Remove Rambo III (1988) (ID 1073) | Action|War
+      Score drop: +0.0340 | Rank: 5->5 (= 0) | Attr: 0.4043
+    Remove Star Wars: Episode V - The Empire Strikes Back (1980) (ID 124) | Action|Adventure|Drama|Sci-Fi|War
+      Score drop: +0.0191 | Rank: 5->6 (down 1) | Attr: -0.3773
+    Remove Terminator 2: Judgment Day (1991) (ID 97) | Action|Sci-Fi|Thriller
+      Score drop: +0.0303 | Rank: 5->6 (down 1) | Attr: -0.3572
+
+  -- Rank 5 | Random removals --
+    Remove 2001: A Space Odyssey (1968) (ID 662) | Drama|Mystery|Sci-Fi|Thriller
+      Score drop: +0.0277 | Rank: 5->6 (down 1)
+    Remove Star Trek IV: The Voyage Home (1986) (ID 646) | Action|Adventure|Sci-Fi
+      Score drop: +0.0376 | Rank: 5->6 (down 1)
+    Remove Alien (1979) (ID 209) | Action|Horror|Sci-Fi|Thriller
+      Score drop: +0.0277 | Rank: 5->6 (down 1)
+    Remove Brazil (1985) (ID 1241) | Sci-Fi
+      Score drop: +0.0344 | Rank: 5->5 (= 0)
+    Remove Mad Max (1979) (ID 211) | Action|Sci-Fi
+      Score drop: +0.0377 | Rank: 5->5 (= 0)
+
+  -- Rank 10 | Attributed removals --
+    Remove Star Wars: Episode IV - A New Hope (1977) (ID 44) | Action|Adventure|Fantasy|Sci-Fi
+      Score drop: +0.0229 | Rank: 10->11 (down 1) | Attr: -0.4250
+    Remove Rambo III (1988) (ID 1073) | Action|War
+      Score drop: +0.0377 | Rank: 10->10 (= 0) | Attr: 0.4181
+    Remove Star Wars: Episode VI - Return of the Jedi (1983) (ID 64) | Action|Adventure|Romance|Sci-Fi|War
+      Score drop: +0.0244 | Rank: 10->11 (down 1) | Attr: -0.3887
+    Remove Star Wars: Episode V - The Empire Strikes Back (1980) (ID 124) | Action|Adventure|Drama|Sci-Fi|War
+      Score drop: +0.0245 | Rank: 10->11 (down 1) | Attr: -0.3612
+    Remove Terminator 2: Judgment Day (1991) (ID 97) | Action|Sci-Fi|Thriller
+      Score drop: +0.0216 | Rank: 10->11 (down 1) | Attr: -0.3428
+
+  -- Rank 10 | Random removals --
+    Remove Great Escape, The (1963) (ID 839) | Adventure|War
+      Score drop: +0.0481 | Rank: 10->11 (down 1)
+    Remove Star Trek: First Contact (1996) (ID 528) | Action|Adventure|Sci-Fi
+      Score drop: +0.0263 | Rank: 10->11 (down 1)
+    Remove Blade Runner (1982) (ID 743) | Film-Noir|Sci-Fi
+      Score drop: +0.0289 | Rank: 10->11 (down 1)
+    Remove Men in Black (1997) (ID 189) | Action|Adventure|Comedy|Sci-Fi
+      Score drop: +0.0160 | Rank: 10->11 (down 1)
+    Remove 2001: A Space Odyssey (1968) (ID 662) | Drama|Mystery|Sci-Fi|Thriller
+      Score drop: +0.0243 | Rank: 10->11 (down 1)
+
+  -- Rank 20 | Attributed removals --
+    Remove Day the Earth Stood Still, The (1951) (ID 77) | Drama|Sci-Fi
+      Score drop: +0.0666 | Rank: 20->21 (down 1) | Attr: 0.2582
+    Remove Star Wars: Episode IV - A New Hope (1977) (ID 44) | Action|Adventure|Fantasy|Sci-Fi
+      Score drop: +0.0165 | Rank: 20->21 (down 1) | Attr: -0.2416
+    Remove Star Wars: Episode V - The Empire Strikes Back (1980) (ID 124) | Action|Adventure|Drama|Sci-Fi|War
+      Score drop: +0.0159 | Rank: 20->21 (down 1) | Attr: -0.2091
+    Remove Star Wars: Episode VI - Return of the Jedi (1983) (ID 64) | Action|Adventure|Romance|Sci-Fi|War
+      Score drop: +0.0137 | Rank: 20->21 (down 1) | Attr: -0.2090
+    Remove War of the Worlds, The (1953) (ID 615) | Action|Sci-Fi|War
+      Score drop: +0.0527 | Rank: 20->20 (= 0) | Attr: 0.2009
+
+  -- Rank 20 | Random removals --
+    Remove Alien (1979) (ID 209) | Action|Horror|Sci-Fi|Thriller
+      Score drop: +0.0246 | Rank: 20->21 (down 1)
+    Remove Rambo III (1988) (ID 1073) | Action|War
+      Score drop: +0.0051 | Rank: 20->19 (up 1)
+    Remove Back to the Future Part II (1989) (ID 737) | Comedy|Sci-Fi
+      Score drop: +0.0262 | Rank: 20->20 (= 0)
+    Remove Terminator, The (1984) (ID 217) | Action|Sci-Fi|Thriller
+      Score drop: +0.0209 | Rank: 20->21 (down 1)
+    Remove Thing, The (1982) (ID 990) | Action|Horror|Sci-Fi|Thriller
+      Score drop: +0.0277 | Rank: 20->20 (= 0)
+
+============================================================
+User 2906
+  Rank  1: Home Alone 2: Lost in New York (1992) (ID 1091) | Children's|Comedy  [score=6.7495]
+  Rank  5: Dick Tracy (1990) (ID 836) | Action|Crime  [score=6.1654]
+  Rank 10: Coneheads (1993) (ID 683) | Comedy|Sci-Fi  [score=5.8183]
+  Rank 20: Airplane! (1980) (ID 15) | Comedy  [score=5.4445]
+
+  -- Rank 1 | Attributed removals --
+    Remove Getting Even with Dad (1994) (ID 2558) | Comedy
+      Score drop: +0.0284 | Rank: 1->1 (= 0) | Attr: 0.1044
+    Remove Clean Slate (1994) (ID 2846) | Comedy
+      Score drop: +0.0244 | Rank: 1->1 (= 0) | Attr: 0.0858
+    Remove Gone Fishin' (1997) (ID 2543) | Comedy
+      Score drop: +0.0233 | Rank: 1->1 (= 0) | Attr: 0.0821
+    Remove Larger Than Life (1996) (ID 830) | Comedy
+      Score drop: +0.0233 | Rank: 1->1 (= 0) | Attr: 0.0820
+    Remove My Boyfriend's Back (1993) (ID 2747) | Comedy
+      Score drop: +0.0204 | Rank: 1->1 (= 0) | Attr: 0.0818
+
+  -- Rank 1 | Random removals --
+    Remove Good Will Hunting (1997) (ID 280) | Drama
+      Score drop: +0.0011 | Rank: 1->1 (= 0)
+    Remove Batman (1989) (ID 587) | Action|Adventure|Crime|Drama
+      Score drop: +0.0007 | Rank: 1->1 (= 0)
+    Remove Ghostbusters (1984) (ID 273) | Comedy|Horror
+      Score drop: -0.0004 | Rank: 1->1 (= 0)
+    Remove Better Off Dead... (1985) (ID 563) | Comedy
+      Score drop: +0.0006 | Rank: 1->1 (= 0)
+    Remove Ruthless People (1986) (ID 1433) | Comedy
+      Score drop: +0.0018 | Rank: 1->1 (= 0)
+
+  -- Rank 5 | Attributed removals --
+    Remove Cobra (1925) (ID 3611) | Drama
+      Score drop: -0.1044 | Rank: 5->6 (down 1) | Attr: -0.0788
+    Remove Mummy's Curse, The (1944) (ID 2369) | Horror
+      Score drop: -0.0224 | Rank: 5->5 (= 0) | Attr: -0.0273
+    Remove Fire Down Below (1997) (ID 2780) | Action|Drama|Thriller
+      Score drop: +0.0126 | Rank: 5->5 (= 0) | Attr: 0.0208
+    Remove Clean Slate (1994) (ID 2846) | Comedy
+      Score drop: +0.0061 | Rank: 5->5 (= 0) | Attr: 0.0203
+    Remove I Love Trouble (1994) (ID 1861) | Action|Comedy
+      Score drop: +0.0146 | Rank: 5->5 (= 0) | Attr: 0.0199
+
+  -- Rank 5 | Random removals --
+    Remove Meatballs (1979) (ID 1351) | Comedy
+      Score drop: +0.0067 | Rank: 5->5 (= 0)
+    Remove Pest, The (1997) (ID 2635) | Comedy
+      Score drop: -0.0052 | Rank: 5->5 (= 0)
+    Remove Spellbound (1945) (ID 1561) | Mystery|Romance|Thriller
+      Score drop: +0.0012 | Rank: 5->5 (= 0)
+    Remove Invasion of the Body Snatchers (1956) (ID 964) | Horror|Sci-Fi
+      Score drop: -0.0001 | Rank: 5->5 (= 0)
+    Remove Midnight Express (1978) (ID 1557) | Drama
+      Score drop: +0.0021 | Rank: 5->5 (= 0)
+
+  -- Rank 10 | Attributed removals --
+    Remove Cobra (1925) (ID 3611) | Drama
+      Score drop: -0.0840 | Rank: 10->10 (= 0) | Attr: -0.0402
+    Remove Clean Slate (1994) (ID 2846) | Comedy
+      Score drop: +0.0115 | Rank: 10->10 (= 0) | Attr: 0.0266
+    Remove Mr. Wrong (1996) (ID 2878) | Comedy
+      Score drop: +0.0163 | Rank: 10->10 (= 0) | Attr: 0.0261
+    Remove My Boyfriend's Back (1993) (ID 2747) | Comedy
+      Score drop: +0.0073 | Rank: 10->10 (= 0) | Attr: 0.0238
+    Remove Spy Hard (1996) (ID 598) | Comedy
+      Score drop: +0.0157 | Rank: 10->10 (= 0) | Attr: 0.0204
+
+  -- Rank 10 | Random removals --
+    Remove Arrival, The (1996) (ID 879) | Action|Sci-Fi|Thriller
+      Score drop: +0.0112 | Rank: 10->10 (= 0)
+    Remove Mystery, Alaska (1999) (ID 2847) | Comedy
+      Score drop: +0.0055 | Rank: 10->10 (= 0)
+    Remove Death Wish II (1982) (ID 2545) | Action|Drama
+      Score drop: -0.0030 | Rank: 10->10 (= 0)
+    Remove Out of Sight (1998) (ID 272) | Action|Crime|Romance
+      Score drop: -0.0010 | Rank: 10->10 (= 0)
+    Remove In the Army Now (1994) (ID 1223) | Comedy|War
+      Score drop: +0.0110 | Rank: 10->10 (= 0)
+
+  -- Rank 20 | Attributed removals --
+    Remove Cobra (1925) (ID 3611) | Drama
+      Score drop: -0.1673 | Rank: 20->18 (up 2) | Attr: -0.1003
+    Remove Quest, The (1996) (ID 2178) | Action|Adventure
+      Score drop: -0.0307 | Rank: 20->19 (up 1) | Attr: -0.0282
+    Remove Death Wish V: The Face of Death (1994) (ID 2548) | Action|Drama
+      Score drop: -0.0371 | Rank: 20->19 (up 1) | Attr: -0.0265
+    Remove Mummy's Curse, The (1944) (ID 2369) | Horror
+      Score drop: -0.0223 | Rank: 20->20 (= 0) | Attr: -0.0254
+    Remove Alaska (1996) (ID 2538) | Adventure|Children's
+      Score drop: -0.0198 | Rank: 20->20 (= 0) | Attr: -0.0222
+
+  -- Rank 20 | Random removals --
+    Remove Judge Dredd (1995) (ID 1184) | Action|Adventure|Sci-Fi
+      Score drop: +0.0003 | Rank: 20->20 (= 0)
+    Remove Independence Day (ID4) (1996) (ID 160) | Action|Sci-Fi|War
+      Score drop: +0.0019 | Rank: 20->21 (down 1)
+    Remove Maverick (1994) (ID 83) | Action|Comedy|Western
+      Score drop: +0.0050 | Rank: 20->21 (down 1)
+    Remove Unforgiven (1992) (ID 194) | Western
+      Score drop: +0.0067 | Rank: 20->20 (= 0)
+    Remove Gattaca (1997) (ID 322) | Drama|Sci-Fi|Thriller
+      Score drop: +0.0037 | Rank: 20->20 (= 0)
+
+============================================================
+User 2375
+  Rank  1: Good Will Hunting (1997) (ID 280) | Drama  [score=9.3217]
+  Rank  5: Leaving Las Vegas (1995) (ID 504) | Drama|Romance  [score=8.0866]
+  Rank 10: Cape Fear (1991) (ID 523) | Thriller  [score=7.5453]
+  Rank 20: Fight Club (1999) (ID 317) | Drama  [score=7.1594]
+
+  -- Rank 1 | Attributed removals --
+    Remove Beyond Rangoon (1995) (ID 1609) | Drama|War
+      Score drop: +0.0255 | Rank: 1->1 (= 0) | Attr: 0.2305
+    Remove Family Thing, A (1996) (ID 2825) | Comedy|Drama
+      Score drop: +0.0218 | Rank: 1->1 (= 0) | Attr: 0.2165
+    Remove Little Buddha (1993) (ID 1974) | Drama
+      Score drop: +0.0201 | Rank: 1->1 (= 0) | Attr: 0.2158
+    Remove He Got Game (1998) (ID 456) | Drama
+      Score drop: +0.0237 | Rank: 1->1 (= 0) | Attr: 0.2065
+    Remove Nixon (1995) (ID 490) | Drama
+      Score drop: +0.0232 | Rank: 1->1 (= 0) | Attr: 0.2051
+
+  -- Rank 1 | Random removals --
+    Remove Apartment, The (1960) (ID 1764) | Comedy|Drama
+      Score drop: +0.0038 | Rank: 1->1 (= 0)
+    Remove World Is Not Enough, The (1999) (ID 1145) | Action|Thriller
+      Score drop: +0.0044 | Rank: 1->1 (= 0)
+    Remove 2 Days in the Valley (1996) (ID 835) | Crime
+      Score drop: +0.0090 | Rank: 1->1 (= 0)
+    Remove Godfather: Part II, The (1974) (ID 434) | Action|Crime|Drama
+      Score drop: +0.0045 | Rank: 1->1 (= 0)
+    Remove Mr. Mom (1983) (ID 695) | Comedy|Drama
+      Score drop: +0.0016 | Rank: 1->1 (= 0)
+
+  -- Rank 5 | Attributed removals --
+    Remove Beyond Rangoon (1995) (ID 1609) | Drama|War
+      Score drop: +0.0223 | Rank: 5->5 (= 0) | Attr: 0.1732
+    Remove Nixon (1995) (ID 490) | Drama
+      Score drop: +0.0196 | Rank: 5->5 (= 0) | Attr: 0.1477
+    Remove Stealing Beauty (1996) (ID 2475) | Drama
+      Score drop: +0.0183 | Rank: 5->5 (= 0) | Attr: 0.1406
+    Remove Michael Collins (1996) (ID 1838) | Drama|War
+      Score drop: +0.0191 | Rank: 5->5 (= 0) | Attr: 0.1398
+    Remove He Got Game (1998) (ID 456) | Drama
+      Score drop: +0.0196 | Rank: 5->5 (= 0) | Attr: 0.1397
+
+  -- Rank 5 | Random removals --
+    Remove Fargo (1996) (ID 51) | Crime|Drama|Thriller
+      Score drop: +0.0042 | Rank: 5->6 (down 1)
+    Remove Natural, The (1984) (ID 1405) | Drama
+      Score drop: +0.0086 | Rank: 5->5 (= 0)
+    Remove With Honors (1994) (ID 1398) | Comedy|Drama
+      Score drop: +0.0069 | Rank: 5->5 (= 0)
+    Remove Dangerous Minds (1995) (ID 2743) | Drama
+      Score drop: +0.0078 | Rank: 5->5 (= 0)
+    Remove Godfather: Part III, The (1990) (ID 489) | Action|Crime|Drama
+      Score drop: +0.0085 | Rank: 5->5 (= 0)
+
+  -- Rank 10 | Attributed removals --
+    Remove Beyond Rangoon (1995) (ID 1609) | Drama|War
+      Score drop: +0.0177 | Rank: 10->10 (= 0) | Attr: 0.0984
+    Remove True Crime (1995) (ID 2014) | Mystery|Thriller
+      Score drop: +0.0225 | Rank: 10->10 (= 0) | Attr: 0.0975
+    Remove Poison Ivy (1992) (ID 1373) | Thriller
+      Score drop: +0.0181 | Rank: 10->11 (down 1) | Attr: 0.0935
+    Remove Nixon (1995) (ID 490) | Drama
+      Score drop: +0.0155 | Rank: 10->10 (= 0) | Attr: 0.0898
+    Remove Fan, The (1996) (ID 2082) | Thriller
+      Score drop: +0.0164 | Rank: 10->10 (= 0) | Attr: 0.0897
+
+  -- Rank 10 | Random removals --
+    Remove Sleepers (1996) (ID 1577) | Crime|Drama
+      Score drop: +0.0143 | Rank: 10->10 (= 0)
+    Remove American President, The (1995) (ID 1256) | Comedy|Drama|Romance
+      Score drop: +0.0039 | Rank: 10->10 (= 0)
+    Remove Fried Green Tomatoes (1991) (ID 593) | Drama
+      Score drop: +0.0078 | Rank: 10->11 (down 1)
+    Remove Miracle on 34th Street (1947) (ID 12) | Drama
+      Score drop: +0.0066 | Rank: 10->10 (= 0)
+    Remove 2 Days in the Valley (1996) (ID 835) | Crime
+      Score drop: +0.0146 | Rank: 10->10 (= 0)
+
+  -- Rank 20 | Attributed removals --
+    Remove Titus (1999) (ID 2802) | Drama
+      Score drop: +0.0276 | Rank: 20->20 (= 0) | Attr: 0.2183
+    Remove Under Suspicion (2000) (ID 2583) | Crime
+      Score drop: +0.0094 | Rank: 20->20 (= 0) | Attr: 0.1818
+    Remove Priest (1994) (ID 248) | Drama
+      Score drop: +0.0237 | Rank: 20->20 (= 0) | Attr: 0.1817
+    Remove Following (1998) (ID 2715) | Drama
+      Score drop: +0.0156 | Rank: 20->20 (= 0) | Attr: 0.1769
+    Remove Beyond Rangoon (1995) (ID 1609) | Drama|War
+      Score drop: +0.0167 | Rank: 20->20 (= 0) | Attr: 0.1710
+
+  -- Rank 20 | Random removals --
+    Remove One True Thing (1998) (ID 902) | Drama
+      Score drop: +0.0038 | Rank: 20->20 (= 0)
+    Remove Gandhi (1982) (ID 87) | Drama
+      Score drop: +0.0055 | Rank: 20->20 (= 0)
+    Remove GoldenEye (1995) (ID 843) | Action|Adventure|Thriller
+      Score drop: +0.0035 | Rank: 20->20 (= 0)
+    Remove Name of the Rose, The (1986) (ID 1583) | Mystery
+      Score drop: +0.0070 | Rank: 20->20 (= 0)
+    Remove Little Buddha (1993) (ID 1974) | Drama
+      Score drop: +0.0063 | Rank: 20->20 (= 0)
+
+============================================================
+User 3823
+  Rank  1: Predator (1987) (ID 214) | Action|Sci-Fi|Thriller  [score=6.3701]
+  Rank  5: Blues Brothers, The (1980) (ID 755) | Action|Comedy|Musical  [score=6.0237]
+  Rank 10: Mad Max (1979) (ID 211) | Action|Sci-Fi  [score=5.6212]
+  Rank 20: Full Metal Jacket (1987) (ID 1228) | Action|Drama|War  [score=5.2635]
+
+  -- Rank 1 | Attributed removals --
+    Remove Anatomy (Anatomie) (2000) (ID 3157) | Horror
+      Score drop: -0.0546 | Rank: 1->1 (= 0) | Attr: -0.0481
+    Remove Violets Are Blue... (1986) (ID 1780) | Drama|Romance
+      Score drop: -0.0596 | Rank: 1->1 (= 0) | Attr: -0.0319
+    Remove Stag (1997) (ID 3351) | Action|Thriller
+      Score drop: -0.0782 | Rank: 1->1 (= 0) | Attr: -0.0278
+    Remove Wanted: Dead or Alive (1987) (ID 3278) | Action
+      Score drop: +0.0001 | Rank: 1->1 (= 0) | Attr: 0.0230
+    Remove Wisdom (1986) (ID 2410) | Action|Crime
+      Score drop: +0.0085 | Rank: 1->1 (= 0) | Attr: 0.0228
+
+  -- Rank 1 | Random removals --
+    Remove Star Trek: First Contact (1996) (ID 528) | Action|Adventure|Sci-Fi
+      Score drop: +0.0071 | Rank: 1->1 (= 0)
+    Remove Christine (1983) (ID 1925) | Horror
+      Score drop: +0.0071 | Rank: 1->1 (= 0)
+    Remove Karate Kid, The (1984) (ID 1393) | Drama
+      Score drop: +0.0050 | Rank: 1->1 (= 0)
+    Remove Cable Guy, The (1996) (ID 668) | Comedy
+      Score drop: +0.0024 | Rank: 1->1 (= 0)
+    Remove Full Monty, The (1997) (ID 176) | Comedy
+      Score drop: +0.0015 | Rank: 1->1 (= 0)
+
+  -- Rank 5 | Attributed removals --
+    Remove Stag (1997) (ID 3351) | Action|Thriller
+      Score drop: -0.1083 | Rank: 5->5 (= 0) | Attr: -0.0725
+    Remove Anatomy (Anatomie) (2000) (ID 3157) | Horror
+      Score drop: -0.0657 | Rank: 5->5 (= 0) | Attr: -0.0646
+    Remove Prince Valiant (1997) (ID 3454) | Adventure
+      Score drop: -0.0641 | Rank: 5->5 (= 0) | Attr: -0.0549
+    Remove Kindred, The (1986) (ID 2972) | Horror
+      Score drop: -0.0488 | Rank: 5->5 (= 0) | Attr: -0.0503
+    Remove Taffin (1988) (ID 3323) | Action|Thriller
+      Score drop: -0.0763 | Rank: 5->5 (= 0) | Attr: -0.0503
+
+  -- Rank 5 | Random removals --
+    Remove Bram Stoker's Dracula (1992) (ID 584) | Horror|Romance
+      Score drop: +0.0039 | Rank: 5->5 (= 0)
+    Remove Halloween (1978) (ID 868) | Horror
+      Score drop: +0.0055 | Rank: 5->5 (= 0)
+    Remove Sabotage (1936) (ID 2303) | Thriller
+      Score drop: -0.0055 | Rank: 5->5 (= 0)
+    Remove Basic Instinct (1992) (ID 925) | Mystery|Thriller
+      Score drop: +0.0059 | Rank: 5->5 (= 0)
+    Remove Ben-Hur (1959) (ID 6) | Action|Adventure|Drama
+      Score drop: +0.0074 | Rank: 5->5 (= 0)
+
+  -- Rank 10 | Attributed removals --
+    Remove Anatomy (Anatomie) (2000) (ID 3157) | Horror
+      Score drop: -0.0695 | Rank: 10->10 (= 0) | Attr: -0.0477
+    Remove Stag (1997) (ID 3351) | Action|Thriller
+      Score drop: -0.0873 | Rank: 10->10 (= 0) | Attr: -0.0449
+    Remove Violets Are Blue... (1986) (ID 1780) | Drama|Romance
+      Score drop: -0.0633 | Rank: 10->10 (= 0) | Attr: -0.0322
+    Remove It Came from Beneath the Sea (1955) (ID 963) | Sci-Fi
+      Score drop: +0.0063 | Rank: 10->10 (= 0) | Attr: 0.0234
+    Remove Saturn 3 (1979) (ID 1975) | Adventure|Sci-Fi|Thriller
+      Score drop: +0.0129 | Rank: 10->10 (= 0) | Attr: 0.0216
+
+  -- Rank 10 | Random removals --
+    Remove Breakdown (1997) (ID 1711) | Action|Thriller
+      Score drop: +0.0055 | Rank: 10->10 (= 0)
+    Remove Six Days Seven Nights (1998) (ID 1685) | Adventure|Comedy|Romance
+      Score drop: +0.0023 | Rank: 10->10 (= 0)
+    Remove Meet the Parents (2000) (ID 517) | Comedy
+      Score drop: +0.0008 | Rank: 10->10 (= 0)
+    Remove Avengers, The (1998) (ID 1044) | Action|Adventure
+      Score drop: +0.0070 | Rank: 10->10 (= 0)
+    Remove Jawbreaker (1999) (ID 1886) | Comedy
+      Score drop: -0.0032 | Rank: 10->10 (= 0)
+
+  -- Rank 20 | Attributed removals --
+    Remove Stag (1997) (ID 3351) | Action|Thriller
+      Score drop: -0.0905 | Rank: 20->21 (down 1) | Attr: -0.0471
+    Remove Anatomy (Anatomie) (2000) (ID 3157) | Horror
+      Score drop: -0.0473 | Rank: 20->21 (down 1) | Attr: -0.0400
+    Remove Prince Valiant (1997) (ID 3454) | Adventure
+      Score drop: -0.0521 | Rank: 20->21 (down 1) | Attr: -0.0332
+    Remove Kindred, The (1986) (ID 2972) | Horror
+      Score drop: -0.0394 | Rank: 20->21 (down 1) | Attr: -0.0272
+    Remove Violets Are Blue... (1986) (ID 1780) | Drama|Romance
+      Score drop: -0.0631 | Rank: 20->20 (= 0) | Attr: -0.0272
+
+  -- Rank 20 | Random removals --
+    Remove Poseidon Adventure, The (1972) (ID 311) | Action|Adventure
+      Score drop: +0.0050 | Rank: 20->20 (= 0)
+    Remove Bird on a Wire (1990) (ID 1067) | Action|Adventure|Romance|Thriller
+      Score drop: +0.0036 | Rank: 20->20 (= 0)
+    Remove Breakfast Club, The (1985) (ID 168) | Comedy|Drama
+      Score drop: +0.0054 | Rank: 20->20 (= 0)
+    Remove She's Gotta Have It (1986) (ID 1319) | Comedy|Romance
+      Score drop: +0.0062 | Rank: 20->20 (= 0)
+    Remove Carrie (1976) (ID 594) | Horror
+      Score drop: +0.0068 | Rank: 20->20 (= 0)
+
+============================================================
+User 5604
+  Rank  1: Lion King, The (1994) (ID 390) | Animation|Children's|Musical  [score=7.8538]
+  Rank  5: James and the Giant Peach (1996) (ID 1) | Animation|Children's|Musical  [score=6.3183]
+  Rank 10: Pocahontas (1995) (ID 25) | Animation|Children's|Musical|Romance  [score=6.1729]
+  Rank 20: Secret Garden, The (1993) (ID 49) | Children's|Drama  [score=5.6106]
+
+  -- Rank 1 | Attributed removals --
+    Remove Glory Daze (1996) (ID 3455) | Drama
+      Score drop: -0.0616 | Rank: 1->1 (= 0) | Attr: -0.4494
+    Remove Lodger, The (1926) (ID 3207) | Thriller
+      Score drop: -0.0368 | Rank: 1->1 (= 0) | Attr: -0.1908
+    Remove Black Beauty (1994) (ID 846) | Adventure|Children's
+      Score drop: +0.0183 | Rank: 1->1 (= 0) | Attr: 0.1397
+    Remove One Magic Christmas (1985) (ID 2539) | Drama|Fantasy
+      Score drop: +0.0182 | Rank: 1->1 (= 0) | Attr: 0.1326
+    Remove Great Mouse Detective, The (1986) (ID 2289) | Animation|Children's
+      Score drop: +0.0184 | Rank: 1->1 (= 0) | Attr: 0.1264
+
+  -- Rank 1 | Random removals --
+    Remove City of Angels (1998) (ID 1592) | Romance
+      Score drop: +0.0070 | Rank: 1->1 (= 0)
+    Remove Hamlet (1996) (ID 462) | Drama
+      Score drop: +0.0134 | Rank: 1->1 (= 0)
+    Remove Age of Innocence, The (1993) (ID 353) | Drama
+      Score drop: +0.0068 | Rank: 1->1 (= 0)
+    Remove Flubber (1997) (ID 907) | Children's|Comedy|Fantasy
+      Score drop: +0.0127 | Rank: 1->1 (= 0)
+    Remove Crow, The (1994) (ID 375) | Action|Romance|Thriller
+      Score drop: +0.0056 | Rank: 1->1 (= 0)
+
+  -- Rank 5 | Attributed removals --
+    Remove Glory Daze (1996) (ID 3455) | Drama
+      Score drop: -0.0517 | Rank: 5->5 (= 0) | Attr: -0.3455
+    Remove Lodger, The (1926) (ID 3207) | Thriller
+      Score drop: -0.0247 | Rank: 5->5 (= 0) | Attr: -0.1090
+    Remove Phantom of the Opera, The (1943) (ID 2318) | Drama|Thriller
+      Score drop: +0.0226 | Rank: 5->5 (= 0) | Attr: 0.1029
+    Remove One Magic Christmas (1985) (ID 2539) | Drama|Fantasy
+      Score drop: +0.0192 | Rank: 5->5 (= 0) | Attr: 0.0996
+    Remove Black Beauty (1994) (ID 846) | Adventure|Children's
+      Score drop: +0.0159 | Rank: 5->5 (= 0) | Attr: 0.0964
+
+  -- Rank 5 | Random removals --
+    Remove Jungle2Jungle (a.k.a. Jungle 2 Jungle) (1997) (ID 1834) | Children's|Comedy
+      Score drop: +0.0018 | Rank: 5->5 (= 0)
+    Remove Flintstones, The (1994) (ID 1772) | Children's|Comedy
+      Score drop: +0.0045 | Rank: 5->5 (= 0)
+    Remove My Fair Lady (1964) (ID 2) | Musical|Romance
+      Score drop: +0.0066 | Rank: 5->5 (= 0)
+    Remove Absent Minded Professor, The (1961) (ID 739) | Children's|Comedy|Fantasy
+      Score drop: +0.0063 | Rank: 5->5 (= 0)
+    Remove Strangers on a Train (1951) (ID 1450) | Film-Noir|Thriller
+      Score drop: +0.0013 | Rank: 5->5 (= 0)
+
+  -- Rank 10 | Attributed removals --
+    Remove Glory Daze (1996) (ID 3455) | Drama
+      Score drop: -0.0490 | Rank: 10->10 (= 0) | Attr: -0.2161
+    Remove One Magic Christmas (1985) (ID 2539) | Drama|Fantasy
+      Score drop: +0.0322 | Rank: 10->10 (= 0) | Attr: 0.1383
+    Remove Baby-Sitters Club, The (1995) (ID 3033) | Children's
+      Score drop: +0.0330 | Rank: 10->10 (= 0) | Attr: 0.1306
+    Remove Benji the Hunted (1987) (ID 2675) | Adventure|Children's
+      Score drop: +0.0288 | Rank: 10->10 (= 0) | Attr: 0.1294
+    Remove Great Mouse Detective, The (1986) (ID 2289) | Animation|Children's
+      Score drop: +0.0228 | Rank: 10->10 (= 0) | Attr: 0.0982
+
+  -- Rank 10 | Random removals --
+    Remove Antz (1998) (ID 30) | Animation|Children's
+      Score drop: +0.0104 | Rank: 10->10 (= 0)
+    Remove Donnie Brasco (1997) (ID 226) | Crime|Drama
+      Score drop: -0.0024 | Rank: 10->10 (= 0)
+    Remove Birdcage, The (1996) (ID 871) | Comedy
+      Score drop: +0.0023 | Rank: 10->10 (= 0)
+    Remove Return of the Pink Panther, The (1974) (ID 698) | Comedy
+      Score drop: -0.0003 | Rank: 10->10 (= 0)
+    Remove Pal Joey (1957) (ID 2614) | Comedy|Musical|Romance
+      Score drop: +0.0004 | Rank: 10->10 (= 0)
+
+  -- Rank 20 | Attributed removals --
+    Remove Glory Daze (1996) (ID 3455) | Drama
+      Score drop: -0.0390 | Rank: 20->20 (= 0) | Attr: -0.2563
+    Remove Psycho Beach Party (2000) (ID 2930) | Comedy|Horror|Thriller
+      Score drop: -0.0250 | Rank: 20->19 (up 1) | Attr: -0.1019
+    Remove Little Princess, The (1939) (ID 2862) | Children's|Drama
+      Score drop: +0.0226 | Rank: 20->21 (down 1) | Attr: 0.0932
+    Remove Lodger, The (1926) (ID 3207) | Thriller
+      Score drop: -0.0205 | Rank: 20->19 (up 1) | Attr: -0.0900
+    Remove One Magic Christmas (1985) (ID 2539) | Drama|Fantasy
+      Score drop: +0.0188 | Rank: 20->20 (= 0) | Attr: 0.0890
+
+  -- Rank 20 | Random removals --
+    Remove House on Haunted Hill, The (1999) (ID 2158) | Horror
+      Score drop: +0.0021 | Rank: 20->20 (= 0)
+    Remove Pal Joey (1957) (ID 2614) | Comedy|Musical|Romance
+      Score drop: +0.0008 | Rank: 20->20 (= 0)
+    Remove Gone with the Wind (1939) (ID 153) | Drama|Romance|War
+      Score drop: +0.0047 | Rank: 20->20 (= 0)
+    Remove Forrest Gump (1994) (ID 171) | Comedy|Romance|War
+      Score drop: +0.0017 | Rank: 20->21 (down 1)
+    Remove Man Without a Face, The (1993) (ID 1438) | Drama
+      Score drop: +0.0110 | Rank: 20->20 (= 0)
+
+
+============================================================
+BASELINE COMPARISON: Attributed vs Random Edge Removal
+Metric: Avg |Score Drop| (higher = more impactful removal)
+
+  Rank | Attr |Drop| | Rand |Drop| |   Lift |  Attr RC% |  Rand RC%
+-------------------------------------------------------------------
+     1 |      0.0313 |      0.0102 |   3.06x |      6.0% |      0.0%
+     5 |      0.0335 |      0.0121 |   2.76x |     10.0% |     22.0%
+    10 |      0.0298 |      0.0104 |   2.85x |     20.0% |     24.0%
+    20 |      0.0341 |      0.0098 |   3.49x |     54.0% |     40.0%
+-------------------------------------------------------------------
+   ALL |      0.0322 |      0.0107 |   3.02x |     22.5% |     21.5%
+
+Overall lift: attributed removal is 3.02x more impactful than random.
+Rank-change rate: 22.5% (attributed) vs 21.5% (random).
+
+--- Faithfulness Evaluation ---
+Users: 50 | Attributed edges per user: 3
+Fine-tune epochs per removal: 5
+
+[  1/50] User 2505 | Target: Notting Hill (1999) (ID 1194) | Comedy|Romance
+  Remove MatchMaker, The (1997) (ID 2086) | Comedy|Romance
+    Predicted drop: +0.0394 | Actual drop: +0.1683 | Attr score: 0.3078
+  Remove Two if by Sea (1996) (ID 1404) | Comedy|Romance
+    Predicted drop: +0.0372 | Actual drop: -0.0345 | Attr score: 0.2768
+  Remove Moonlight and Valentino (1995) (ID 2107) | Drama|Romance
+    Predicted drop: +0.0297 | Actual drop: +0.0493 | Attr score: 0.2662
+[  2/50] User 857 | Target: Rocky Horror Picture Show, The (1975) (ID 603) | Comedy|Horror|Musical|Sci-Fi
+  Remove Boy Who Could Fly, The (1986) (ID 747) | Drama|Fantasy
+    Predicted drop: +0.0272 | Actual drop: -0.1183 | Attr score: 0.1850
+  Remove Creature From the Black Lagoon, The (1954) (ID 1110) | Horror
+    Predicted drop: +0.0381 | Actual drop: -0.1675 | Attr score: 0.1808
+  Remove Children of the Damned (1963) (ID 947) | Horror|Sci-Fi|Thriller
+    Predicted drop: +0.0293 | Actual drop: -0.1937 | Attr score: 0.1593
+[  3/50] User 5757 | Target: Lethal Weapon (1987) (ID 711) | Action|Comedy|Crime|Drama
+  Remove Presidio, The (1988) (ID 1481) | Action
+    Predicted drop: +0.0338 | Actual drop: -0.0639 | Attr score: 0.2624
+  Remove Tin Men (1987) (ID 1666) | Comedy|Drama
+    Predicted drop: +0.0294 | Actual drop: -0.0989 | Attr score: 0.2144
+  Remove Name of the Rose, The (1986) (ID 1583) | Mystery
+    Predicted drop: +0.0276 | Actual drop: -0.3371 | Attr score: 0.2109
+[  4/50] User 1544 | Target: Star Wars: Episode VI - Return of the Jedi (1983) (ID 64) | Action|Adventure|Romance|Sci-Fi|War
+  Remove Wonderful, Horrible Life of Leni Riefenstahl, The (Die Macht der Bilder) (1993) (ID 2576) | Documentary
+    Predicted drop: -0.0310 | Actual drop: +0.1844 | Attr score: -0.3832
+  Remove Big Country, The (1958) (ID 3160) | Romance|Western
+    Predicted drop: -0.0318 | Actual drop: -0.0815 | Attr score: -0.3665
+  Remove Devil's Brigade, The (1968) (ID 2946) | War
+    Predicted drop: -0.0333 | Actual drop: +0.1921 | Attr score: -0.3342
+[  5/50] User 5166 | Target: Night of the Living Dead (1968) (ID 294) | Horror|Sci-Fi
+  Remove Cronos (1992) (ID 1589) | Horror
+    Predicted drop: +0.0363 | Actual drop: +0.1022 | Attr score: 0.2232
+  Remove Puppet Master III: Toulon's Revenge (1991) (ID 991) | Horror|Sci-Fi|Thriller
+    Predicted drop: +0.0276 | Actual drop: -0.1449 | Attr score: 0.1878
+  Remove Communion (1989) (ID 1720) | Drama|Sci-Fi|Thriller
+    Predicted drop: +0.0222 | Actual drop: +0.0137 | Attr score: 0.1776
+[  6/50] User 3261 | Target: Being John Malkovich (1999) (ID 184) | Comedy
+  Remove Showgirls (1995) (ID 1957) | Drama
+    Predicted drop: +0.0242 | Actual drop: +0.0303 | Attr score: 0.3614
+  Remove Misérables, Les (1995) (ID 478) | Drama|Musical
+    Predicted drop: +0.0353 | Actual drop: +0.0578 | Attr score: 0.3596
+  Remove Ideal Husband, An (1999) (ID 2153) | Comedy
+    Predicted drop: +0.0480 | Actual drop: -0.2910 | Attr score: 0.3342
+[  7/50] User 4572 | Target: Godfather, The (1972) (ID 669) | Action|Crime|Drama
+  Remove He Walked by Night (1948) (ID 1581) | Crime|Film-Noir|Thriller
+    Predicted drop: -0.0807 | Actual drop: -0.3425 | Attr score: -0.8111
+  Remove Endless Summer, The (1966) (ID 2855) | Documentary
+    Predicted drop: +0.0400 | Actual drop: +0.1948 | Attr score: 0.4058
+  Remove Boys from Brazil, The (1978) (ID 1559) | Thriller
+    Predicted drop: +0.0245 | Actual drop: -0.0315 | Attr score: 0.3152
+[  8/50] User 829 | Target: X-Men (2000) (ID 237) | Action|Sci-Fi
+  Remove Come See the Paradise (1990) (ID 3038) | Drama|Romance
+    Predicted drop: -0.0715 | Actual drop: -0.2565 | Attr score: -0.7023
+  Remove Eyes Without a Face (1959) (ID 2968) | Horror
+    Predicted drop: -0.0553 | Actual drop: -0.1200 | Attr score: -0.4969
+  Remove Alan Smithee Film: Burn Hollywood Burn, An (1997) (ID 3211) | Comedy
+    Predicted drop: +0.0361 | Actual drop: -0.1819 | Attr score: 0.4251
+[  9/50] User 5843 | Target: Being John Malkovich (1999) (ID 184) | Comedy
+  Remove Cradle Will Rock, The (1999) (ID 901) | Drama
+    Predicted drop: +0.0589 | Actual drop: +0.0385 | Attr score: 0.4832
+  Remove What Planet Are You From? (2000) (ID 1929) | Comedy|Sci-Fi
+    Predicted drop: +0.0532 | Actual drop: -0.0297 | Attr score: 0.4496
+  Remove Road to El Dorado, The (2000) (ID 1854) | Animation|Children's
+    Predicted drop: +0.0403 | Actual drop: -0.1106 | Attr score: 0.4260
+[ 10/50] User 3761 | Target: Thing, The (1982) (ID 990) | Action|Horror|Sci-Fi|Thriller
+  Remove Amityville: Dollhouse (1996) (ID 3373) | Horror
+    Predicted drop: -0.0359 | Actual drop: -0.1074 | Attr score: -0.3627
+  Remove Prom Night III: The Last Kiss (1989) (ID 3005) | Horror
+    Predicted drop: -0.0415 | Actual drop: -0.2403 | Attr score: -0.3464
+  Remove Prom Night IV: Deliver Us From Evil (1992) (ID 3006) | Horror
+    Predicted drop: -0.0354 | Actual drop: -0.0547 | Attr score: -0.2737
+[ 11/50] User 1373 | Target: Dead Man Walking (1995) (ID 383) | Drama
+  Remove Ponette (1996) (ID 28) | Drama
+    Predicted drop: +0.0486 | Actual drop: +0.1999 | Attr score: 0.3877
+  Remove Ruby in Paradise (1993) (ID 2630) | Drama
+    Predicted drop: +0.0396 | Actual drop: -0.0147 | Attr score: 0.3273
+  Remove Affliction (1997) (ID 2155) | Drama
+    Predicted drop: +0.0338 | Actual drop: -0.0192 | Attr score: 0.2596
+[ 12/50] User 2029 | Target: Wizard of Oz, The (1939) (ID 9) | Adventure|Children's|Drama|Musical
+  Remove Zed & Two Noughts, A (1985) (ID 3252) | Drama
+    Predicted drop: -0.0445 | Actual drop: -0.2069 | Attr score: -0.3597
+  Remove Saludos Amigos (1943) (ID 3218) | Animation|Children's|Comedy
+    Predicted drop: -0.0384 | Actual drop: -0.0519 | Attr score: -0.3262
+  Remove Killer's Kiss (1955) (ID 3287) | Film-Noir
+    Predicted drop: -0.0259 | Actual drop: -0.4064 | Attr score: -0.2479
+[ 13/50] User 186 | Target: Good Will Hunting (1997) (ID 280) | Drama
+  Remove Niagara, Niagara (1997) (ID 2761) | Drama
+    Predicted drop: -0.0721 | Actual drop: +0.0558 | Attr score: -0.4644
+  Remove City, The (1998) (ID 2749) | Drama
+    Predicted drop: -0.0723 | Actual drop: +0.1028 | Attr score: -0.4564
+  Remove Rosewood (1997) (ID 2637) | Drama
+    Predicted drop: +0.0305 | Actual drop: -0.1578 | Attr score: 0.2404
+[ 14/50] User 2729 | Target: American Beauty (1999) (ID 104) | Comedy|Drama
+  Remove Raw Deal (1948) (ID 3080) | Film-Noir
+    Predicted drop: -0.0983 | Actual drop: -0.1953 | Attr score: -1.6943
+  Remove Tigger Movie, The (2000) (ID 1323) | Animation|Children's
+    Predicted drop: +0.0514 | Actual drop: -0.2389 | Attr score: 0.4847
+  Remove Crush, The (1993) (ID 1227) | Thriller
+    Predicted drop: +0.0253 | Actual drop: -0.0977 | Attr score: 0.3455
+[ 15/50] User 2781 | Target: Wedding Singer, The (1998) (ID 521) | Comedy|Romance
+  Remove Two Girls and a Guy (1997) (ID 1934) | Comedy|Drama
+    Predicted drop: +0.0451 | Actual drop: -0.1099 | Attr score: 0.3891
+  Remove Nine Months (1995) (ID 621) | Comedy
+    Predicted drop: +0.0523 | Actual drop: -0.1670 | Attr score: 0.3630
+  Remove Booty Call (1997) (ID 1164) | Comedy|Romance
+    Predicted drop: +0.0547 | Actual drop: +0.0637 | Attr score: 0.3611
+[ 16/50] User 5931 | Target: Clear and Present Danger (1994) (ID 150) | Action|Adventure|Thriller
+  Remove Perfect World, A (1993) (ID 1668) | Action|Drama
+    Predicted drop: +0.0807 | Actual drop: +0.0258 | Attr score: 0.5220
+  Remove Days of Thunder (1990) (ID 1381) | Action|Romance
+    Predicted drop: +0.0636 | Actual drop: +0.0496 | Attr score: 0.4031
+  Remove Young Guns II (1990) (ID 197) | Action|Comedy|Western
+    Predicted drop: +0.0594 | Actual drop: -0.0190 | Attr score: 0.3956
+[ 17/50] User 945 | Target: American Beauty (1999) (ID 104) | Comedy|Drama
+  Remove Everest (1998) (ID 1845) | Documentary
+    Predicted drop: +0.0933 | Actual drop: -0.4997 | Attr score: 1.2022
+  Remove Koyaanisqatsi (1983) (ID 2503) | Documentary|War
+    Predicted drop: +0.0415 | Actual drop: +0.1175 | Attr score: 0.5718
+  Remove Fantasia 2000 (1999) (ID 1523) | Animation|Children's|Musical
+    Predicted drop: +0.0789 | Actual drop: -0.0053 | Attr score: 0.5214
+[ 18/50] User 2246 | Target: Casablanca (1942) (ID 420) | Drama|Romance|War
+  Remove Man Who Knew Too Much, The (1956) (ID 1555) | Thriller
+    Predicted drop: +0.0266 | Actual drop: +0.1184 | Attr score: 0.2747
+  Remove Man for All Seasons, A (1966) (ID 1624) | Drama
+    Predicted drop: +0.0266 | Actual drop: -0.1709 | Attr score: 0.2629
+  Remove Grand Hotel (1932) (ID 2308) | Drama
+    Predicted drop: +0.0244 | Actual drop: +0.0372 | Attr score: 0.2598
+[ 19/50] User 5488 | Target: Fargo (1996) (ID 51) | Crime|Drama|Thriller
+  Remove Welcome To Sarajevo (1997) (ID 2497) | Drama|War
+    Predicted drop: +0.0687 | Actual drop: -0.2259 | Attr score: 0.7111
+  Remove Swimming with Sharks (1995) (ID 1950) | Comedy|Drama
+    Predicted drop: +0.0389 | Actual drop: -0.1391 | Attr score: 0.4705
+  Remove Breaking the Waves (1996) (ID 2474) | Drama
+    Predicted drop: +0.0467 | Actual drop: +0.0750 | Attr score: 0.3810
+[ 20/50] User 2530 | Target: Gone with the Wind (1939) (ID 153) | Drama|Romance|War
+  Remove Romeo and Juliet (1968) (ID 700) | Drama|Romance
+    Predicted drop: +0.0626 | Actual drop: +0.1138 | Attr score: 0.3690
+  Remove Top Hat (1935) (ID 1635) | Comedy|Musical|Romance
+    Predicted drop: +0.0582 | Actual drop: +0.2007 | Attr score: 0.3408
+  Remove Roman Holiday (1953) (ID 648) | Comedy|Romance
+    Predicted drop: +0.0615 | Actual drop: -0.1051 | Attr score: 0.3098
+[ 21/50] User 1378 | Target: Patriot, The (2000) (ID 406) | Action|Drama|War
+  Remove Waking the Dead (1999) (ID 956) | Drama
+    Predicted drop: +0.1377 | Actual drop: -0.1458 | Attr score: 0.8949
+  Remove But I'm a Cheerleader (1999) (ID 380) | Comedy
+    Predicted drop: +0.0860 | Actual drop: +0.0700 | Attr score: 0.6306
+  Remove Rudy (1993) (ID 463) | Drama
+    Predicted drop: +0.0818 | Actual drop: +0.1055 | Attr score: 0.3844
+[ 22/50] User 5236 | Target: Star Wars: Episode IV - A New Hope (1977) (ID 44) | Action|Adventure|Fantasy|Sci-Fi
+  Remove Santa Claus: The Movie (1985) (ID 764) | Adventure|Children's|Fantasy
+    Predicted drop: +0.0509 | Actual drop: +0.1108 | Attr score: 0.5204
+  Remove Star Wars: Episode VI - Return of the Jedi (1983) (ID 64) | Action|Adventure|Romance|Sci-Fi|War
+    Predicted drop: +0.0198 | Actual drop: -0.0813 | Attr score: -0.3579
+  Remove Pelican Brief, The (1993) (ID 2144) | Thriller
+    Predicted drop: +0.0227 | Actual drop: -0.1356 | Attr score: 0.3410
+[ 23/50] User 4200 | Target: Star Wars: Episode I - The Phantom Menace (1999) (ID 60) | Action|Adventure|Fantasy|Sci-Fi
+  Remove Santa Claus: The Movie (1985) (ID 764) | Adventure|Children's|Fantasy
+    Predicted drop: +0.0670 | Actual drop: -0.2004 | Attr score: 0.6697
+  Remove Labyrinth (1986) (ID 673) | Adventure|Children's|Fantasy
+    Predicted drop: +0.0633 | Actual drop: -0.2120 | Attr score: 0.4236
+  Remove Vibes (1988) (ID 3079) | Adventure|Comedy
+    Predicted drop: -0.0616 | Actual drop: -0.0246 | Attr score: -0.4184
+[ 24/50] User 1651 | Target: Edward Scissorhands (1990) (ID 283) | Drama|Romance
+  Remove She's the One (1996) (ID 1335) | Comedy|Romance
+    Predicted drop: +0.0814 | Actual drop: -0.3293 | Attr score: 0.5199
+  Remove Brothers McMullen, The (1995) (ID 1459) | Comedy
+    Predicted drop: +0.0721 | Actual drop: -0.0772 | Attr score: 0.3950
+  Remove Grumpier Old Men (1995) (ID 1333) | Comedy|Romance
+    Predicted drop: +0.0632 | Actual drop: -0.1886 | Attr score: 0.3464
+[ 25/50] User 2129 | Target: Patriot, The (2000) (ID 406) | Action|Drama|War
+  Remove Roula (1995) (ID 3590) | Drama
+    Predicted drop: -1.1656 | Actual drop: -1.1344 | Attr score: -14.6004
+  Remove Turn It Up (2000) (ID 3242) | Crime|Drama
+    Predicted drop: -0.1587 | Actual drop: +0.0562 | Attr score: -2.1769
+  Remove Jail Bait (1954) (ID 2996) | Crime|Drama
+    Predicted drop: -0.0820 | Actual drop: -0.1727 | Attr score: -1.1696
+[ 26/50] User 5836 | Target: Patriot Games (1992) (ID 90) | Action|Thriller
+  Remove One Tough Cop (1998) (ID 2853) | Action|Drama
+    Predicted drop: +0.0173 | Actual drop: -0.1500 | Attr score: 0.1577
+  Remove Mad City (1997) (ID 2537) | Action|Drama
+    Predicted drop: +0.0218 | Actual drop: -0.1214 | Attr score: 0.1560
+  Remove Terminal Velocity (1994) (ID 2502) | Action
+    Predicted drop: +0.0179 | Actual drop: -0.0467 | Attr score: 0.1475
+[ 27/50] User 358 | Target: Abyss, The (1989) (ID 277) | Action|Adventure|Sci-Fi|Thriller
+  Remove Lord of the Rings, The (1978) (ID 1016) | Adventure|Animation|Children's|Sci-Fi
+    Predicted drop: +0.0464 | Actual drop: +0.0738 | Attr score: 0.3172
+  Remove American Beauty (1999) (ID 104) | Comedy|Drama
+    Predicted drop: +0.0035 | Actual drop: -0.0426 | Attr score: -0.2908
+  Remove Nineteen Eighty-Four (1984) (ID 1017) | Drama|Sci-Fi
+    Predicted drop: +0.0458 | Actual drop: +0.0890 | Attr score: 0.2813
+[ 28/50] User 4732 | Target: Stargate (1994) (ID 605) | Action|Adventure|Sci-Fi
+  Remove Kull the Conqueror (1997) (ID 1074) | Action|Adventure
+    Predicted drop: +0.0431 | Actual drop: +0.0721 | Attr score: 0.3135
+  Remove Red Sonja (1985) (ID 1089) | Action|Adventure
+    Predicted drop: +0.0381 | Actual drop: +0.0694 | Attr score: 0.2970
+  Remove My Science Project (1985) (ID 2019) | Adventure|Sci-Fi
+    Predicted drop: +0.0444 | Actual drop: +0.1266 | Attr score: 0.2906
+[ 29/50] User 2139 | Target: Chinatown (1974) (ID 559) | Film-Noir|Mystery|Thriller
+  Remove Carnosaur 2 (1995) (ID 2975) | Horror|Sci-Fi
+    Predicted drop: -0.0436 | Actual drop: -0.0313 | Attr score: -0.3667
+  Remove Man Who Knew Too Much, The (1934) (ID 2071) | Thriller
+    Predicted drop: +0.0393 | Actual drop: -0.0541 | Attr score: 0.3445
+  Remove Marnie (1964) (ID 2334) | Thriller
+    Predicted drop: +0.0324 | Actual drop: +0.1376 | Attr score: 0.2667
+[ 30/50] User 1549 | Target: Shawshank Redemption, The (1994) (ID 167) | Drama
+  Remove Without Limits (1998) (ID 3039) | Drama
+    Predicted drop: +0.1282 | Actual drop: +0.3640 | Attr score: 1.3661
+  Remove Twin Falls Idaho (1999) (ID 289) | Drama
+    Predicted drop: +0.0919 | Actual drop: +0.0406 | Attr score: 0.8800
+  Remove War Room, The (1993) (ID 1287) | Documentary
+    Predicted drop: +0.0841 | Actual drop: +0.2041 | Attr score: 0.8715
+[ 31/50] User 5040 | Target: Out of Africa (1985) (ID 425) | Drama|Romance
+  Remove Jagged Edge (1985) (ID 1471) | Thriller
+    Predicted drop: +0.0379 | Actual drop: -0.1079 | Attr score: 0.2087
+  Remove Maurice (1987) (ID 2506) | Drama|Romance
+    Predicted drop: +0.0469 | Actual drop: -0.2613 | Attr score: 0.2062
+  Remove Cradle Will Rock, The (1999) (ID 901) | Drama
+    Predicted drop: +0.0332 | Actual drop: -0.1927 | Attr score: 0.1808
+[ 32/50] User 3220 | Target: Hunt for Red October, The (1990) (ID 78) | Action|Thriller
+  Remove Rising Sun (1993) (ID 850) | Action|Drama|Mystery
+    Predicted drop: +0.0560 | Actual drop: -0.0736 | Attr score: 0.4320
+  Remove Falling Down (1993) (ID 296) | Action|Drama
+    Predicted drop: +0.0454 | Actual drop: +0.0818 | Attr score: 0.3213
+  Remove Executive Decision (1996) (ID 1482) | Action|Thriller
+    Predicted drop: +0.0491 | Actual drop: -0.1763 | Attr score: 0.3103
+[ 33/50] User 2041 | Target: Star Wars: Episode IV - A New Hope (1977) (ID 44) | Action|Adventure|Fantasy|Sci-Fi
+  Remove It Takes Two (1995) (ID 1375) | Comedy
+    Predicted drop: -0.0982 | Actual drop: -0.2888 | Attr score: -1.4259
+  Remove Time Masters (Les Maîtres du Temps) (1982) (ID 2664) | Animation|Sci-Fi
+    Predicted drop: -0.1033 | Actual drop: -0.3558 | Attr score: -1.3227
+  Remove Lord of the Flies (1963) (ID 884) | Adventure|Drama|Thriller
+    Predicted drop: +0.0291 | Actual drop: -0.2386 | Attr score: 0.3219
+[ 34/50] User 3398 | Target: Fugitive, The (1993) (ID 151) | Action|Thriller
+  Remove Hamlet (1990) (ID 685) | Drama
+    Predicted drop: +0.0258 | Actual drop: -0.2126 | Attr score: 0.2430
+  Remove All Dogs Go to Heaven 2 (1996) (ID 2206) | Animation|Children's|Musical
+    Predicted drop: -0.0225 | Actual drop: -0.1257 | Attr score: -0.2289
+  Remove Mighty, The (1998) (ID 2008) | Drama
+    Predicted drop: +0.0199 | Actual drop: -0.0721 | Attr score: 0.2126
+[ 35/50] User 1977 | Target: Chicken Run (2000) (ID 531) | Animation|Children's|Comedy
+  Remove Bushwhacked (1995) (ID 3167) | Comedy
+    Predicted drop: -0.0610 | Actual drop: -0.3328 | Attr score: -0.5629
+  Remove Love and Basketball (2000) (ID 1487) | Drama|Romance
+    Predicted drop: +0.0607 | Actual drop: +0.0340 | Attr score: 0.4158
+  Remove Everest (1998) (ID 1845) | Documentary
+    Predicted drop: +0.0382 | Actual drop: -0.0087 | Attr score: 0.3133
+[ 36/50] User 2728 | Target: Saving Private Ryan (1998) (ID 48) | Action|Drama|War
+  Remove Star Wars: Episode IV - A New Hope (1977) (ID 44) | Action|Adventure|Fantasy|Sci-Fi
+    Predicted drop: +0.0194 | Actual drop: -0.1673 | Attr score: -0.5583
+  Remove Searching for Bobby Fischer (1993) (ID 525) | Drama
+    Predicted drop: +0.0673 | Actual drop: -0.0920 | Attr score: 0.4864
+  Remove Star Wars: Episode V - The Empire Strikes Back (1980) (ID 124) | Action|Adventure|Drama|Sci-Fi|War
+    Predicted drop: +0.0236 | Actual drop: -0.1421 | Attr score: -0.4623
+[ 37/50] User 106 | Target: Rear Window (1954) (ID 629) | Mystery|Thriller
+  Remove Foreign Correspondent (1940) (ID 2083) | Thriller
+    Predicted drop: +0.0452 | Actual drop: -0.2464 | Attr score: 0.3976
+  Remove Sabotage (1936) (ID 2303) | Thriller
+    Predicted drop: +0.0476 | Actual drop: -0.2840 | Attr score: 0.3959
+  Remove Wings (1927) (ID 2336) | Drama|Romance|War
+    Predicted drop: +0.0280 | Actual drop: -0.1461 | Attr score: 0.3737
+[ 38/50] User 6001 | Target: Annie Hall (1977) (ID 766) | Comedy|Romance
+  Remove Telling Lies in America (1997) (ID 3067) | Drama
+    Predicted drop: -0.0501 | Actual drop: -0.3105 | Attr score: -0.4942
+  Remove If.... (1968) (ID 2330) | Drama
+    Predicted drop: +0.0215 | Actual drop: -0.0944 | Attr score: 0.2336
+  Remove Devil's Brigade, The (1968) (ID 2946) | War
+    Predicted drop: -0.0150 | Actual drop: +0.1876 | Attr score: -0.2151
+[ 39/50] User 2014 | Target: Star Wars: Episode V - The Empire Strikes Back (1980) (ID 124) | Action|Adventure|Drama|Sci-Fi|War
+  Remove Brenda Starr (1989) (ID 3530) | Adventure
+    Predicted drop: -0.1281 | Actual drop: -0.1130 | Attr score: -0.0951
+  Remove Big Bully (1996) (ID 3075) | Comedy|Drama
+    Predicted drop: -0.0918 | Actual drop: -0.0539 | Attr score: -0.0754
+  Remove Woo (1998) (ID 3484) | Comedy|Romance
+    Predicted drop: -0.0443 | Actual drop: +0.0342 | Attr score: -0.0687
+[ 40/50] User 5661 | Target: True Lies (1994) (ID 148) | Action|Adventure|Comedy|Romance
+  Remove Daylight (1996) (ID 1207) | Action|Adventure|Thriller
+    Predicted drop: +0.0475 | Actual drop: -0.0791 | Attr score: 0.3684
+  Remove Operation Condor (Feiying gaiwak) (1990) (ID 2174) | Action|Adventure|Comedy
+    Predicted drop: +0.0566 | Actual drop: +0.1137 | Attr score: 0.3559
+  Remove Blue Streak (1999) (ID 1146) | Comedy
+    Predicted drop: +0.0368 | Actual drop: -0.1364 | Attr score: 0.3336
+[ 41/50] User 4462 | Target: Shawshank Redemption, The (1994) (ID 167) | Drama
+  Remove Misérables, Les (1998) (ID 103) | Drama
+    Predicted drop: +0.1506 | Actual drop: +0.1516 | Attr score: 1.1226
+  Remove Malcolm X (1992) (ID 479) | Drama
+    Predicted drop: +0.1031 | Actual drop: -0.1828 | Attr score: 0.8110
+  Remove Mommie Dearest (1981) (ID 789) | Drama
+    Predicted drop: +0.0266 | Actual drop: +0.0466 | Attr score: 0.5543
+[ 42/50] User 3843 | Target: Creepshow (1982) (ID 278) | Horror
+  Remove Amityville 3-D (1983) (ID 2744) | Horror
+    Predicted drop: +0.0663 | Actual drop: +0.2000 | Attr score: 0.3105
+  Remove Texas Chainsaw Massacre 2, The (1986) (ID 1739) | Horror
+    Predicted drop: +0.0527 | Actual drop: +0.1118 | Attr score: 0.2553
+  Remove In the Mouth of Madness (1995) (ID 2378) | Horror|Thriller
+    Predicted drop: +0.0520 | Actual drop: +0.0874 | Attr score: 0.2451
+[ 43/50] User 4615 | Target: Groundhog Day (1993) (ID 116) | Comedy|Romance
+  Remove Lolita (1997) (ID 1099) | Drama|Romance
+    Predicted drop: +0.0574 | Actual drop: -0.1900 | Attr score: 0.5491
+  Remove American Beauty (1999) (ID 104) | Comedy|Drama
+    Predicted drop: +0.0142 | Actual drop: -0.1578 | Attr score: -0.4473
+  Remove Honeymoon in Vegas (1992) (ID 1346) | Comedy|Romance
+    Predicted drop: +0.0540 | Actual drop: +0.0194 | Attr score: 0.4359
+[ 44/50] User 1725 | Target: Rumble in the Bronx (1995) (ID 1226) | Action|Adventure|Crime
+  Remove Player's Club, The (1998) (ID 2742) | Action|Drama
+    Predicted drop: +0.0374 | Actual drop: -0.0512 | Attr score: 0.2228
+  Remove Operation Condor 2 (Longxiong hudi) (1990) (ID 2266) | Action|Adventure|Comedy
+    Predicted drop: +0.0469 | Actual drop: -0.1706 | Attr score: 0.2080
+  Remove Twin Dragons (Shuang long hui) (1992) (ID 2261) | Action|Comedy
+    Predicted drop: +0.0359 | Actual drop: -0.1626 | Attr score: 0.1629
+[ 45/50] User 4842 | Target: English Patient, The (1996) (ID 1528) | Drama|Romance|War
+  Remove Tango (1998) (ID 1031) | Drama
+    Predicted drop: +0.0387 | Actual drop: -0.0244 | Attr score: 0.3249
+  Remove Mrs. Brown (Her Majesty, Mrs. Brown) (1997) (ID 303) | Drama|Romance
+    Predicted drop: +0.0427 | Actual drop: -0.0703 | Attr score: 0.2319
+  Remove Enchanted April (1991) (ID 1891) | Drama
+    Predicted drop: +0.0292 | Actual drop: -0.1016 | Attr score: 0.2186
+[ 46/50] User 4929 | Target: Jungle Book, The (1967) (ID 596) | Animation|Children's|Comedy|Musical
+  Remove Newsies (1992) (ID 2272) | Children's|Musical
+    Predicted drop: +0.0541 | Actual drop: -0.0228 | Attr score: 0.3105
+  Remove Muppet Treasure Island (1996) (ID 1737) | Adventure|Children's|Comedy|Musical
+    Predicted drop: +0.0420 | Actual drop: -0.0710 | Attr score: 0.2264
+  Remove Pete's Dragon (1977) (ID 388) | Adventure|Animation|Children's|Musical
+    Predicted drop: +0.0439 | Actual drop: +0.2158 | Attr score: 0.2224
+[ 47/50] User 2664 | Target: Star Wars: Episode V - The Empire Strikes Back (1980) (ID 124) | Action|Adventure|Drama|Sci-Fi|War
+  Remove Gordy (1995) (ID 3059) | Comedy
+    Predicted drop: -0.1324 | Actual drop: -0.1124 | Attr score: -0.0814
+  Remove Seventh Heaven (Le Septième ciel) (1997) (ID 3104) | Drama|Romance
+    Predicted drop: -0.0723 | Actual drop: -0.0312 | Attr score: -0.0686
+  Remove Actor's Revenge, An (Yukinojo Henge) (1963) (ID 3607) | Drama
+    Predicted drop: -0.1327 | Actual drop: -0.1253 | Attr score: -0.0665
+[ 48/50] User 1204 | Target: Sense and Sensibility (1995) (ID 417) | Drama|Romance
+  Remove So Dear to My Heart (1949) (ID 3244) | Children's|Drama
+    Predicted drop: -0.1545 | Actual drop: -0.1908 | Attr score: -1.0863
+  Remove Stars Fell on Henrietta, The (1995) (ID 3416) | Drama
+    Predicted drop: -0.0757 | Actual drop: -0.2153 | Attr score: -0.5200
+  Remove Carrington (1995) (ID 1773) | Drama|Romance
+    Predicted drop: +0.0648 | Actual drop: -0.0637 | Attr score: 0.5116
+[ 49/50] User 1032 | Target: Patriot, The (2000) (ID 406) | Action|Drama|War
+  Remove Bad Moon (1996) (ID 3235) | Horror
+    Predicted drop: -0.0877 | Actual drop: -0.2901 | Attr score: -0.9761
+  Remove Get Carter (2000) (ID 2210) | Action|Drama|Thriller
+    Predicted drop: +0.0676 | Actual drop: -0.0703 | Attr score: 0.4467
+  Remove What Planet Are You From? (2000) (ID 1929) | Comedy|Sci-Fi
+    Predicted drop: +0.0466 | Actual drop: -0.1198 | Attr score: 0.3051
+[ 50/50] User 4779 | Target: L.A. Confidential (1997) (ID 246) | Crime|Film-Noir|Mystery|Thriller
+  Remove 24 7: Twenty Four Seven (1997) (ID 3571) | Comedy|Drama
+    Predicted drop: -0.5565 | Actual drop: -0.7704 | Attr score: -6.3545
+  Remove Rope (1948) (ID 1261) | Thriller
+    Predicted drop: +0.0382 | Actual drop: +0.0957 | Attr score: 0.4049
+  Remove Thomas Crown Affair, The (1968) (ID 893) | Crime|Drama|Thriller
+    Predicted drop: +0.0414 | Actual drop: +0.0593 | Attr score: 0.3963
+
+============================================================
+FAITHFULNESS SUMMARY
+============================================================
+Total edge removals evaluated : 150
+Avg predicted |drop|          : 0.0633
+Avg actual    |drop|          : 0.1443
+
+Pearson  r  = +0.6031  (p = 0.0000)
+Spearman r  = +0.2806  (p = 0.0005)
+
+Interpretation: moderate correlation between structural sensitivity predictions and post-fine-tuning actual score drops.
+This suggests the structural approximation is reliable for identifying influential edges without retraining.
+
+Sign agreement: 71/150 (47.3%) — predicted and actual drops have the same direction.
+
+--- Degree-Based Baseline (Counterfactual) ---
+Testing rank positions: [1, 5, 10, 20]
+Users: 10 | Top-k edges per item: 5
+
+============================================================
+User 5411
+  Rank  1: Star Wars: Episode IV - A New Hope (1977) (ID 44) | Action|Adventure|Fantasy|Sci-Fi  [score=7.7218]
+  Rank  5: Toy Story 2 (1999) (ID 50) | Animation|Children's|Comedy  [score=6.6409]
+  Rank 10: Batman (1989) (ID 587) | Action|Adventure|Crime|Drama  [score=6.4306]
+  Rank 20: Hunt for Red October, The (1990) (ID 78) | Action|Thriller  [score=6.0513]
+
+  -- Rank 1 | Degree-based removals --
+    Remove American Beauty (1999) (ID 104) | Comedy|Drama  [degree=2740]
+      Score drop: +0.0037 | Rank: 1->1 (= 0)
+    Remove Star Wars: Episode V - The Empire Strikes Back (1980) (ID 124) | Action|Adventure|Drama|Sci-Fi|War  [degree=2387]
+      Score drop: +0.0087 | Rank: 1->2 (down 1)
+    Remove Star Wars: Episode VI - Return of the Jedi (1983) (ID 64) | Action|Adventure|Romance|Sci-Fi|War  [degree=2288]
+      Score drop: +0.0086 | Rank: 1->2 (down 1)
+    Remove Jurassic Park (1993) (ID 113) | Action|Adventure|Sci-Fi  [degree=2180]
+      Score drop: +0.0076 | Rank: 1->1 (= 0)
+    Remove Terminator 2: Judgment Day (1991) (ID 97) | Action|Sci-Fi|Thriller  [degree=2128]
+      Score drop: +0.0082 | Rank: 1->1 (= 0)
+
+  -- Rank 5 | Degree-based removals --
+    Remove American Beauty (1999) (ID 104) | Comedy|Drama  [degree=2740]
+      Score drop: +0.0055 | Rank: 5->6 (down 1)
+    Remove Star Wars: Episode V - The Empire Strikes Back (1980) (ID 124) | Action|Adventure|Drama|Sci-Fi|War  [degree=2387]
+      Score drop: +0.0046 | Rank: 5->6 (down 1)
+    Remove Star Wars: Episode VI - Return of the Jedi (1983) (ID 64) | Action|Adventure|Romance|Sci-Fi|War  [degree=2288]
+      Score drop: +0.0048 | Rank: 5->6 (down 1)
+    Remove Jurassic Park (1993) (ID 113) | Action|Adventure|Sci-Fi  [degree=2180]
+      Score drop: +0.0035 | Rank: 5->6 (down 1)
+    Remove Terminator 2: Judgment Day (1991) (ID 97) | Action|Sci-Fi|Thriller  [degree=2128]
+      Score drop: +0.0037 | Rank: 5->6 (down 1)
+
+  -- Rank 10 | Degree-based removals --
+    Remove American Beauty (1999) (ID 104) | Comedy|Drama  [degree=2740]
+      Score drop: -0.0005 | Rank: 10->11 (down 1)
+    Remove Star Wars: Episode V - The Empire Strikes Back (1980) (ID 124) | Action|Adventure|Drama|Sci-Fi|War  [degree=2387]
+      Score drop: +0.0051 | Rank: 10->11 (down 1)
+    Remove Star Wars: Episode VI - Return of the Jedi (1983) (ID 64) | Action|Adventure|Romance|Sci-Fi|War  [degree=2288]
+      Score drop: +0.0053 | Rank: 10->11 (down 1)
+    Remove Jurassic Park (1993) (ID 113) | Action|Adventure|Sci-Fi  [degree=2180]
+      Score drop: +0.0045 | Rank: 10->11 (down 1)
+    Remove Terminator 2: Judgment Day (1991) (ID 97) | Action|Sci-Fi|Thriller  [degree=2128]
+      Score drop: +0.0051 | Rank: 10->11 (down 1)
+
+  -- Rank 20 | Degree-based removals --
+    Remove American Beauty (1999) (ID 104) | Comedy|Drama  [degree=2740]
+      Score drop: +0.0010 | Rank: 20->21 (down 1)
+    Remove Star Wars: Episode V - The Empire Strikes Back (1980) (ID 124) | Action|Adventure|Drama|Sci-Fi|War  [degree=2387]
+      Score drop: +0.0048 | Rank: 20->21 (down 1)
+    Remove Star Wars: Episode VI - Return of the Jedi (1983) (ID 64) | Action|Adventure|Romance|Sci-Fi|War  [degree=2288]
+      Score drop: +0.0055 | Rank: 20->21 (down 1)
+    Remove Jurassic Park (1993) (ID 113) | Action|Adventure|Sci-Fi  [degree=2180]
+      Score drop: +0.0066 | Rank: 20->21 (down 1)
+    Remove Terminator 2: Judgment Day (1991) (ID 97) | Action|Sci-Fi|Thriller  [degree=2128]
+      Score drop: +0.0073 | Rank: 20->22 (down 2)
+
+============================================================
+User 5439
+  Rank  1: Babe (1995) (ID 381) | Children's|Comedy|Drama  [score=6.8239]
+  Rank  5: American Beauty (1999) (ID 104) | Comedy|Drama  [score=6.4263]
+  Rank 10: Opposite of Sex, The (1998) (ID 357) | Comedy|Drama  [score=6.0027]
+  Rank 20: Grand Day Out, A (1992) (ID 539) | Animation|Comedy  [score=5.6459]
+
+  -- Rank 1 | Degree-based removals --
+    Remove Men in Black (1997) (ID 189) | Action|Adventure|Comedy|Sci-Fi  [degree=2034]
+      Score drop: +0.0061 | Rank: 1->1 (= 0)
+    Remove Groundhog Day (1993) (ID 116) | Comedy|Romance  [degree=1822]
+      Score drop: +0.0176 | Rank: 1->1 (= 0)
+    Remove L.A. Confidential (1997) (ID 246) | Crime|Film-Noir|Mystery|Thriller  [degree=1797]
+      Score drop: +0.0093 | Rank: 1->1 (= 0)
+    Remove Being John Malkovich (1999) (ID 184) | Comedy  [degree=1771]
+      Score drop: +0.0124 | Rank: 1->1 (= 0)
+    Remove Election (1999) (ID 315) | Comedy  [degree=1218]
+      Score drop: +0.0179 | Rank: 1->1 (= 0)
+
+  -- Rank 5 | Degree-based removals --
+    Remove Men in Black (1997) (ID 189) | Action|Adventure|Comedy|Sci-Fi  [degree=2034]
+      Score drop: +0.0116 | Rank: 5->5 (= 0)
+    Remove Groundhog Day (1993) (ID 116) | Comedy|Romance  [degree=1822]
+      Score drop: +0.0213 | Rank: 5->5 (= 0)
+    Remove L.A. Confidential (1997) (ID 246) | Crime|Film-Noir|Mystery|Thriller  [degree=1797]
+      Score drop: +0.0202 | Rank: 5->5 (= 0)
+    Remove Being John Malkovich (1999) (ID 184) | Comedy  [degree=1771]
+      Score drop: +0.0304 | Rank: 5->6 (down 1)
+    Remove Election (1999) (ID 315) | Comedy  [degree=1218]
+      Score drop: +0.0425 | Rank: 5->6 (down 1)
+
+  -- Rank 10 | Degree-based removals --
+    Remove Men in Black (1997) (ID 189) | Action|Adventure|Comedy|Sci-Fi  [degree=2034]
+      Score drop: -0.0003 | Rank: 10->10 (= 0)
+    Remove Groundhog Day (1993) (ID 116) | Comedy|Romance  [degree=1822]
+      Score drop: +0.0078 | Rank: 10->11 (down 1)
+    Remove L.A. Confidential (1997) (ID 246) | Crime|Film-Noir|Mystery|Thriller  [degree=1797]
+      Score drop: +0.0045 | Rank: 10->10 (= 0)
+    Remove Being John Malkovich (1999) (ID 184) | Comedy  [degree=1771]
+      Score drop: +0.0092 | Rank: 10->11 (down 1)
+    Remove Election (1999) (ID 315) | Comedy  [degree=1218]
+      Score drop: +0.0201 | Rank: 10->11 (down 1)
+
+  -- Rank 20 | Degree-based removals --
+    Remove Men in Black (1997) (ID 189) | Action|Adventure|Comedy|Sci-Fi  [degree=2034]
+      Score drop: +0.0048 | Rank: 20->21 (down 1)
+    Remove Groundhog Day (1993) (ID 116) | Comedy|Romance  [degree=1822]
+      Score drop: +0.0119 | Rank: 20->21 (down 1)
+    Remove L.A. Confidential (1997) (ID 246) | Crime|Film-Noir|Mystery|Thriller  [degree=1797]
+      Score drop: +0.0002 | Rank: 20->20 (= 0)
+    Remove Being John Malkovich (1999) (ID 184) | Comedy  [degree=1771]
+      Score drop: +0.0107 | Rank: 20->21 (down 1)
+    Remove Election (1999) (ID 315) | Comedy  [degree=1218]
+      Score drop: +0.0168 | Rank: 20->21 (down 1)
+
+============================================================
+User 367
+  Rank  1: Braveheart (1995) (ID 92) | Action|Drama|War  [score=8.4108]
+  Rank  5: Men in Black (1997) (ID 189) | Action|Adventure|Comedy|Sci-Fi  [score=7.9117]
+  Rank 10: Conspiracy Theory (1997) (ID 137) | Action|Mystery|Romance|Thriller  [score=7.3779]
+  Rank 20: Thelma & Louise (1991) (ID 156) | Action|Drama  [score=6.8730]
+
+  -- Rank 1 | Degree-based removals --
+    Remove American Beauty (1999) (ID 104) | Comedy|Drama  [degree=2740]
+      Score drop: +0.0044 | Rank: 1->1 (= 0)
+    Remove Terminator 2: Judgment Day (1991) (ID 97) | Action|Sci-Fi|Thriller  [degree=2128]
+      Score drop: +0.0077 | Rank: 1->1 (= 0)
+    Remove Saving Private Ryan (1998) (ID 48) | Action|Drama|War  [degree=2114]
+      Score drop: +0.0086 | Rank: 1->2 (down 1)
+    Remove Matrix, The (1999) (ID 132) | Action|Sci-Fi|Thriller  [degree=2068]
+      Score drop: +0.0055 | Rank: 1->1 (= 0)
+    Remove Silence of the Lambs, The (1991) (ID 128) | Drama|Thriller  [degree=2044]
+      Score drop: +0.0072 | Rank: 1->1 (= 0)
+
+  -- Rank 5 | Degree-based removals --
+    Remove American Beauty (1999) (ID 104) | Comedy|Drama  [degree=2740]
+      Score drop: +0.0031 | Rank: 5->6 (down 1)
+    Remove Terminator 2: Judgment Day (1991) (ID 97) | Action|Sci-Fi|Thriller  [degree=2128]
+      Score drop: +0.0086 | Rank: 5->5 (= 0)
+    Remove Saving Private Ryan (1998) (ID 48) | Action|Drama|War  [degree=2114]
+      Score drop: +0.0047 | Rank: 5->6 (down 1)
+    Remove Matrix, The (1999) (ID 132) | Action|Sci-Fi|Thriller  [degree=2068]
+      Score drop: +0.0078 | Rank: 5->5 (= 0)
+    Remove Silence of the Lambs, The (1991) (ID 128) | Drama|Thriller  [degree=2044]
+      Score drop: +0.0032 | Rank: 5->5 (= 0)
+
+  -- Rank 10 | Degree-based removals --
+    Remove American Beauty (1999) (ID 104) | Comedy|Drama  [degree=2740]
+      Score drop: -0.0022 | Rank: 10->11 (down 1)
+    Remove Terminator 2: Judgment Day (1991) (ID 97) | Action|Sci-Fi|Thriller  [degree=2128]
+      Score drop: +0.0025 | Rank: 10->11 (down 1)
+    Remove Saving Private Ryan (1998) (ID 48) | Action|Drama|War  [degree=2114]
+      Score drop: +0.0013 | Rank: 10->11 (down 1)
+    Remove Matrix, The (1999) (ID 132) | Action|Sci-Fi|Thriller  [degree=2068]
+      Score drop: +0.0035 | Rank: 10->11 (down 1)
+    Remove Silence of the Lambs, The (1991) (ID 128) | Drama|Thriller  [degree=2044]
+      Score drop: +0.0005 | Rank: 10->11 (down 1)
+
+  -- Rank 20 | Degree-based removals --
+    Remove American Beauty (1999) (ID 104) | Comedy|Drama  [degree=2740]
+      Score drop: +0.0013 | Rank: 20->21 (down 1)
+    Remove Terminator 2: Judgment Day (1991) (ID 97) | Action|Sci-Fi|Thriller  [degree=2128]
+      Score drop: +0.0049 | Rank: 20->21 (down 1)
+    Remove Saving Private Ryan (1998) (ID 48) | Action|Drama|War  [degree=2114]
+      Score drop: +0.0062 | Rank: 20->21 (down 1)
+    Remove Matrix, The (1999) (ID 132) | Action|Sci-Fi|Thriller  [degree=2068]
+      Score drop: +0.0047 | Rank: 20->21 (down 1)
+    Remove Silence of the Lambs, The (1991) (ID 128) | Drama|Thriller  [degree=2044]
+      Score drop: +0.0054 | Rank: 20->21 (down 1)
+
+============================================================
+User 424
+  Rank  1: Ferris Bueller's Day Off (1986) (ID 13) | Comedy  [score=9.1081]
+  Rank  5: Princess Bride, The (1987) (ID 5) | Action|Adventure|Comedy|Romance  [score=8.3895]
+  Rank 10: Airplane! (1980) (ID 15) | Comedy  [score=7.9621]
+  Rank 20: Good Will Hunting (1997) (ID 280) | Drama  [score=7.5819]
+
+  -- Rank 1 | Degree-based removals --
+    Remove Star Wars: Episode IV - A New Hope (1977) (ID 44) | Action|Adventure|Fantasy|Sci-Fi  [degree=2401]
+      Score drop: +0.0031 | Rank: 1->1 (= 0)
+    Remove Jurassic Park (1993) (ID 113) | Action|Adventure|Sci-Fi  [degree=2180]
+      Score drop: +0.0008 | Rank: 1->1 (= 0)
+    Remove Terminator 2: Judgment Day (1991) (ID 97) | Action|Sci-Fi|Thriller  [degree=2128]
+      Score drop: +0.0014 | Rank: 1->1 (= 0)
+    Remove Saving Private Ryan (1998) (ID 48) | Action|Drama|War  [degree=2114]
+      Score drop: +0.0029 | Rank: 1->1 (= 0)
+    Remove Matrix, The (1999) (ID 132) | Action|Sci-Fi|Thriller  [degree=2068]
+      Score drop: +0.0017 | Rank: 1->1 (= 0)
+
+  -- Rank 5 | Degree-based removals --
+    Remove Star Wars: Episode IV - A New Hope (1977) (ID 44) | Action|Adventure|Fantasy|Sci-Fi  [degree=2401]
+      Score drop: +0.0075 | Rank: 5->5 (= 0)
+    Remove Jurassic Park (1993) (ID 113) | Action|Adventure|Sci-Fi  [degree=2180]
+      Score drop: +0.0061 | Rank: 5->5 (= 0)
+    Remove Terminator 2: Judgment Day (1991) (ID 97) | Action|Sci-Fi|Thriller  [degree=2128]
+      Score drop: +0.0073 | Rank: 5->5 (= 0)
+    Remove Saving Private Ryan (1998) (ID 48) | Action|Drama|War  [degree=2114]
+      Score drop: +0.0061 | Rank: 5->5 (= 0)
+    Remove Matrix, The (1999) (ID 132) | Action|Sci-Fi|Thriller  [degree=2068]
+      Score drop: +0.0076 | Rank: 5->5 (= 0)
+
+  -- Rank 10 | Degree-based removals --
+    Remove Star Wars: Episode IV - A New Hope (1977) (ID 44) | Action|Adventure|Fantasy|Sci-Fi  [degree=2401]
+      Score drop: +0.0048 | Rank: 10->11 (down 1)
+    Remove Jurassic Park (1993) (ID 113) | Action|Adventure|Sci-Fi  [degree=2180]
+      Score drop: +0.0066 | Rank: 10->10 (= 0)
+    Remove Terminator 2: Judgment Day (1991) (ID 97) | Action|Sci-Fi|Thriller  [degree=2128]
+      Score drop: +0.0066 | Rank: 10->10 (= 0)
+    Remove Saving Private Ryan (1998) (ID 48) | Action|Drama|War  [degree=2114]
+      Score drop: +0.0040 | Rank: 10->11 (down 1)
+    Remove Matrix, The (1999) (ID 132) | Action|Sci-Fi|Thriller  [degree=2068]
+      Score drop: +0.0028 | Rank: 10->10 (= 0)
+
+  -- Rank 20 | Degree-based removals --
+    Remove Star Wars: Episode IV - A New Hope (1977) (ID 44) | Action|Adventure|Fantasy|Sci-Fi  [degree=2401]
+      Score drop: +0.0034 | Rank: 20->21 (down 1)
+    Remove Jurassic Park (1993) (ID 113) | Action|Adventure|Sci-Fi  [degree=2180]
+      Score drop: +0.0043 | Rank: 20->20 (= 0)
+    Remove Terminator 2: Judgment Day (1991) (ID 97) | Action|Sci-Fi|Thriller  [degree=2128]
+      Score drop: +0.0041 | Rank: 20->21 (down 1)
+    Remove Saving Private Ryan (1998) (ID 48) | Action|Drama|War  [degree=2114]
+      Score drop: +0.0097 | Rank: 20->22 (down 2)
+    Remove Matrix, The (1999) (ID 132) | Action|Sci-Fi|Thriller  [degree=2068]
+      Score drop: +0.0045 | Rank: 20->20 (= 0)
+
+============================================================
+User 4941
+  Rank  1: Close Encounters of the Third Kind (1977) (ID 96) | Drama|Sci-Fi  [score=11.0552]
+  Rank  5: Star Trek: First Contact (1996) (ID 528) | Action|Adventure|Sci-Fi  [score=9.4179]
+  Rank 10: Godfather, The (1972) (ID 669) | Action|Crime|Drama  [score=8.8077]
+  Rank 20: Boat, The (Das Boot) (1981) (ID 546) | Action|Drama|War  [score=8.1903]
+
+  -- Rank 1 | Degree-based removals --
+    Remove Star Wars: Episode IV - A New Hope (1977) (ID 44) | Action|Adventure|Fantasy|Sci-Fi  [degree=2401]
+      Score drop: +0.0048 | Rank: 1->2 (down 1)
+    Remove Star Wars: Episode V - The Empire Strikes Back (1980) (ID 124) | Action|Adventure|Drama|Sci-Fi|War  [degree=2387]
+      Score drop: +0.0051 | Rank: 1->1 (= 0)
+    Remove Jurassic Park (1993) (ID 113) | Action|Adventure|Sci-Fi  [degree=2180]
+      Score drop: +0.0039 | Rank: 1->1 (= 0)
+    Remove Terminator 2: Judgment Day (1991) (ID 97) | Action|Sci-Fi|Thriller  [degree=2128]
+      Score drop: +0.0031 | Rank: 1->1 (= 0)
+    Remove Saving Private Ryan (1998) (ID 48) | Action|Drama|War  [degree=2114]
+      Score drop: +0.0024 | Rank: 1->1 (= 0)
+
+  -- Rank 5 | Degree-based removals --
+    Remove Star Wars: Episode IV - A New Hope (1977) (ID 44) | Action|Adventure|Fantasy|Sci-Fi  [degree=2401]
+      Score drop: +0.0047 | Rank: 5->6 (down 1)
+    Remove Star Wars: Episode V - The Empire Strikes Back (1980) (ID 124) | Action|Adventure|Drama|Sci-Fi|War  [degree=2387]
+      Score drop: +0.0054 | Rank: 5->6 (down 1)
+    Remove Jurassic Park (1993) (ID 113) | Action|Adventure|Sci-Fi  [degree=2180]
+      Score drop: +0.0074 | Rank: 5->5 (= 0)
+    Remove Terminator 2: Judgment Day (1991) (ID 97) | Action|Sci-Fi|Thriller  [degree=2128]
+      Score drop: +0.0070 | Rank: 5->5 (= 0)
+    Remove Saving Private Ryan (1998) (ID 48) | Action|Drama|War  [degree=2114]
+      Score drop: +0.0031 | Rank: 5->5 (= 0)
+
+  -- Rank 10 | Degree-based removals --
+    Remove Star Wars: Episode IV - A New Hope (1977) (ID 44) | Action|Adventure|Fantasy|Sci-Fi  [degree=2401]
+      Score drop: +0.0066 | Rank: 10->11 (down 1)
+    Remove Star Wars: Episode V - The Empire Strikes Back (1980) (ID 124) | Action|Adventure|Drama|Sci-Fi|War  [degree=2387]
+      Score drop: +0.0071 | Rank: 10->11 (down 1)
+    Remove Jurassic Park (1993) (ID 113) | Action|Adventure|Sci-Fi  [degree=2180]
+      Score drop: +0.0054 | Rank: 10->11 (down 1)
+    Remove Terminator 2: Judgment Day (1991) (ID 97) | Action|Sci-Fi|Thriller  [degree=2128]
+      Score drop: +0.0066 | Rank: 10->11 (down 1)
+    Remove Saving Private Ryan (1998) (ID 48) | Action|Drama|War  [degree=2114]
+      Score drop: +0.0086 | Rank: 10->10 (= 0)
+
+  -- Rank 20 | Degree-based removals --
+    Remove Star Wars: Episode IV - A New Hope (1977) (ID 44) | Action|Adventure|Fantasy|Sci-Fi  [degree=2401]
+      Score drop: +0.0033 | Rank: 20->21 (down 1)
+    Remove Star Wars: Episode V - The Empire Strikes Back (1980) (ID 124) | Action|Adventure|Drama|Sci-Fi|War  [degree=2387]
+      Score drop: +0.0045 | Rank: 20->21 (down 1)
+    Remove Jurassic Park (1993) (ID 113) | Action|Adventure|Sci-Fi  [degree=2180]
+      Score drop: +0.0043 | Rank: 20->21 (down 1)
+    Remove Terminator 2: Judgment Day (1991) (ID 97) | Action|Sci-Fi|Thriller  [degree=2128]
+      Score drop: +0.0057 | Rank: 20->21 (down 1)
+    Remove Saving Private Ryan (1998) (ID 48) | Action|Drama|War  [degree=2114]
+      Score drop: +0.0072 | Rank: 20->21 (down 1)
+
+============================================================
+User 4667
+  Rank  1: Star Trek: The Wrath of Khan (1982) (ID 643) | Action|Adventure|Sci-Fi  [score=9.1803]
+  Rank  5: Jurassic Park (1993) (ID 113) | Action|Adventure|Sci-Fi  [score=8.7682]
+  Rank 10: Raiders of the Lost Ark (1981) (ID 127) | Action|Adventure  [score=8.3648]
+  Rank 20: Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb (1963) (ID 611) | Sci-Fi|War  [score=7.9099]
+
+  -- Rank 1 | Degree-based removals --
+    Remove Star Wars: Episode IV - A New Hope (1977) (ID 44) | Action|Adventure|Fantasy|Sci-Fi  [degree=2401]
+      Score drop: +0.0126 | Rank: 1->2 (down 1)
+    Remove Star Wars: Episode V - The Empire Strikes Back (1980) (ID 124) | Action|Adventure|Drama|Sci-Fi|War  [degree=2387]
+      Score drop: +0.0132 | Rank: 1->2 (down 1)
+    Remove Star Wars: Episode VI - Return of the Jedi (1983) (ID 64) | Action|Adventure|Romance|Sci-Fi|War  [degree=2288]
+      Score drop: +0.0162 | Rank: 1->2 (down 1)
+    Remove Terminator 2: Judgment Day (1991) (ID 97) | Action|Sci-Fi|Thriller  [degree=2128]
+      Score drop: +0.0135 | Rank: 1->1 (= 0)
+    Remove Matrix, The (1999) (ID 132) | Action|Sci-Fi|Thriller  [degree=2068]
+      Score drop: +0.0162 | Rank: 1->1 (= 0)
+
+  -- Rank 5 | Degree-based removals --
+    Remove Star Wars: Episode IV - A New Hope (1977) (ID 44) | Action|Adventure|Fantasy|Sci-Fi  [degree=2401]
+      Score drop: +0.0196 | Rank: 5->6 (down 1)
+    Remove Star Wars: Episode V - The Empire Strikes Back (1980) (ID 124) | Action|Adventure|Drama|Sci-Fi|War  [degree=2387]
+      Score drop: +0.0191 | Rank: 5->6 (down 1)
+    Remove Star Wars: Episode VI - Return of the Jedi (1983) (ID 64) | Action|Adventure|Romance|Sci-Fi|War  [degree=2288]
+      Score drop: +0.0218 | Rank: 5->6 (down 1)
+    Remove Terminator 2: Judgment Day (1991) (ID 97) | Action|Sci-Fi|Thriller  [degree=2128]
+      Score drop: +0.0303 | Rank: 5->6 (down 1)
+    Remove Matrix, The (1999) (ID 132) | Action|Sci-Fi|Thriller  [degree=2068]
+      Score drop: +0.0259 | Rank: 5->6 (down 1)
+
+  -- Rank 10 | Degree-based removals --
+    Remove Star Wars: Episode IV - A New Hope (1977) (ID 44) | Action|Adventure|Fantasy|Sci-Fi  [degree=2401]
+      Score drop: +0.0229 | Rank: 10->11 (down 1)
+    Remove Star Wars: Episode V - The Empire Strikes Back (1980) (ID 124) | Action|Adventure|Drama|Sci-Fi|War  [degree=2387]
+      Score drop: +0.0245 | Rank: 10->11 (down 1)
+    Remove Star Wars: Episode VI - Return of the Jedi (1983) (ID 64) | Action|Adventure|Romance|Sci-Fi|War  [degree=2288]
+      Score drop: +0.0244 | Rank: 10->11 (down 1)
+    Remove Terminator 2: Judgment Day (1991) (ID 97) | Action|Sci-Fi|Thriller  [degree=2128]
+      Score drop: +0.0216 | Rank: 10->11 (down 1)
+    Remove Matrix, The (1999) (ID 132) | Action|Sci-Fi|Thriller  [degree=2068]
+      Score drop: +0.0220 | Rank: 10->11 (down 1)
+
+  -- Rank 20 | Degree-based removals --
+    Remove Star Wars: Episode IV - A New Hope (1977) (ID 44) | Action|Adventure|Fantasy|Sci-Fi  [degree=2401]
+      Score drop: +0.0165 | Rank: 20->21 (down 1)
+    Remove Star Wars: Episode V - The Empire Strikes Back (1980) (ID 124) | Action|Adventure|Drama|Sci-Fi|War  [degree=2387]
+      Score drop: +0.0159 | Rank: 20->21 (down 1)
+    Remove Star Wars: Episode VI - Return of the Jedi (1983) (ID 64) | Action|Adventure|Romance|Sci-Fi|War  [degree=2288]
+      Score drop: +0.0137 | Rank: 20->21 (down 1)
+    Remove Terminator 2: Judgment Day (1991) (ID 97) | Action|Sci-Fi|Thriller  [degree=2128]
+      Score drop: +0.0132 | Rank: 20->21 (down 1)
+    Remove Matrix, The (1999) (ID 132) | Action|Sci-Fi|Thriller  [degree=2068]
+      Score drop: +0.0143 | Rank: 20->21 (down 1)
+
+============================================================
+User 2906
+  Rank  1: Home Alone 2: Lost in New York (1992) (ID 1091) | Children's|Comedy  [score=6.7495]
+  Rank  5: Dick Tracy (1990) (ID 836) | Action|Crime  [score=6.1654]
+  Rank 10: Coneheads (1993) (ID 683) | Comedy|Sci-Fi  [score=5.8183]
+  Rank 20: Airplane! (1980) (ID 15) | Comedy  [score=5.4445]
+
+  -- Rank 1 | Degree-based removals --
+    Remove Star Wars: Episode IV - A New Hope (1977) (ID 44) | Action|Adventure|Fantasy|Sci-Fi  [degree=2401]
+      Score drop: -0.0010 | Rank: 1->1 (= 0)
+    Remove Star Wars: Episode V - The Empire Strikes Back (1980) (ID 124) | Action|Adventure|Drama|Sci-Fi|War  [degree=2387]
+      Score drop: -0.0008 | Rank: 1->1 (= 0)
+    Remove Star Wars: Episode VI - Return of the Jedi (1983) (ID 64) | Action|Adventure|Romance|Sci-Fi|War  [degree=2288]
+      Score drop: -0.0010 | Rank: 1->1 (= 0)
+    Remove Terminator 2: Judgment Day (1991) (ID 97) | Action|Sci-Fi|Thriller  [degree=2128]
+      Score drop: -0.0014 | Rank: 1->1 (= 0)
+    Remove Matrix, The (1999) (ID 132) | Action|Sci-Fi|Thriller  [degree=2068]
+      Score drop: -0.0016 | Rank: 1->1 (= 0)
+
+  -- Rank 5 | Degree-based removals --
+    Remove Star Wars: Episode IV - A New Hope (1977) (ID 44) | Action|Adventure|Fantasy|Sci-Fi  [degree=2401]
+      Score drop: +0.0007 | Rank: 5->6 (down 1)
+    Remove Star Wars: Episode V - The Empire Strikes Back (1980) (ID 124) | Action|Adventure|Drama|Sci-Fi|War  [degree=2387]
+      Score drop: +0.0006 | Rank: 5->5 (= 0)
+    Remove Star Wars: Episode VI - Return of the Jedi (1983) (ID 64) | Action|Adventure|Romance|Sci-Fi|War  [degree=2288]
+      Score drop: +0.0012 | Rank: 5->5 (= 0)
+    Remove Terminator 2: Judgment Day (1991) (ID 97) | Action|Sci-Fi|Thriller  [degree=2128]
+      Score drop: +0.0020 | Rank: 5->5 (= 0)
+    Remove Matrix, The (1999) (ID 132) | Action|Sci-Fi|Thriller  [degree=2068]
+      Score drop: +0.0019 | Rank: 5->5 (= 0)
+
+  -- Rank 10 | Degree-based removals --
+    Remove Star Wars: Episode IV - A New Hope (1977) (ID 44) | Action|Adventure|Fantasy|Sci-Fi  [degree=2401]
+      Score drop: +0.0011 | Rank: 10->11 (down 1)
+    Remove Star Wars: Episode V - The Empire Strikes Back (1980) (ID 124) | Action|Adventure|Drama|Sci-Fi|War  [degree=2387]
+      Score drop: +0.0011 | Rank: 10->10 (= 0)
+    Remove Star Wars: Episode VI - Return of the Jedi (1983) (ID 64) | Action|Adventure|Romance|Sci-Fi|War  [degree=2288]
+      Score drop: +0.0013 | Rank: 10->11 (down 1)
+    Remove Terminator 2: Judgment Day (1991) (ID 97) | Action|Sci-Fi|Thriller  [degree=2128]
+      Score drop: +0.0015 | Rank: 10->10 (= 0)
+    Remove Matrix, The (1999) (ID 132) | Action|Sci-Fi|Thriller  [degree=2068]
+      Score drop: +0.0019 | Rank: 10->10 (= 0)
+
+  -- Rank 20 | Degree-based removals --
+    Remove Star Wars: Episode IV - A New Hope (1977) (ID 44) | Action|Adventure|Fantasy|Sci-Fi  [degree=2401]
+      Score drop: +0.0035 | Rank: 20->21 (down 1)
+    Remove Star Wars: Episode V - The Empire Strikes Back (1980) (ID 124) | Action|Adventure|Drama|Sci-Fi|War  [degree=2387]
+      Score drop: +0.0032 | Rank: 20->20 (= 0)
+    Remove Star Wars: Episode VI - Return of the Jedi (1983) (ID 64) | Action|Adventure|Romance|Sci-Fi|War  [degree=2288]
+      Score drop: +0.0037 | Rank: 20->21 (down 1)
+    Remove Terminator 2: Judgment Day (1991) (ID 97) | Action|Sci-Fi|Thriller  [degree=2128]
+      Score drop: +0.0044 | Rank: 20->20 (= 0)
+    Remove Matrix, The (1999) (ID 132) | Action|Sci-Fi|Thriller  [degree=2068]
+      Score drop: +0.0026 | Rank: 20->20 (= 0)
+
+============================================================
+User 2375
+  Rank  1: Good Will Hunting (1997) (ID 280) | Drama  [score=9.3217]
+  Rank  5: Leaving Las Vegas (1995) (ID 504) | Drama|Romance  [score=8.0866]
+  Rank 10: Cape Fear (1991) (ID 523) | Thriller  [score=7.5453]
+  Rank 20: Fight Club (1999) (ID 317) | Drama  [score=7.1594]
+
+  -- Rank 1 | Degree-based removals --
+    Remove American Beauty (1999) (ID 104) | Comedy|Drama  [degree=2740]
+      Score drop: +0.0017 | Rank: 1->1 (= 0)
+    Remove Star Wars: Episode IV - A New Hope (1977) (ID 44) | Action|Adventure|Fantasy|Sci-Fi  [degree=2401]
+      Score drop: +0.0008 | Rank: 1->1 (= 0)
+    Remove Star Wars: Episode V - The Empire Strikes Back (1980) (ID 124) | Action|Adventure|Drama|Sci-Fi|War  [degree=2387]
+      Score drop: +0.0020 | Rank: 1->1 (= 0)
+    Remove Terminator 2: Judgment Day (1991) (ID 97) | Action|Sci-Fi|Thriller  [degree=2128]
+      Score drop: +0.0012 | Rank: 1->1 (= 0)
+    Remove Saving Private Ryan (1998) (ID 48) | Action|Drama|War  [degree=2114]
+      Score drop: +0.0048 | Rank: 1->1 (= 0)
+
+  -- Rank 5 | Degree-based removals --
+    Remove American Beauty (1999) (ID 104) | Comedy|Drama  [degree=2740]
+      Score drop: +0.0014 | Rank: 5->6 (down 1)
+    Remove Star Wars: Episode IV - A New Hope (1977) (ID 44) | Action|Adventure|Fantasy|Sci-Fi  [degree=2401]
+      Score drop: -0.0005 | Rank: 5->5 (= 0)
+    Remove Star Wars: Episode V - The Empire Strikes Back (1980) (ID 124) | Action|Adventure|Drama|Sci-Fi|War  [degree=2387]
+      Score drop: +0.0006 | Rank: 5->5 (= 0)
+    Remove Terminator 2: Judgment Day (1991) (ID 97) | Action|Sci-Fi|Thriller  [degree=2128]
+      Score drop: +0.0010 | Rank: 5->5 (= 0)
+    Remove Saving Private Ryan (1998) (ID 48) | Action|Drama|War  [degree=2114]
+      Score drop: +0.0035 | Rank: 5->5 (= 0)
+
+  -- Rank 10 | Degree-based removals --
+    Remove American Beauty (1999) (ID 104) | Comedy|Drama  [degree=2740]
+      Score drop: -0.0002 | Rank: 10->11 (down 1)
+    Remove Star Wars: Episode IV - A New Hope (1977) (ID 44) | Action|Adventure|Fantasy|Sci-Fi  [degree=2401]
+      Score drop: -0.0003 | Rank: 10->10 (= 0)
+    Remove Star Wars: Episode V - The Empire Strikes Back (1980) (ID 124) | Action|Adventure|Drama|Sci-Fi|War  [degree=2387]
+      Score drop: -0.0001 | Rank: 10->10 (= 0)
+    Remove Terminator 2: Judgment Day (1991) (ID 97) | Action|Sci-Fi|Thriller  [degree=2128]
+      Score drop: +0.0017 | Rank: 10->10 (= 0)
+    Remove Saving Private Ryan (1998) (ID 48) | Action|Drama|War  [degree=2114]
+      Score drop: +0.0023 | Rank: 10->11 (down 1)
+
+  -- Rank 20 | Degree-based removals --
+    Remove American Beauty (1999) (ID 104) | Comedy|Drama  [degree=2740]
+      Score drop: +0.0043 | Rank: 20->21 (down 1)
+    Remove Star Wars: Episode IV - A New Hope (1977) (ID 44) | Action|Adventure|Fantasy|Sci-Fi  [degree=2401]
+      Score drop: +0.0024 | Rank: 20->20 (= 0)
+    Remove Star Wars: Episode V - The Empire Strikes Back (1980) (ID 124) | Action|Adventure|Drama|Sci-Fi|War  [degree=2387]
+      Score drop: +0.0024 | Rank: 20->20 (= 0)
+    Remove Terminator 2: Judgment Day (1991) (ID 97) | Action|Sci-Fi|Thriller  [degree=2128]
+      Score drop: +0.0021 | Rank: 20->20 (= 0)
+    Remove Saving Private Ryan (1998) (ID 48) | Action|Drama|War  [degree=2114]
+      Score drop: +0.0037 | Rank: 20->21 (down 1)
+
+============================================================
+User 3823
+  Rank  1: Predator (1987) (ID 214) | Action|Sci-Fi|Thriller  [score=6.3701]
+  Rank  5: Blues Brothers, The (1980) (ID 755) | Action|Comedy|Musical  [score=6.0237]
+  Rank 10: Mad Max (1979) (ID 211) | Action|Sci-Fi  [score=5.6212]
+  Rank 20: Full Metal Jacket (1987) (ID 1228) | Action|Drama|War  [score=5.2635]
+
+  -- Rank 1 | Degree-based removals --
+    Remove American Beauty (1999) (ID 104) | Comedy|Drama  [degree=2740]
+      Score drop: +0.0001 | Rank: 1->1 (= 0)
+    Remove Star Wars: Episode IV - A New Hope (1977) (ID 44) | Action|Adventure|Fantasy|Sci-Fi  [degree=2401]
+      Score drop: +0.0035 | Rank: 1->1 (= 0)
+    Remove Star Wars: Episode VI - Return of the Jedi (1983) (ID 64) | Action|Adventure|Romance|Sci-Fi|War  [degree=2288]
+      Score drop: +0.0040 | Rank: 1->1 (= 0)
+    Remove Jurassic Park (1993) (ID 113) | Action|Adventure|Sci-Fi  [degree=2180]
+      Score drop: +0.0037 | Rank: 1->1 (= 0)
+    Remove Terminator 2: Judgment Day (1991) (ID 97) | Action|Sci-Fi|Thriller  [degree=2128]
+      Score drop: +0.0043 | Rank: 1->1 (= 0)
+
+  -- Rank 5 | Degree-based removals --
+    Remove American Beauty (1999) (ID 104) | Comedy|Drama  [degree=2740]
+      Score drop: +0.0012 | Rank: 5->5 (= 0)
+    Remove Star Wars: Episode IV - A New Hope (1977) (ID 44) | Action|Adventure|Fantasy|Sci-Fi  [degree=2401]
+      Score drop: +0.0028 | Rank: 5->5 (= 0)
+    Remove Star Wars: Episode VI - Return of the Jedi (1983) (ID 64) | Action|Adventure|Romance|Sci-Fi|War  [degree=2288]
+      Score drop: +0.0034 | Rank: 5->5 (= 0)
+    Remove Jurassic Park (1993) (ID 113) | Action|Adventure|Sci-Fi  [degree=2180]
+      Score drop: +0.0024 | Rank: 5->5 (= 0)
+    Remove Terminator 2: Judgment Day (1991) (ID 97) | Action|Sci-Fi|Thriller  [degree=2128]
+      Score drop: +0.0027 | Rank: 5->5 (= 0)
+
+  -- Rank 10 | Degree-based removals --
+    Remove American Beauty (1999) (ID 104) | Comedy|Drama  [degree=2740]
+      Score drop: +0.0002 | Rank: 10->10 (= 0)
+    Remove Star Wars: Episode IV - A New Hope (1977) (ID 44) | Action|Adventure|Fantasy|Sci-Fi  [degree=2401]
+      Score drop: +0.0034 | Rank: 10->10 (= 0)
+    Remove Star Wars: Episode VI - Return of the Jedi (1983) (ID 64) | Action|Adventure|Romance|Sci-Fi|War  [degree=2288]
+      Score drop: +0.0035 | Rank: 10->11 (down 1)
+    Remove Jurassic Park (1993) (ID 113) | Action|Adventure|Sci-Fi  [degree=2180]
+      Score drop: +0.0033 | Rank: 10->10 (= 0)
+    Remove Terminator 2: Judgment Day (1991) (ID 97) | Action|Sci-Fi|Thriller  [degree=2128]
+      Score drop: +0.0037 | Rank: 10->10 (= 0)
+
+  -- Rank 20 | Degree-based removals --
+    Remove American Beauty (1999) (ID 104) | Comedy|Drama  [degree=2740]
+      Score drop: +0.0016 | Rank: 20->20 (= 0)
+    Remove Star Wars: Episode IV - A New Hope (1977) (ID 44) | Action|Adventure|Fantasy|Sci-Fi  [degree=2401]
+      Score drop: +0.0031 | Rank: 20->20 (= 0)
+    Remove Star Wars: Episode VI - Return of the Jedi (1983) (ID 64) | Action|Adventure|Romance|Sci-Fi|War  [degree=2288]
+      Score drop: +0.0033 | Rank: 20->21 (down 1)
+    Remove Jurassic Park (1993) (ID 113) | Action|Adventure|Sci-Fi  [degree=2180]
+      Score drop: +0.0026 | Rank: 20->20 (= 0)
+    Remove Terminator 2: Judgment Day (1991) (ID 97) | Action|Sci-Fi|Thriller  [degree=2128]
+      Score drop: +0.0037 | Rank: 20->21 (down 1)
+
+============================================================
+User 5604
+  Rank  1: Lion King, The (1994) (ID 390) | Animation|Children's|Musical  [score=7.8538]
+  Rank  5: James and the Giant Peach (1996) (ID 1) | Animation|Children's|Musical  [score=6.3183]
+  Rank 10: Pocahontas (1995) (ID 25) | Animation|Children's|Musical|Romance  [score=6.1729]
+  Rank 20: Secret Garden, The (1993) (ID 49) | Children's|Drama  [score=5.6106]
+
+  -- Rank 1 | Degree-based removals --
+    Remove American Beauty (1999) (ID 104) | Comedy|Drama  [degree=2740]
+      Score drop: -0.0000 | Rank: 1->1 (= 0)
+    Remove Star Wars: Episode IV - A New Hope (1977) (ID 44) | Action|Adventure|Fantasy|Sci-Fi  [degree=2401]
+      Score drop: +0.0017 | Rank: 1->1 (= 0)
+    Remove Star Wars: Episode V - The Empire Strikes Back (1980) (ID 124) | Action|Adventure|Drama|Sci-Fi|War  [degree=2387]
+      Score drop: +0.0016 | Rank: 1->1 (= 0)
+    Remove Star Wars: Episode VI - Return of the Jedi (1983) (ID 64) | Action|Adventure|Romance|Sci-Fi|War  [degree=2288]
+      Score drop: +0.0017 | Rank: 1->1 (= 0)
+    Remove Jurassic Park (1993) (ID 113) | Action|Adventure|Sci-Fi  [degree=2180]
+      Score drop: +0.0020 | Rank: 1->1 (= 0)
+
+  -- Rank 5 | Degree-based removals --
+    Remove American Beauty (1999) (ID 104) | Comedy|Drama  [degree=2740]
+      Score drop: +0.0013 | Rank: 5->5 (= 0)
+    Remove Star Wars: Episode IV - A New Hope (1977) (ID 44) | Action|Adventure|Fantasy|Sci-Fi  [degree=2401]
+      Score drop: +0.0022 | Rank: 5->5 (= 0)
+    Remove Star Wars: Episode V - The Empire Strikes Back (1980) (ID 124) | Action|Adventure|Drama|Sci-Fi|War  [degree=2387]
+      Score drop: +0.0014 | Rank: 5->5 (= 0)
+    Remove Star Wars: Episode VI - Return of the Jedi (1983) (ID 64) | Action|Adventure|Romance|Sci-Fi|War  [degree=2288]
+      Score drop: +0.0017 | Rank: 5->5 (= 0)
+    Remove Jurassic Park (1993) (ID 113) | Action|Adventure|Sci-Fi  [degree=2180]
+      Score drop: +0.0031 | Rank: 5->5 (= 0)
+
+  -- Rank 10 | Degree-based removals --
+    Remove American Beauty (1999) (ID 104) | Comedy|Drama  [degree=2740]
+      Score drop: -0.0016 | Rank: 10->10 (= 0)
+    Remove Star Wars: Episode IV - A New Hope (1977) (ID 44) | Action|Adventure|Fantasy|Sci-Fi  [degree=2401]
+      Score drop: -0.0001 | Rank: 10->11 (down 1)
+    Remove Star Wars: Episode V - The Empire Strikes Back (1980) (ID 124) | Action|Adventure|Drama|Sci-Fi|War  [degree=2387]
+      Score drop: -0.0001 | Rank: 10->10 (= 0)
+    Remove Star Wars: Episode VI - Return of the Jedi (1983) (ID 64) | Action|Adventure|Romance|Sci-Fi|War  [degree=2288]
+      Score drop: +0.0002 | Rank: 10->10 (= 0)
+    Remove Jurassic Park (1993) (ID 113) | Action|Adventure|Sci-Fi  [degree=2180]
+      Score drop: +0.0004 | Rank: 10->10 (= 0)
+
+  -- Rank 20 | Degree-based removals --
+    Remove American Beauty (1999) (ID 104) | Comedy|Drama  [degree=2740]
+      Score drop: -0.0001 | Rank: 20->20 (= 0)
+    Remove Star Wars: Episode IV - A New Hope (1977) (ID 44) | Action|Adventure|Fantasy|Sci-Fi  [degree=2401]
+      Score drop: +0.0002 | Rank: 20->21 (down 1)
+    Remove Star Wars: Episode V - The Empire Strikes Back (1980) (ID 124) | Action|Adventure|Drama|Sci-Fi|War  [degree=2387]
+      Score drop: +0.0004 | Rank: 20->20 (= 0)
+    Remove Star Wars: Episode VI - Return of the Jedi (1983) (ID 64) | Action|Adventure|Romance|Sci-Fi|War  [degree=2288]
+      Score drop: -0.0001 | Rank: 20->21 (down 1)
+    Remove Jurassic Park (1993) (ID 113) | Action|Adventure|Sci-Fi  [degree=2180]
+      Score drop: +0.0002 | Rank: 20->21 (down 1)
+
+
+============================================================
+DEGREE BASELINE SUMMARY
+  Rank |     N | Avg |Score Drop| | Rank Changes
+--------------------------------------------------
+     1 |    50 |           0.0055 |     7/50 changed
+     5 |    50 |           0.0078 |    18/50 changed
+    10 |    50 |           0.0055 |    30/50 changed
+    20 |    50 |           0.0053 |    36/50 changed
+   ALL |   200 |           0.0060 |    91/200 changed
+
+--- LIME Baseline (Counterfactual) ---
+Testing rank positions: [1, 5, 10, 20]
+Users: 10 | Top-k: 5 | Perturbations per target: 100
+
+[ 1/10] User 5411
+  Rank  1: Star Wars: Episode IV - A New Hope (1977) (ID 44) | Action|Adventure|Fantasy|Sci-Fi  [score=7.7218]
+  Rank  5: Toy Story 2 (1999) (ID 50) | Animation|Children's|Comedy  [score=6.6409]
+  Rank 10: Batman (1989) (ID 587) | Action|Adventure|Crime|Drama  [score=6.4306]
+  Rank 20: Hunt for Red October, The (1990) (ID 78) | Action|Thriller  [score=6.0513]
+
+  -- Rank 1 | LIME removals --
+    Remove Gods Must Be Crazy II, The (1989) (ID 2870) | Comedy  [LIME coef=+0.0254]
+      Score drop: +0.0249 | Rank: 1->1 (= 0)
+    Remove Akira (1988) (ID 467) | Adventure|Animation|Sci-Fi|Thriller  [LIME coef=+0.0246]
+      Score drop: +0.0221 | Rank: 1->1 (= 0)
+    Remove Chinatown (1974) (ID 559) | Film-Noir|Mystery|Thriller  [LIME coef=+0.0242]
+      Score drop: +0.0099 | Rank: 1->1 (= 0)
+    Remove Romeo Must Die (2000) (ID 526) | Action|Romance  [LIME coef=+0.0224]
+      Score drop: +0.0222 | Rank: 1->1 (= 0)
+    Remove Return to Oz (1985) (ID 628) | Adventure|Children's|Fantasy|Sci-Fi  [LIME coef=+0.0221]
+      Score drop: +0.0233 | Rank: 1->1 (= 0)
+
+  -- Rank 5 | LIME removals --
+    Remove Road to El Dorado, The (2000) (ID 1854) | Animation|Children's  [LIME coef=+0.0277]
+      Score drop: +0.0418 | Rank: 5->5 (= 0)
+    Remove Gods Must Be Crazy II, The (1989) (ID 2870) | Comedy  [LIME coef=+0.0270]
+      Score drop: +0.0215 | Rank: 5->5 (= 0)
+    Remove Pokémon the Movie 2000 (2000) (ID 241) | Animation|Children's  [LIME coef=+0.0257]
+      Score drop: +0.0383 | Rank: 5->5 (= 0)
+    Remove Anastasia (1997) (ID 389) | Animation|Children's|Musical  [LIME coef=+0.0253]
+      Score drop: +0.0201 | Rank: 5->5 (= 0)
+    Remove Snow Falling on Cedars (1999) (ID 2036) | Drama  [LIME coef=+0.0240]
+      Score drop: +0.0221 | Rank: 5->5 (= 0)
+
+  -- Rank 10 | LIME removals --
+    Remove Cook the Thief His Wife & Her Lover, The (1989) (ID 2000) | Drama  [LIME coef=+0.0220]
+      Score drop: +0.0215 | Rank: 10->10 (= 0)
+    Remove Manon of the Spring (Manon des sources) (1986) (ID 2727) | Drama  [LIME coef=+0.0204]
+      Score drop: +0.0152 | Rank: 10->10 (= 0)
+    Remove Trainspotting (1996) (ID 542) | Drama  [LIME coef=+0.0203]
+      Score drop: +0.0091 | Rank: 10->10 (= 0)
+    Remove Iron Giant, The (1999) (ID 939) | Animation|Children's  [LIME coef=+0.0201]
+      Score drop: +0.0111 | Rank: 10->10 (= 0)
+    Remove Watership Down (1978) (ID 582) | Animation|Children's|Drama|Fantasy  [LIME coef=+0.0200]
+      Score drop: +0.0199 | Rank: 10->10 (= 0)
+
+  -- Rank 20 | LIME removals --
+    Remove F/X 2 (1992) (ID 1991) | Action|Crime|Thriller  [LIME coef=+0.0246]
+      Score drop: +0.0211 | Rank: 20->21 (down 1)
+    Remove Operation Condor (Feiying gaiwak) (1990) (ID 2174) | Action|Adventure|Comedy  [LIME coef=+0.0225]
+      Score drop: +0.0250 | Rank: 20->21 (down 1)
+    Remove Supercop (1992) (ID 430) | Action|Thriller  [LIME coef=+0.0225]
+      Score drop: +0.0263 | Rank: 20->21 (down 1)
+    Remove Mariachi, El (1992) (ID 348) | Action|Thriller  [LIME coef=+0.0224]
+      Score drop: +0.0218 | Rank: 20->21 (down 1)
+    Remove Dangerous Liaisons (1988) (ID 1098) | Drama|Romance  [LIME coef=+0.0209]
+      Score drop: +0.0102 | Rank: 20->21 (down 1)
+
+[ 2/10] User 5439
+  Rank  1: Babe (1995) (ID 381) | Children's|Comedy|Drama  [score=6.8239]
+  Rank  5: American Beauty (1999) (ID 104) | Comedy|Drama  [score=6.4263]
+  Rank 10: Opposite of Sex, The (1998) (ID 357) | Comedy|Drama  [score=6.0027]
+  Rank 20: Grand Day Out, A (1992) (ID 539) | Animation|Comedy  [score=5.6459]
+
+  -- Rank 1 | LIME removals --
+    Remove Family Thing, A (1996) (ID 2825) | Comedy|Drama  [LIME coef=+0.1002]
+      Score drop: +0.0943 | Rank: 1->1 (= 0)
+    Remove FairyTale: A True Story (1997) (ID 749) | Children's|Drama|Fantasy  [LIME coef=+0.0855]
+      Score drop: +0.0836 | Rank: 1->1 (= 0)
+    Remove Dancer, Texas Pop. 81 (1998) (ID 2954) | Comedy|Drama  [LIME coef=+0.0731]
+      Score drop: +0.0614 | Rank: 1->1 (= 0)
+    Remove Heart and Souls (1993) (ID 616) | Comedy|Fantasy  [LIME coef=+0.0608]
+      Score drop: +0.0661 | Rank: 1->1 (= 0)
+    Remove Citizen Ruth (1996) (ID 225) | Comedy|Drama  [LIME coef=+0.0576]
+      Score drop: +0.0505 | Rank: 1->1 (= 0)
+
+  -- Rank 5 | LIME removals --
+    Remove Dancer, Texas Pop. 81 (1998) (ID 2954) | Comedy|Drama  [LIME coef=+0.0902]
+      Score drop: +0.0775 | Rank: 5->5 (= 0)
+    Remove Family Thing, A (1996) (ID 2825) | Comedy|Drama  [LIME coef=+0.0735]
+      Score drop: +0.0650 | Rank: 5->5 (= 0)
+    Remove Citizen Ruth (1996) (ID 225) | Comedy|Drama  [LIME coef=+0.0634]
+      Score drop: +0.0628 | Rank: 5->5 (= 0)
+    Remove Heavenly Creatures (1994) (ID 958) | Drama|Fantasy|Romance|Thriller  [LIME coef=+0.0615]
+      Score drop: +0.0537 | Rank: 5->5 (= 0)
+    Remove Waking Ned Devine (1998) (ID 129) | Comedy  [LIME coef=+0.0550]
+      Score drop: +0.0542 | Rank: 5->5 (= 0)
+
+  -- Rank 10 | LIME removals --
+    Remove Dancer, Texas Pop. 81 (1998) (ID 2954) | Comedy|Drama  [LIME coef=+0.0783]
+      Score drop: +0.0721 | Rank: 10->10 (= 0)
+    Remove Citizen Ruth (1996) (ID 225) | Comedy|Drama  [LIME coef=+0.0764]
+      Score drop: +0.0681 | Rank: 10->10 (= 0)
+    Remove Living in Oblivion (1995) (ID 298) | Comedy  [LIME coef=+0.0583]
+      Score drop: +0.0575 | Rank: 10->10 (= 0)
+    Remove Cold Comfort Farm (1995) (ID 247) | Comedy  [LIME coef=+0.0565]
+      Score drop: +0.0599 | Rank: 10->10 (= 0)
+    Remove Family Thing, A (1996) (ID 2825) | Comedy|Drama  [LIME coef=+0.0545]
+      Score drop: +0.0524 | Rank: 10->10 (= 0)
+
+  -- Rank 20 | LIME removals --
+    Remove Cold Comfort Farm (1995) (ID 247) | Comedy  [LIME coef=+0.0765]
+      Score drop: +0.0689 | Rank: 20->21 (down 1)
+    Remove FairyTale: A True Story (1997) (ID 749) | Children's|Drama|Fantasy  [LIME coef=+0.0761]
+      Score drop: +0.0811 | Rank: 20->23 (down 3)
+    Remove Citizen Ruth (1996) (ID 225) | Comedy|Drama  [LIME coef=+0.0490]
+      Score drop: +0.0452 | Rank: 20->21 (down 1)
+    Remove Delicatessen (1991) (ID 220) | Comedy|Sci-Fi  [LIME coef=+0.0472]
+      Score drop: +0.0492 | Rank: 20->21 (down 1)
+    Remove Heart and Souls (1993) (ID 616) | Comedy|Fantasy  [LIME coef=+0.0428]
+      Score drop: +0.0445 | Rank: 20->20 (= 0)
+
+[ 3/10] User 367
+  Rank  1: Braveheart (1995) (ID 92) | Action|Drama|War  [score=8.4108]
+  Rank  5: Men in Black (1997) (ID 189) | Action|Adventure|Comedy|Sci-Fi  [score=7.9117]
+  Rank 10: Conspiracy Theory (1997) (ID 137) | Action|Mystery|Romance|Thriller  [score=7.3779]
+  Rank 20: Thelma & Louise (1991) (ID 156) | Action|Drama  [score=6.8730]
+
+  -- Rank 1 | LIME removals --
+    Remove Snow Day (2000) (ID 1521) | Comedy  [LIME coef=+0.0274]
+      Score drop: +0.0375 | Rank: 1->1 (= 0)
+    Remove Flintstones in Viva Rock Vegas, The (2000) (ID 2061) | Children's|Comedy  [LIME coef=+0.0239]
+      Score drop: +0.0222 | Rank: 1->1 (= 0)
+    Remove Misérables, Les (1998) (ID 103) | Drama  [LIME coef=+0.0231]
+      Score drop: +0.0280 | Rank: 1->1 (= 0)
+    Remove Kalifornia (1993) (ID 824) | Drama|Thriller  [LIME coef=+0.0228]
+      Score drop: +0.0159 | Rank: 1->1 (= 0)
+    Remove JFK (1991) (ID 292) | Drama|Mystery  [LIME coef=+0.0219]
+      Score drop: +0.0149 | Rank: 1->1 (= 0)
+
+  -- Rank 5 | LIME removals --
+    Remove Mission to Mars (2000) (ID 860) | Sci-Fi  [LIME coef=+0.0242]
+      Score drop: +0.0182 | Rank: 5->5 (= 0)
+    Remove Ransom (1996) (ID 887) | Drama|Thriller  [LIME coef=+0.0222]
+      Score drop: +0.0092 | Rank: 5->5 (= 0)
+    Remove First Knight (1995) (ID 1036) | Action|Adventure|Drama|Romance  [LIME coef=+0.0221]
+      Score drop: +0.0166 | Rank: 5->5 (= 0)
+    Remove My Favorite Martian (1999) (ID 574) | Comedy|Sci-Fi  [LIME coef=+0.0210]
+      Score drop: +0.0269 | Rank: 5->5 (= 0)
+    Remove Dragonheart (1996) (ID 187) | Action|Adventure|Fantasy  [LIME coef=+0.0195]
+      Score drop: +0.0182 | Rank: 5->5 (= 0)
+
+  -- Rank 10 | LIME removals --
+    Remove First Knight (1995) (ID 1036) | Action|Adventure|Drama|Romance  [LIME coef=+0.0230]
+      Score drop: +0.0207 | Rank: 10->11 (down 1)
+    Remove Saint, The (1997) (ID 849) | Action|Romance|Thriller  [LIME coef=+0.0221]
+      Score drop: +0.0201 | Rank: 10->11 (down 1)
+    Remove Switchback (1997) (ID 2335) | Thriller  [LIME coef=+0.0202]
+      Score drop: +0.0235 | Rank: 10->11 (down 1)
+    Remove Shadow, The (1994) (ID 1870) | Action  [LIME coef=+0.0200]
+      Score drop: +0.0183 | Rank: 10->11 (down 1)
+    Remove Client, The (1994) (ID 1368) | Drama|Mystery|Thriller  [LIME coef=+0.0198]
+      Score drop: +0.0182 | Rank: 10->11 (down 1)
+
+  -- Rank 20 | LIME removals --
+    Remove Silence of the Lambs, The (1991) (ID 128) | Drama|Thriller  [LIME coef=+0.0229]
+      Score drop: +0.0054 | Rank: 20->21 (down 1)
+    Remove Farewell My Concubine (1993) (ID 986) | Drama|Romance  [LIME coef=+0.0214]
+      Score drop: +0.0198 | Rank: 20->20 (= 0)
+    Remove Little Buddha (1993) (ID 1974) | Drama  [LIME coef=+0.0196]
+      Score drop: +0.0183 | Rank: 20->20 (= 0)
+    Remove Peacemaker, The (1997) (ID 1670) | Action|Thriller|War  [LIME coef=+0.0193]
+      Score drop: +0.0132 | Rank: 20->20 (= 0)
+    Remove Anaconda (1997) (ID 1085) | Action|Adventure|Thriller  [LIME coef=+0.0193]
+      Score drop: +0.0107 | Rank: 20->20 (= 0)
+
+[ 4/10] User 424
+  Rank  1: Ferris Bueller's Day Off (1986) (ID 13) | Comedy  [score=9.1081]
+  Rank  5: Princess Bride, The (1987) (ID 5) | Action|Adventure|Comedy|Romance  [score=8.3895]
+  Rank 10: Airplane! (1980) (ID 15) | Comedy  [score=7.9621]
+  Rank 20: Good Will Hunting (1997) (ID 280) | Drama  [score=7.5819]
+
+  -- Rank 1 | LIME removals --
+    Remove Fletch (1985) (ID 730) | Comedy  [LIME coef=+0.0293]
+      Score drop: +0.0262 | Rank: 1->1 (= 0)
+    Remove Pink Flamingos (1972) (ID 2494) | Comedy  [LIME coef=+0.0274]
+      Score drop: +0.0269 | Rank: 1->1 (= 0)
+    Remove Real Genius (1985) (ID 1499) | Comedy  [LIME coef=+0.0267]
+      Score drop: +0.0291 | Rank: 1->1 (= 0)
+    Remove Bull Durham (1988) (ID 1298) | Comedy  [LIME coef=+0.0262]
+      Score drop: +0.0190 | Rank: 1->1 (= 0)
+    Remove Top Gun (1986) (ID 386) | Action|Romance  [LIME coef=+0.0239]
+      Score drop: +0.0112 | Rank: 1->1 (= 0)
+
+  -- Rank 5 | LIME removals --
+    Remove Better Off Dead... (1985) (ID 563) | Comedy  [LIME coef=+0.0258]
+      Score drop: +0.0235 | Rank: 5->5 (= 0)
+    Remove Delicatessen (1991) (ID 220) | Comedy|Sci-Fi  [LIME coef=+0.0242]
+      Score drop: +0.0183 | Rank: 5->5 (= 0)
+    Remove Chasing Amy (1997) (ID 470) | Drama|Romance  [LIME coef=+0.0228]
+      Score drop: +0.0156 | Rank: 5->5 (= 0)
+    Remove Say Anything... (1989) (ID 1061) | Comedy|Drama|Romance  [LIME coef=+0.0227]
+      Score drop: +0.0207 | Rank: 5->5 (= 0)
+    Remove Bull Durham (1988) (ID 1298) | Comedy  [LIME coef=+0.0225]
+      Score drop: +0.0143 | Rank: 5->5 (= 0)
+
+  -- Rank 10 | LIME removals --
+    Remove And Now for Something Completely Different (1971) (ID 2003) | Comedy  [LIME coef=+0.0249]
+      Score drop: +0.0264 | Rank: 10->10 (= 0)
+    Remove Fletch (1985) (ID 730) | Comedy  [LIME coef=+0.0247]
+      Score drop: +0.0219 | Rank: 10->10 (= 0)
+    Remove Christmas Vacation (1989) (ID 688) | Comedy  [LIME coef=+0.0247]
+      Score drop: +0.0211 | Rank: 10->10 (= 0)
+    Remove Brady Bunch Movie, The (1995) (ID 1165) | Comedy  [LIME coef=+0.0243]
+      Score drop: +0.0185 | Rank: 10->10 (= 0)
+    Remove Father of the Bride (1950) (ID 832) | Comedy  [LIME coef=+0.0230]
+      Score drop: +0.0238 | Rank: 10->10 (= 0)
+
+  -- Rank 20 | LIME removals --
+    Remove Nobody's Fool (1994) (ID 1969) | Drama  [LIME coef=+0.0313]
+      Score drop: +0.0342 | Rank: 20->22 (down 2)
+    Remove Cutting Edge, The (1992) (ID 548) | Drama  [LIME coef=+0.0304]
+      Score drop: +0.0361 | Rank: 20->22 (down 2)
+    Remove Thomas Crown Affair, The (1968) (ID 893) | Crime|Drama|Thriller  [LIME coef=+0.0275]
+      Score drop: +0.0175 | Rank: 20->21 (down 1)
+    Remove Three Kings (1999) (ID 326) | Drama|War  [LIME coef=+0.0261]
+      Score drop: +0.0191 | Rank: 20->21 (down 1)
+    Remove Philadelphia (1993) (ID 439) | Drama  [LIME coef=+0.0253]
+      Score drop: +0.0277 | Rank: 20->22 (down 2)
+
+[ 5/10] User 4941
+  Rank  1: Close Encounters of the Third Kind (1977) (ID 96) | Drama|Sci-Fi  [score=11.0552]
+  Rank  5: Star Trek: First Contact (1996) (ID 528) | Action|Adventure|Sci-Fi  [score=9.4179]
+  Rank 10: Godfather, The (1972) (ID 669) | Action|Crime|Drama  [score=8.8077]
+  Rank 20: Boat, The (Das Boot) (1981) (ID 546) | Action|Drama|War  [score=8.1903]
+
+  -- Rank 1 | LIME removals --
+    Remove On the Waterfront (1954) (ID 101) | Crime|Drama  [LIME coef=+0.0236]
+      Score drop: +0.0105 | Rank: 1->1 (= 0)
+    Remove Escape from the Planet of the Apes (1971) (ID 1007) | Action|Sci-Fi  [LIME coef=+0.0226]
+      Score drop: +0.0209 | Rank: 1->1 (= 0)
+    Remove Fantastic Planet, The (La Planète sauvage) (1973) (ID 2519) | Animation|Sci-Fi  [LIME coef=+0.0225]
+      Score drop: +0.0191 | Rank: 1->1 (= 0)
+    Remove Twelve Monkeys (1995) (ID 376) | Drama|Sci-Fi  [LIME coef=+0.0222]
+      Score drop: +0.0111 | Rank: 1->1 (= 0)
+    Remove Repo Man (1984) (ID 1270) | Comedy|Sci-Fi  [LIME coef=+0.0212]
+      Score drop: +0.0133 | Rank: 1->1 (= 0)
+
+  -- Rank 5 | LIME removals --
+    Remove Fantastic Planet, The (La Planète sauvage) (1973) (ID 2519) | Animation|Sci-Fi  [LIME coef=+0.0276]
+      Score drop: +0.0275 | Rank: 5->5 (= 0)
+    Remove Robocop 3 (1993) (ID 1978) | Sci-Fi|Thriller  [LIME coef=+0.0247]
+      Score drop: +0.0291 | Rank: 5->5 (= 0)
+    Remove Batman: Mask of the Phantasm (1993) (ID 440) | Animation|Children's  [LIME coef=+0.0237]
+      Score drop: +0.0251 | Rank: 5->5 (= 0)
+    Remove Tron (1982) (ID 767) | Action|Adventure|Fantasy|Sci-Fi  [LIME coef=+0.0237]
+      Score drop: +0.0183 | Rank: 5->5 (= 0)
+    Remove For a Few Dollars More (1965) (ID 1578) | Western  [LIME coef=+0.0234]
+      Score drop: +0.0046 | Rank: 5->5 (= 0)
+
+  -- Rank 10 | LIME removals --
+    Remove Ben-Hur (1959) (ID 6) | Action|Adventure|Drama  [LIME coef=+0.0245]
+      Score drop: +0.0200 | Rank: 10->10 (= 0)
+    Remove Marathon Man (1976) (ID 1262) | Thriller  [LIME coef=+0.0242]
+      Score drop: +0.0212 | Rank: 10->10 (= 0)
+    Remove High Plains Drifter (1972) (ID 1563) | Western  [LIME coef=+0.0211]
+      Score drop: +0.0157 | Rank: 10->10 (= 0)
+    Remove Maltese Falcon, The (1941) (ID 338) | Film-Noir|Mystery  [LIME coef=+0.0210]
+      Score drop: +0.0140 | Rank: 10->10 (= 0)
+    Remove Old Man and the Sea, The (1958) (ID 1478) | Adventure|Drama  [LIME coef=+0.0209]
+      Score drop: +0.0197 | Rank: 10->10 (= 0)
+
+  -- Rank 20 | LIME removals --
+    Remove Serpico (1973) (ID 135) | Crime|Drama  [LIME coef=+0.0213]
+      Score drop: +0.0191 | Rank: 20->20 (= 0)
+    Remove Rapture, The (1991) (ID 2230) | Drama|Mystery  [LIME coef=+0.0209]
+      Score drop: +0.0224 | Rank: 20->20 (= 0)
+    Remove Killing Fields, The (1984) (ID 1545) | Drama|War  [LIME coef=+0.0201]
+      Score drop: +0.0169 | Rank: 20->20 (= 0)
+    Remove Amadeus (1984) (ID 105) | Drama  [LIME coef=+0.0197]
+      Score drop: +0.0093 | Rank: 20->21 (down 1)
+    Remove Deer Hunter, The (1978) (ID 861) | Drama|War  [LIME coef=+0.0187]
+      Score drop: +0.0175 | Rank: 20->20 (= 0)
+
+[ 6/10] User 4667
+  Rank  1: Star Trek: The Wrath of Khan (1982) (ID 643) | Action|Adventure|Sci-Fi  [score=9.1803]
+  Rank  5: Jurassic Park (1993) (ID 113) | Action|Adventure|Sci-Fi  [score=8.7682]
+  Rank 10: Raiders of the Lost Ark (1981) (ID 127) | Action|Adventure  [score=8.3648]
+  Rank 20: Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb (1963) (ID 611) | Sci-Fi|War  [score=7.9099]
+
+  -- Rank 1 | LIME removals --
+    Remove War of the Worlds, The (1953) (ID 615) | Action|Sci-Fi|War  [LIME coef=+0.0591]
+      Score drop: +0.0533 | Rank: 1->1 (= 0)
+    Remove Star Trek IV: The Voyage Home (1986) (ID 646) | Action|Adventure|Sci-Fi  [LIME coef=+0.0512]
+      Score drop: +0.0494 | Rank: 1->2 (down 1)
+    Remove Thing, The (1982) (ID 990) | Action|Horror|Sci-Fi|Thriller  [LIME coef=+0.0498]
+      Score drop: +0.0479 | Rank: 1->1 (= 0)
+    Remove Westworld (1973) (ID 1003) | Action|Sci-Fi|Thriller|Western  [LIME coef=+0.0497]
+      Score drop: +0.0484 | Rank: 1->1 (= 0)
+    Remove Mad Max (1979) (ID 211) | Action|Sci-Fi  [LIME coef=+0.0484]
+      Score drop: +0.0452 | Rank: 1->1 (= 0)
+
+  -- Rank 5 | LIME removals --
+    Remove Star Trek: First Contact (1996) (ID 528) | Action|Adventure|Sci-Fi  [LIME coef=+0.0464]
+      Score drop: +0.0418 | Rank: 5->5 (= 0)
+    Remove War of the Worlds, The (1953) (ID 615) | Action|Sci-Fi|War  [LIME coef=+0.0452]
+      Score drop: +0.0452 | Rank: 5->5 (= 0)
+    Remove Thing, The (1982) (ID 990) | Action|Horror|Sci-Fi|Thriller  [LIME coef=+0.0445]
+      Score drop: +0.0387 | Rank: 5->5 (= 0)
+    Remove Day the Earth Stood Still, The (1951) (ID 77) | Drama|Sci-Fi  [LIME coef=+0.0427]
+      Score drop: +0.0365 | Rank: 5->5 (= 0)
+    Remove Star Trek IV: The Voyage Home (1986) (ID 646) | Action|Adventure|Sci-Fi  [LIME coef=+0.0425]
+      Score drop: +0.0376 | Rank: 5->6 (down 1)
+
+  -- Rank 10 | LIME removals --
+    Remove Great Escape, The (1963) (ID 839) | Adventure|War  [LIME coef=+0.0543]
+      Score drop: +0.0481 | Rank: 10->11 (down 1)
+    Remove Rambo III (1988) (ID 1073) | Action|War  [LIME coef=+0.0398]
+      Score drop: +0.0377 | Rank: 10->10 (= 0)
+    Remove Crocodile Dundee (1986) (ID 200) | Adventure|Comedy  [LIME coef=+0.0375]
+      Score drop: +0.0340 | Rank: 10->10 (= 0)
+    Remove Brazil (1985) (ID 1241) | Sci-Fi  [LIME coef=+0.0366]
+      Score drop: +0.0333 | Rank: 10->10 (= 0)
+    Remove War of the Worlds, The (1953) (ID 615) | Action|Sci-Fi|War  [LIME coef=+0.0351]
+      Score drop: +0.0310 | Rank: 10->10 (= 0)
+
+  -- Rank 20 | LIME removals --
+    Remove Day the Earth Stood Still, The (1951) (ID 77) | Drama|Sci-Fi  [LIME coef=+0.0726]
+      Score drop: +0.0666 | Rank: 20->21 (down 1)
+    Remove War of the Worlds, The (1953) (ID 615) | Action|Sci-Fi|War  [LIME coef=+0.0539]
+      Score drop: +0.0527 | Rank: 20->20 (= 0)
+    Remove Brazil (1985) (ID 1241) | Sci-Fi  [LIME coef=+0.0467]
+      Score drop: +0.0484 | Rank: 20->21 (down 1)
+    Remove Great Escape, The (1963) (ID 839) | Adventure|War  [LIME coef=+0.0455]
+      Score drop: +0.0460 | Rank: 20->21 (down 1)
+    Remove Westworld (1973) (ID 1003) | Action|Sci-Fi|Thriller|Western  [LIME coef=+0.0420]
+      Score drop: +0.0399 | Rank: 20->20 (= 0)
+
+[ 7/10] User 2906
+  Rank  1: Home Alone 2: Lost in New York (1992) (ID 1091) | Children's|Comedy  [score=6.7495]
+  Rank  5: Dick Tracy (1990) (ID 836) | Action|Crime  [score=6.1654]
+  Rank 10: Coneheads (1993) (ID 683) | Comedy|Sci-Fi  [score=5.8183]
+  Rank 20: Airplane! (1980) (ID 15) | Comedy  [score=5.4445]
+
+  -- Rank 1 | LIME removals --
+    Remove Hocus Pocus (1993) (ID 1021) | Children's|Comedy  [LIME coef=+0.0133]
+      Score drop: +0.0166 | Rank: 1->1 (= 0)
+    Remove My Blue Heaven (1990) (ID 1196) | Comedy  [LIME coef=+0.0126]
+      Score drop: +0.0126 | Rank: 1->1 (= 0)
+    Remove Meet Joe Black (1998) (ID 24) | Romance  [LIME coef=+0.0119]
+      Score drop: +0.0045 | Rank: 1->1 (= 0)
+    Remove End of Days (1999) (ID 327) | Action|Thriller  [LIME coef=+0.0119]
+      Score drop: -0.0000 | Rank: 1->1 (= 0)
+    Remove Beautician and the Beast, The (1997) (ID 1770) | Comedy|Romance  [LIME coef=+0.0118]
+      Score drop: +0.0147 | Rank: 1->1 (= 0)
+
+  -- Rank 5 | LIME removals --
+    Remove Cobra (1925) (ID 3611) | Drama  [LIME coef=-0.0187]
+      Score drop: -0.1044 | Rank: 5->6 (down 1)
+    Remove You've Got Mail (1998) (ID 690) | Comedy|Romance  [LIME coef=+0.0125]
+      Score drop: +0.0038 | Rank: 5->5 (= 0)
+    Remove Fantastic Voyage (1966) (ID 1015) | Adventure|Sci-Fi  [LIME coef=+0.0120]
+      Score drop: +0.0031 | Rank: 5->5 (= 0)
+    Remove Good Morning, Vietnam (1987) (ID 792) | Comedy|Drama|War  [LIME coef=+0.0117]
+      Score drop: +0.0045 | Rank: 5->5 (= 0)
+    Remove U.S. Marshalls (1998) (ID 65) | Action|Thriller  [LIME coef=+0.0117]
+      Score drop: +0.0098 | Rank: 5->5 (= 0)
+
+  -- Rank 10 | LIME removals --
+    Remove Edge, The (1997) (ID 185) | Adventure|Thriller  [LIME coef=+0.0126]
+      Score drop: +0.0051 | Rank: 10->10 (= 0)
+    Remove Sixteen Candles (1984) (ID 1301) | Comedy  [LIME coef=+0.0120]
+      Score drop: +0.0024 | Rank: 10->10 (= 0)
+    Remove Drop Dead Fred (1991) (ID 1083) | Comedy|Fantasy  [LIME coef=+0.0116]
+      Score drop: +0.0114 | Rank: 10->10 (= 0)
+    Remove Houseguest (1994) (ID 607) | Comedy  [LIME coef=+0.0116]
+      Score drop: +0.0103 | Rank: 10->10 (= 0)
+    Remove Spawn (1997) (ID 1103) | Action|Adventure|Sci-Fi|Thriller  [LIME coef=+0.0115]
+      Score drop: +0.0100 | Rank: 10->10 (= 0)
+
+  -- Rank 20 | LIME removals --
+    Remove Cobra (1925) (ID 3611) | Drama  [LIME coef=-0.0353]
+      Score drop: -0.1673 | Rank: 20->18 (up 2)
+    Remove Funny Farm (1988) (ID 1598) | Comedy  [LIME coef=+0.0209]
+      Score drop: +0.0107 | Rank: 20->20 (= 0)
+    Remove Get Carter (2000) (ID 2210) | Action|Drama|Thriller  [LIME coef=+0.0191]
+      Score drop: +0.0151 | Rank: 20->20 (= 0)
+    Remove Sleepy Hollow (1999) (ID 263) | Horror|Romance  [LIME coef=+0.0173]
+      Score drop: +0.0021 | Rank: 20->20 (= 0)
+    Remove Con Air (1997) (ID 125) | Action|Adventure|Thriller  [LIME coef=+0.0170]
+      Score drop: +0.0042 | Rank: 20->21 (down 1)
+
+[ 8/10] User 2375
+  Rank  1: Good Will Hunting (1997) (ID 280) | Drama  [score=9.3217]
+  Rank  5: Leaving Las Vegas (1995) (ID 504) | Drama|Romance  [score=8.0866]
+  Rank 10: Cape Fear (1991) (ID 523) | Thriller  [score=7.5453]
+  Rank 20: Fight Club (1999) (ID 317) | Drama  [score=7.1594]
+
+  -- Rank 1 | LIME removals --
+    Remove Affliction (1997) (ID 2155) | Drama  [LIME coef=+0.0185]
+      Score drop: +0.0149 | Rank: 1->1 (= 0)
+    Remove Man Without a Face, The (1993) (ID 1438) | Drama  [LIME coef=+0.0178]
+      Score drop: +0.0165 | Rank: 1->1 (= 0)
+    Remove Craft, The (1996) (ID 1328) | Drama|Horror  [LIME coef=+0.0176]
+      Score drop: +0.0069 | Rank: 1->1 (= 0)
+    Remove Short Cuts (1993) (ID 2491) | Drama  [LIME coef=+0.0172]
+      Score drop: +0.0117 | Rank: 1->1 (= 0)
+    Remove Marvin's Room (1996) (ID 2754) | Drama  [LIME coef=+0.0171]
+      Score drop: +0.0194 | Rank: 1->1 (= 0)
+
+  -- Rank 5 | LIME removals --
+    Remove Beloved (1998) (ID 492) | Drama  [LIME coef=+0.0185]
+      Score drop: +0.0158 | Rank: 5->5 (= 0)
+    Remove Beautiful Girls (1996) (ID 1434) | Drama  [LIME coef=+0.0180]
+      Score drop: +0.0173 | Rank: 5->5 (= 0)
+    Remove He Got Game (1998) (ID 456) | Drama  [LIME coef=+0.0154]
+      Score drop: +0.0196 | Rank: 5->5 (= 0)
+    Remove Raise the Red Lantern (1991) (ID 1902) | Drama  [LIME coef=+0.0154]
+      Score drop: +0.0102 | Rank: 5->5 (= 0)
+    Remove Carlito's Way (1993) (ID 1273) | Crime|Drama  [LIME coef=+0.0147]
+      Score drop: +0.0139 | Rank: 5->5 (= 0)
+
+  -- Rank 10 | LIME removals --
+    Remove Fan, The (1996) (ID 2082) | Thriller  [LIME coef=+0.0149]
+      Score drop: +0.0164 | Rank: 10->10 (= 0)
+    Remove Hoosiers (1986) (ID 1331) | Drama  [LIME coef=+0.0147]
+      Score drop: +0.0073 | Rank: 10->10 (= 0)
+    Remove Thomas Crown Affair, The (1968) (ID 893) | Crime|Drama|Thriller  [LIME coef=+0.0144]
+      Score drop: +0.0145 | Rank: 10->10 (= 0)
+    Remove Nobody's Fool (1994) (ID 1969) | Drama  [LIME coef=+0.0141]
+      Score drop: +0.0124 | Rank: 10->10 (= 0)
+    Remove No Way Out (1987) (ID 1234) | Thriller  [LIME coef=+0.0140]
+      Score drop: +0.0147 | Rank: 10->10 (= 0)
+
+  -- Rank 20 | LIME removals --
+    Remove Footloose (1984) (ID 2320) | Drama  [LIME coef=+0.0188]
+      Score drop: +0.0122 | Rank: 20->20 (= 0)
+    Remove Stigmata (1999) (ID 897) | Thriller  [LIME coef=+0.0181]
+      Score drop: +0.0197 | Rank: 20->20 (= 0)
+    Remove Mumford (1999) (ID 819) | Comedy  [LIME coef=+0.0176]
+      Score drop: +0.0179 | Rank: 20->20 (= 0)
+    Remove Showgirls (1995) (ID 1957) | Drama  [LIME coef=+0.0168]
+      Score drop: +0.0184 | Rank: 20->20 (= 0)
+    Remove I Know What You Did Last Summer (1997) (ID 910) | Horror|Mystery|Thriller  [LIME coef=+0.0165]
+      Score drop: +0.0086 | Rank: 20->20 (= 0)
+
+[ 9/10] User 3823
+  Rank  1: Predator (1987) (ID 214) | Action|Sci-Fi|Thriller  [score=6.3701]
+  Rank  5: Blues Brothers, The (1980) (ID 755) | Action|Comedy|Musical  [score=6.0237]
+  Rank 10: Mad Max (1979) (ID 211) | Action|Sci-Fi  [score=5.6212]
+  Rank 20: Full Metal Jacket (1987) (ID 1228) | Action|Drama|War  [score=5.2635]
+
+  -- Rank 1 | LIME removals --
+    Remove My Science Project (1985) (ID 2019) | Adventure|Sci-Fi  [LIME coef=+0.0151]
+      Score drop: +0.0143 | Rank: 1->1 (= 0)
+    Remove Conan the Barbarian (1982) (ID 857) | Action|Adventure  [LIME coef=+0.0142]
+      Score drop: +0.0098 | Rank: 1->1 (= 0)
+    Remove Howard the Duck (1986) (ID 1095) | Adventure|Children's|Sci-Fi  [LIME coef=+0.0141]
+      Score drop: +0.0113 | Rank: 1->1 (= 0)
+    Remove Conversation, The (1974) (ID 1453) | Drama|Mystery  [LIME coef=+0.0132]
+      Score drop: +0.0022 | Rank: 1->1 (= 0)
+    Remove Papillon (1973) (ID 763) | Drama  [LIME coef=+0.0123]
+      Score drop: +0.0052 | Rank: 1->1 (= 0)
+
+  -- Rank 5 | LIME removals --
+    Remove Six Days Seven Nights (1998) (ID 1685) | Adventure|Comedy|Romance  [LIME coef=+0.0190]
+      Score drop: +0.0067 | Rank: 5->5 (= 0)
+    Remove Stag (1997) (ID 3351) | Action|Thriller  [LIME coef=-0.0173]
+      Score drop: -0.1083 | Rank: 5->5 (= 0)
+    Remove Phantasm (1979) (ID 974) | Horror|Sci-Fi  [LIME coef=+0.0164]
+      Score drop: +0.0031 | Rank: 5->5 (= 0)
+    Remove Breathless (1983) (ID 1389) | Action|Drama|Romance|Thriller  [LIME coef=+0.0163]
+      Score drop: +0.0065 | Rank: 5->5 (= 0)
+    Remove Star Trek VI: The Undiscovered Country (1991) (ID 119) | Action|Adventure|Sci-Fi  [LIME coef=+0.0156]
+      Score drop: +0.0041 | Rank: 5->5 (= 0)
+
+  -- Rank 10 | LIME removals --
+    Remove Stag (1997) (ID 3351) | Action|Thriller  [LIME coef=-0.0194]
+      Score drop: -0.0873 | Rank: 10->10 (= 0)
+    Remove This Is Spinal Tap (1984) (ID 797) | Comedy|Drama|Musical  [LIME coef=+0.0158]
+      Score drop: +0.0040 | Rank: 10->10 (= 0)
+    Remove Patton (1970) (ID 1539) | Drama|War  [LIME coef=+0.0155]
+      Score drop: +0.0079 | Rank: 10->10 (= 0)
+    Remove Fifth Element, The (1997) (ID 155) | Action|Sci-Fi  [LIME coef=+0.0152]
+      Score drop: +0.0060 | Rank: 10->10 (= 0)
+    Remove Stalag 17 (1953) (ID 1675) | Drama|War  [LIME coef=+0.0151]
+      Score drop: +0.0070 | Rank: 10->10 (= 0)
+
+  -- Rank 20 | LIME removals --
+    Remove Force 10 from Navarone (1978) (ID 1693) | Action|War  [LIME coef=+0.0136]
+      Score drop: +0.0095 | Rank: 20->20 (= 0)
+    Remove Deer Hunter, The (1978) (ID 861) | Drama|War  [LIME coef=+0.0133]
+      Score drop: +0.0099 | Rank: 20->20 (= 0)
+    Remove Back to School (1986) (ID 1212) | Comedy  [LIME coef=+0.0132]
+      Score drop: +0.0057 | Rank: 20->20 (= 0)
+    Remove Running Scared (1986) (ID 2094) | Action|Comedy  [LIME coef=+0.0130]
+      Score drop: +0.0091 | Rank: 20->21 (down 1)
+    Remove Super Mario Bros. (1993) (ID 1094) | Action|Adventure|Children's|Sci-Fi  [LIME coef=+0.0128]
+      Score drop: +0.0011 | Rank: 20->20 (= 0)
+
+[10/10] User 5604
+  Rank  1: Lion King, The (1994) (ID 390) | Animation|Children's|Musical  [score=7.8538]
+  Rank  5: James and the Giant Peach (1996) (ID 1) | Animation|Children's|Musical  [score=6.3183]
+  Rank 10: Pocahontas (1995) (ID 25) | Animation|Children's|Musical|Romance  [score=6.1729]
+  Rank 20: Secret Garden, The (1993) (ID 49) | Children's|Drama  [score=5.6106]
+
+  -- Rank 1 | LIME removals --
+    Remove Heart and Souls (1993) (ID 616) | Comedy|Fantasy  [LIME coef=+0.0165]
+      Score drop: +0.0158 | Rank: 1->1 (= 0)
+    Remove Adventures of Milo and Otis, The (1986) (ID 1731) | Children's  [LIME coef=+0.0154]
+      Score drop: +0.0168 | Rank: 1->1 (= 0)
+    Remove Mulan (1998) (ID 34) | Animation|Children's  [LIME coef=+0.0148]
+      Score drop: +0.0182 | Rank: 1->1 (= 0)
+    Remove Winnie the Pooh and the Blustery Day (1968) (ID 670) | Animation|Children's  [LIME coef=+0.0141]
+      Score drop: +0.0198 | Rank: 1->1 (= 0)
+    Remove Aristocats, The (1970) (ID 1093) | Animation|Children's  [LIME coef=+0.0140]
+      Score drop: +0.0170 | Rank: 1->1 (= 0)
+
+  -- Rank 5 | LIME removals --
+    Remove One Magic Christmas (1985) (ID 2539) | Drama|Fantasy  [LIME coef=+0.0128]
+      Score drop: +0.0192 | Rank: 5->5 (= 0)
+    Remove Pete's Dragon (1977) (ID 388) | Adventure|Animation|Children's|Musical  [LIME coef=+0.0117]
+      Score drop: +0.0119 | Rank: 5->5 (= 0)
+    Remove Song of the South (1946) (ID 2350) | Adventure|Animation|Children's|Musical  [LIME coef=+0.0115]
+      Score drop: +0.0152 | Rank: 5->5 (= 0)
+    Remove Muppet Christmas Carol, The (1992) (ID 1045) | Children's|Musical  [LIME coef=+0.0114]
+      Score drop: +0.0155 | Rank: 5->5 (= 0)
+    Remove Mary Shelley's Frankenstein (1994) (ID 2379) | Drama|Horror  [LIME coef=+0.0114]
+      Score drop: +0.0039 | Rank: 5->5 (= 0)
+
+  -- Rank 10 | LIME removals --
+    Remove Hercules (1997) (ID 32) | Adventure|Animation|Children's|Comedy|Musical  [LIME coef=+0.0143]
+      Score drop: +0.0164 | Rank: 10->10 (= 0)
+    Remove Rescuers, The (1977) (ID 624) | Animation|Children's  [LIME coef=+0.0141]
+      Score drop: +0.0185 | Rank: 10->10 (= 0)
+    Remove Anastasia (1997) (ID 389) | Animation|Children's|Musical  [LIME coef=+0.0137]
+      Score drop: +0.0220 | Rank: 10->10 (= 0)
+    Remove Jingle All the Way (1996) (ID 1826) | Adventure|Children's|Comedy  [LIME coef=+0.0133]
+      Score drop: +0.0091 | Rank: 10->10 (= 0)
+    Remove Baby-Sitters Club, The (1995) (ID 3033) | Children's  [LIME coef=+0.0133]
+      Score drop: +0.0330 | Rank: 10->10 (= 0)
+
+  -- Rank 20 | LIME removals --
+    Remove Red Firecracker, Green Firecracker (1994) (ID 1943) | Drama  [LIME coef=+0.0147]
+      Score drop: +0.0221 | Rank: 20->21 (down 1)
+    Remove One Magic Christmas (1985) (ID 2539) | Drama|Fantasy  [LIME coef=+0.0124]
+      Score drop: +0.0187 | Rank: 20->20 (= 0)
+    Remove Swiss Family Robinson (1960) (ID 1553) | Adventure|Children's  [LIME coef=+0.0118]
+      Score drop: +0.0101 | Rank: 20->19 (up 1)
+    Remove Winnie the Pooh and the Blustery Day (1968) (ID 670) | Animation|Children's  [LIME coef=+0.0116]
+      Score drop: +0.0114 | Rank: 20->19 (up 1)
+    Remove All Dogs Go to Heaven (1989) (ID 1020) | Animation|Children's  [LIME coef=+0.0112]
+      Score drop: +0.0097 | Rank: 20->19 (up 1)
+
+
+============================================================
+LIME BASELINE SUMMARY
+  Rank |     N | Avg |Score Drop| | Rank Changes
+--------------------------------------------------
+     1 |    50 |           0.0251 |     1/50 changed
+     5 |    50 |           0.0268 |     2/50 changed
+    10 |    50 |           0.0238 |     6/50 changed
+    20 |    50 |           0.0263 |    26/50 changed
+   ALL |   200 |           0.0255 |    35/200 changed
+
+======================================================================
+FULL METHOD COMPARISON: Avg |Score Drop| by Rank Position
+  Rank |     Ours |     LIME |   Degree |   Random | Lift(Ours/LIME)
+----------------------------------------------------------------------
+     1 |   0.0313 |   0.0251 |   0.0055 |   0.0102 |            1.25x
+     5 |   0.0335 |   0.0268 |   0.0078 |   0.0121 |            1.25x
+    10 |   0.0298 |   0.0238 |   0.0055 |   0.0104 |            1.25x
+    20 |   0.0341 |   0.0263 |   0.0053 |   0.0098 |            1.29x
+----------------------------------------------------------------------
+   ALL |   0.0322 |   0.0255 |   0.0060 |   0.0107 |            1.26x
+
+Ours vs LIME lift:   1.26x
+Ours vs Degree lift: 5.35x
+Ours vs Random lift: 3.02x
